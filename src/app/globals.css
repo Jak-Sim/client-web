@@ -15,11 +15,74 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Pretendard, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .tw-outline-primary {
+    @apply border-primary text-primary;
+  }
+  .tw-outline-secondary {
+    @apply border-secondary text-secondary;
+  }
+  .tw-outline-error-dark {
+    @apply border-error-dark text-error-dark;
+  }
+  .tw-outline-error-light {
+    @apply border-error-light text-error-light;
+  }
+  .tw-outline-submit-dark {
+    @apply border-submit-dark text-submit-dark;
+  }
+  .tw-outline-grey-200 {
+    @apply border-grayscale-200 text-grayscale-200;
+  }
+  .tw-outline-grey-300 {
+    @apply border-grayscale-300 text-grayscale-300;
+  }
+
+  .input-default {
+    @apply bg-grayscale-100 text-white;
+  }
+  .input-disabled {
+    @apply bg-grayscale-200 text-grayscale-100;
+  }
+  .input-error {
+    @apply bg-error-dark text-gray-400;
+  }
+
+  .button-primary {
+    @apply bg-primary text-white;
+  }
+  .button-primary:disabled {
+    @apply bg-grayscale-200 text-white;
+  }
+  .button-secondary {
+    @apply bg-white outline-primary text-primary;
+  }
+
+  .button {
+    @apply relative transition-colors duration-200;
+  }
+  .button:hover::after,
+  .button:active:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .button:hover::after,
+  .button:hover::after {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  .button:active::after,
+  .button:active::after {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
