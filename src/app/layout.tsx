@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className={`${pretendard.className} ${nimbusSans.className} antialiased`}>
+      <body className={` ${pretendard.className} ${nimbusSans.variable} antialiased`}>
         <div className={'flex flex-col max-w-[400px] m-auto h-screen'}>{children}</div>
       </body>
     </html>
