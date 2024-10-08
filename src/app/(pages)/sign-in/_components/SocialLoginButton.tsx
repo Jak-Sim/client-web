@@ -1,19 +1,17 @@
-import Image from 'next/image';
+import { ComponentType, SVGProps } from 'react';
 
 export default function SocialLoginButton({
-  iconSrc,
-  alt,
+  icon: Icon,
   onClick,
   className,
 }: {
-  iconSrc: string;
-  alt: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   onClick: () => void;
   className?: string;
 }) {
   return (
     <button className={`w-[3.5rem] h-[3.5rem] rounded-full bg-[#fee502] ${className}`} onClick={onClick}>
-      <Image src={iconSrc} width={55} height={55} alt={alt} />
+      <Icon />
     </button>
   );
 }
