@@ -1,7 +1,6 @@
 'use client';
 
-import leftChevron from '@/assets/images/icons/chevron.svg';
-import Image from 'next/image';
+import LeftChevron from '@/assets/images/icons/chevron.svg';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -14,7 +13,7 @@ const HeaderBackButton = () => {
 
   return (
     <button onClick={handleBack}>
-      <Image src={leftChevron} alt={'back'} />
+      <LeftChevron />
     </button>
   );
 };
