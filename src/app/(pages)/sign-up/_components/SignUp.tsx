@@ -67,7 +67,6 @@ export default function SignUp() {
   useEffect(() => {
     const validateUsername = async () => {
       const validationResult = checkUsername(username);
-      console.log(validationResult);
 
       if (typeof validationResult === 'string') {
         setError('username', {
@@ -113,15 +112,14 @@ export default function SignUp() {
                 isValid={isUsernameValid}
                 errorMessage={errors.username?.message}
                 validMessage='좋은 닉네임이네요!'
+                autoFocus={true}
               />
             )}
           />
         </div>
 
         <div className='flex flex-col justify-center items-center'>
-          <div className='mb-4'>
-            <SignUpAgree isAgree={isAgree} handleAgreeChange={handleAgreeChange} />
-          </div>
+          <SignUpAgree isAgree={isAgree} handleAgreeChange={handleAgreeChange} enable={isUsernameValid} />
 
           <button
             type='submit'
