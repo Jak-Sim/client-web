@@ -16,6 +16,7 @@
 
 .font-nimbus {
   font-family: var(--font-nimbus-sans);
+  font-display: swap;
 }
 
 body {
