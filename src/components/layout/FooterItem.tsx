@@ -18,9 +18,7 @@ const FooterItem = ({ text, name, icon: Icon }: FooterItemProps) => {
     <li className='flex-1'>
       <Link href={`/${name}`} className='flex flex-col justify-center items-center'>
         <Icon className={isActive ? 'fill-primary' : ''} />
-        <button className={`min-w-[28px] h-[22px] text-[10px] font-semibold ${isActive && 'text-primary'}`}>
-          {text}
-        </button>
+        <p className={`min-w-[28px] h-[22px] text-[10px] font-semibold ${isActive && 'text-primary'}`}>{text}</p>
       </Link>
     </li>
   );

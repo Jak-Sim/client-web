@@ -8,7 +8,9 @@ import Comment from './comment.svg';
 import Comments from './comments.svg';
 import CrossCircle from './cross-circle.svg';
 import Crown from './crown.svg';
+import ChatCrown from './chat-crown.svg';
 import Flag from './flag.svg';
+import FlagChat from './flag-chat.svg';
 import Gem from './gem.svg';
 import GoogleLogin from './google-login.svg';
 import KakaoLogin from './kakao-login.svg';
@@ -30,7 +32,9 @@ export {
   Comments,
   CrossCircle,
   Crown,
+  ChatCrown,
   Flag,
+  FlagChat,
   Gem,
   GoogleLogin,
   KakaoLogin,

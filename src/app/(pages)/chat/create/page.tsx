@@ -1,24 +1,19 @@
 import PageLayout from '@/components/layout/PageLayout';
 import HeaderBackButton from '@/components/layout/HeaderBackButton';
-import { Plus } from '@/assets/images/icons';
-import ChatListPage from '@/app/(pages)/chat/_components/ChatListPage';
-import Link from 'next/link';
 
 const Page = () => {
   return (
     <PageLayout
       className={'bg-[#f2f2f7] p-3 pt-2 flex flex-col'}
       header={{
-        title: '채팅',
+        title: '대화 상대 선택',
         left: <HeaderBackButton />,
-        right: (
-          <Link href={'/chat/create'}>
-            <Plus />
-          </Link>
-        ),
+        right: <button className={'text-primary'}>완료</button>,
       }}
     >
-      <ChatListPage />
+      <div className={'flex-1 flex flex-col mt-2'}>
+        <div className={'flex-1 flex-col px-2 bg-white rounded-xl'}>대화상대 검색</div>
+      </div>
     </PageLayout>
   );
 };
