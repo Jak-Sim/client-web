@@ -1,6 +1,6 @@
 'use client';
 
-import { FlagChat } from '@/assets/images/icons';
+import { Comments, FlagChat } from '@/assets/images/icons';
 import type { Chat } from '@/app/(pages)/chat/_components/ChatListPage';
 
 interface ChatTabProps {
@@ -27,13 +27,12 @@ const ChatTab = ({ chatType, handleChatType }: ChatTabProps) => {
           </div>
         </button>
       </li>
-
       <li className={'flex flex-1'}>
         <button
           className={`flex-1 flex justify-center items-center py-2 px-4 bg-white rounded-xl border ${chatType === 'private' ? 'border-primary' : 'border-white'}`}
           onClick={() => handleChatType('private')}
         >
-          <FlagChat className={`${chatType === 'private' && 'fill-primary'}`} />
+          <Comments className={`${chatType === 'private' && 'fill-primary'}`} />
           <div className={'flex-1 text-center font-semibold text-sm leading-6 line-clamp-1'}>개인 채팅</div>
           <div
             className={
