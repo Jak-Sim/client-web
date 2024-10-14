@@ -1,14 +1,16 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 import { useForm, Controller } from 'react-hook-form';
+import { useUserStore } from '@/store/userStore';
+import { type UserData } from '@/types/user';
 import TextField from './TextField';
 import SignUpAgree from './SignUpAgree';
 
-type SignUpFormData = {
-  username: string;
-};
-
 export default function SignUp() {
+  const { userData, setUserData } = useUserStore();
+  const { data: session } = useSession();
+
   const {
     control,
     handleSubmit,
@@ -16,36 +18,33 @@ export default function SignUp() {
     setError,
     clearErrors,
     watch,
-  } = useForm<SignUpFormData>({
-    defaultValues: {
-      username: '',
-    },
+  } = useForm<UserData>({
+    defaultValues: userData ?? { nickname: session?.user?.name ?? '' },
   });
 
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
 
-  const username = watch('username');
+  const username = watch('nickname');
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log(data);
+  const onSubmit = (data: UserData) => {
+    setUserData(data);
   };
 
   const handleAgreeChange = () => setIsAgree(!isAgree);
 
-  const checkUsername = useCallback(
-    (username: string) => {
-      if (username.length > 12) return '닉네임은 2자 이상 12자 이하여야 합니다.';
-      if (username.length > 1) return true;
-      return false;
-    },
-    [username],
-  );
+  const checkUsername = useCallback((username: string) => {
+    if (username.length > 12) return '닉네임은 2자 이상 12자 이하여야 합니다.';
+    if (username.length > 1) return true;
+    return false;
+  }, []);
 
   const checkUsernameUnique = useCallback(
     async (username: string) => {
       try {
         // TODO: 닉네임 중복 검사
+        // const response = await api.post('/sign-up/nick-check', { nickname: username });
+        // const data = response.data
         const isUnique = username !== 'test';
         if (isUnique) {
           return true;
@@ -54,7 +53,7 @@ export default function SignUp() {
         }
       } catch (error) {
         if (error instanceof Error) {
-          setError('username', {
+          setError('nickname', {
             type: 'manual',
             message: error.message,
           });
@@ -69,7 +68,7 @@ export default function SignUp() {
       const validationResult = checkUsername(username);
 
       if (typeof validationResult === 'string') {
-        setError('username', {
+        setError('nickname', {
           type: 'manual',
           message: validationResult,
         });
@@ -77,7 +76,7 @@ export default function SignUp() {
         return;
       }
 
-      clearErrors('username');
+      clearErrors('nickname');
 
       const isUnique = await checkUsernameUnique(username);
       if (validationResult && isUnique === true) {
@@ -88,19 +87,19 @@ export default function SignUp() {
     };
 
     validateUsername();
-  }, [username, checkUsername, setError, clearErrors]);
+  }, [checkUsername, setError, clearErrors, checkUsernameUnique, username]);
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='h-full py-20 px-4 flex flex-col gap-4'>
         <div className='flex-1'>
-          <label htmlFor='username' className='block font-bold text-[1.25rem] mb-4'>
+          <label htmlFor='nickname' className='block font-bold text-[1.25rem] mb-4'>
             <strong className='text-primary'>닉네임</strong>
             <span className='text-white'>을 입력해주세요.</span>
           </label>
 
           <Controller
-            name='username'
+            name='nickname'
             control={control}
             rules={{
               validate: checkUsername,
@@ -108,11 +107,12 @@ export default function SignUp() {
             render={({ field }) => (
               <TextField
                 {...field}
-                isError={!!errors.username}
+                isError={!!errors.nickname}
                 isValid={isUsernameValid}
-                errorMessage={errors.username?.message}
+                errorMessage={errors.nickname?.message}
                 validMessage='좋은 닉네임이네요!'
                 autoFocus={true}
+                autoComplete='off'
               />
             )}
           />
@@ -128,8 +128,27 @@ export default function SignUp() {
           >
             가입하기
           </button>
+
+          <TempLogOutButton />
         </div>
       </form>
     </>
+  );
+}
+
+function TempLogOutButton() {
+  const { data: session } = useSession();
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          signOut();
+        }}
+        className='absolute bottom-0 right-1/2 translate-x-1/2 py-6 text-sm text-red-500 underline'
+      >
+        {session ? '테스트용 세션 로그아웃' : ''}
+      </button>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ export default function SocialLoginButton({
   className?: string;
 }) {
   return (
-    <button className={`w-[3.5rem] h-[3.5rem] rounded-full bg-[#fee502] ${className}`} onClick={onClick}>
+    <button className={`w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden ${className}`} onClick={onClick}>
       <Icon />
     </button>
   );

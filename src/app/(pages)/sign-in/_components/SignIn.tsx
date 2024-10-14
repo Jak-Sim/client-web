@@ -1,4 +1,4 @@
-import ButtonBox from './ButtonBox';
+import SocialLogins from './SocialLogins';
 
 export default function Login() {
   return (
@@ -13,7 +13,7 @@ export default function Login() {
 
       <div className='flex-1 flex flex-col items-center gap-6 pt-10 pb-10'>
         <p className='text-center text-[1.25rem] font-semibold text-white'>3초만에 작심하기</p>
-        <ButtonBox />
+        <SocialLogins />
       </div>
     </main>
   );
