@@ -4,10 +4,16 @@ import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
 import type { UserData } from '@/types/user';
 
-export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
+export type JaksimOAuthProviderType = 'GOOGLE' | 'KAKAO' | 'NAVER';
 
-type AccountWithStatusCode = Account & { statusCode: number };
-export type SessionWithAccount = Session & { account: AccountWithStatusCode; statusCode: number; user: UserData };
+interface Auth {
+  auth: {
+    statusCode: number;
+  };
+}
+
+type AccountWithAuth = Account & Auth;
+export type CustomSession = Session & Auth & { account: Account; user: UserData };
 
 const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -29,19 +35,23 @@ const nextAuthOptions: NextAuthOptions = {
       try {
         if (account) {
           // TODO: 소셜 로그인 후 account 전달: api, session
-          // const sendOauthToApi = async (payload: Account) => await api.post('/sign-in/oauth', payload);
+          // const provider = account.provider as JaksimOAuthProviderType;
+          // const sendOauthToApi = async (payload: Account) => await api.post(`/sign-in/oauth/${provider.toLowerCase()}`, account);
           // const response = await sendOauthToApi(account);
           // if (response.status >= 200 && response.status < 300) {
           //   throw new Error(`예상치 못한 응답 상태: ${response.status}`);
           // }
-          // (account as any).statusCode = response.status;
-          (account as AccountWithStatusCode).statusCode = 208;
-          (account as AccountWithStatusCode).user = {
-            social: account.provider,
-            nickname: 'test',
-            email: 'test@test.com',
-            accessToken: 'test',
-            refreshToken: 'test',
+          // (account as AccountWithAuth).auth = {
+          //   statusCode: response.status
+          // };
+          // const { AT, RT } = response.data;
+          // if (AT && RT) {
+          //   cookies().set('AT', AT);
+          //   cookies().set('RT', RT);
+          // }
+
+          (account as AccountWithAuth).auth = {
+            statusCode: 208,
           };
         }
       } catch (error) {
@@ -50,20 +60,20 @@ const nextAuthOptions: NextAuthOptions = {
 
       return true;
     },
-    async jwt({ token, account, user }) {
+    async jwt({ token, user, account }) {
       if (account) {
-        const { statusCode, ...rest } = account;
+        const { auth, ...rest } = account as AccountWithAuth;
         token.account = rest;
-        token.statusCode = statusCode;
+        token.auth = auth;
         token.user = user;
       }
       return token;
     },
-    async session({ session, token }): Promise<SessionWithAccount> {
+    async session({ session, token }): Promise<CustomSession> {
       return {
         ...session,
-        account: token.account as AccountWithStatusCode,
-        statusCode: token.statusCode as number,
+        account: token.account as Account,
+        auth: token.auth as Auth['auth'],
         user: token.user as UserData,
       };
     },

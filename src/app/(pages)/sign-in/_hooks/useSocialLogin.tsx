@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import { useUserStore } from '@/store/userStore';
-import { type JaksimOAuthProviderType, SessionWithAccount } from '@/app/api/auth/[...nextauth]/route';
+import { type JaksimOAuthProviderType, CustomSession } from '@/app/api/auth/[...nextauth]/route';
 
 export default function useSocialLogin() {
   const router = useRouter();
@@ -10,8 +10,8 @@ export default function useSocialLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
-  const sessionWithAccount = session as SessionWithAccount;
-  const statusCode = sessionWithAccount?.statusCode;
+  const sessionWithAccount = session as CustomSession;
+  const statusCode = sessionWithAccount?.auth?.statusCode;
 
   const newUserRedirect = useCallback(() => router.push('/sign-up'), [router]);
   const loginUserRedirect = useCallback(() => router.push('/'), [router]);
