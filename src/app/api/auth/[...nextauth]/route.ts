@@ -1,10 +1,12 @@
 import NextAuth, { type Account, type NextAuthOptions, type Session } from 'next-auth';
+import { cookies } from 'next/headers';
+import api from '@/lib/axios/axios';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
 import type { UserData } from '@/types/user';
 
-export type JaksimOAuthProviderType = 'GOOGLE' | 'KAKAO' | 'NAVER';
+export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
 
 interface Auth {
   auth: {
@@ -34,25 +36,21 @@ const nextAuthOptions: NextAuthOptions = {
     async signIn({ account }) {
       try {
         if (account) {
-          // TODO: 소셜 로그인 후 account 전달: api, session
-          // const provider = account.provider as JaksimOAuthProviderType;
-          // const sendOauthToApi = async (payload: Account) => await api.post(`/sign-in/oauth/${provider.toLowerCase()}`, account);
-          // const response = await sendOauthToApi(account);
-          // if (response.status >= 200 && response.status < 300) {
-          //   throw new Error(`예상치 못한 응답 상태: ${response.status}`);
-          // }
-          // (account as AccountWithAuth).auth = {
-          //   statusCode: response.status
-          // };
-          // const { AT, RT } = response.data;
-          // if (AT && RT) {
-          //   cookies().set('AT', AT);
-          //   cookies().set('RT', RT);
-          // }
+          const provider = account.provider as JaksimOAuthProviderType;
+          const sendOauthToApi = async (payload: Account) => await api.post(`/sign-in/${provider}`, payload);
+          const response = await sendOauthToApi(account);
+          const statusCode = response.status;
 
-          (account as AccountWithAuth).auth = {
-            statusCode: 208,
-          };
+          if (!(statusCode >= 200 && statusCode < 300)) {
+            throw new Error(`예상치 못한 응답 상태: ${statusCode}`);
+          }
+
+          (account as AccountWithAuth).auth = { statusCode };
+          const { AT, RT } = response.data;
+          if (AT && RT) {
+            cookies().set('AT', AT);
+            cookies().set('RT', RT);
+          }
         }
       } catch (error) {
         throw new Error('소셜 로그인 실패', { cause: error });
