@@ -1,4 +1,4 @@
-import NextAuth, { Account, NextAuthOptions, Session } from 'next-auth';
+import NextAuth, { type Account, type NextAuthOptions, type Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
