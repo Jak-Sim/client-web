@@ -15,7 +15,8 @@ export interface ChatItem {
 }
 
 const Page = async () => {
-  const data = await socketApi.get<ChatItem[]>('/chat/list/user1');
+  const groupChatListData = await socketApi.get<ChatItem[]>('/chat/list/group/user1');
+  const challengeChatListData = await socketApi.get<ChatItem[]>('/chat/list/challenge/user1');
 
   return (
     <PageLayout
@@ -30,7 +31,7 @@ const Page = async () => {
         ),
       }}
     >
-      <ChatListPage data={data.data} />
+      <ChatListPage groupChatListData={groupChatListData.data} challengeChatListData={challengeChatListData.data} />
     </PageLayout>
   );
 };

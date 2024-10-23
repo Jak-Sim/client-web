@@ -7,7 +7,13 @@ import type { ChatItem } from '@/app/(pages)/chat/page';
 
 export type Chat = 'challenge' | 'private';
 
-const ChatListPage = ({ data }: { data: ChatItem[] }) => {
+const ChatListPage = ({
+  groupChatListData,
+  challengeChatListData,
+}: {
+  groupChatListData: ChatItem[];
+  challengeChatListData: ChatItem[];
+}) => {
   const [chatType, setChatType] = useState<Chat>('challenge');
 
   const handleChatType = (type: Chat) => {
@@ -17,7 +23,11 @@ const ChatListPage = ({ data }: { data: ChatItem[] }) => {
   return (
     <>
       <ChatTab chatType={chatType} handleChatType={handleChatType} />
-      <ChatList chatType={chatType} data={data} />
+      <ChatList
+        chatType={chatType}
+        groupChatListData={groupChatListData}
+        challengeChatListData={challengeChatListData}
+      />
     </>
   );
 };
