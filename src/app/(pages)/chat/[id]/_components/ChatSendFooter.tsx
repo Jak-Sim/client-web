@@ -10,7 +10,7 @@ interface ChatSendFooterProps {
 const ChatSendFooter = ({ message, setMessage, sendMessage }: ChatSendFooterProps) => {
   return (
     <>
-      <div className={'flex pt-2 pb-8 px-2 border-t border-[#e2e2e2]'}>
+      <div className={'flex pt-2 pb-4 px-2 border-t border-[#e2e2e2]'}>
         <button type={'button'} className={'p-1'}>
           <AddCircle />
         </button>

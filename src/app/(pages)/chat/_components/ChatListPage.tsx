@@ -22,7 +22,12 @@ const ChatListPage = ({
 
   return (
     <>
-      <ChatTab chatType={chatType} handleChatType={handleChatType} />
+      <ChatTab
+        chatType={chatType}
+        handleChatType={handleChatType}
+        groupChatListData={groupChatListData}
+        challengeChatListData={challengeChatListData}
+      />
       <ChatList
         chatType={chatType}
         groupChatListData={groupChatListData}

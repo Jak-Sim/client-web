@@ -2,13 +2,16 @@
 
 import { Comments, FlagChat } from '@/assets/images/icons';
 import type { Chat } from '@/app/(pages)/chat/_components/ChatListPage';
+import type { ChatItem } from '@/app/(pages)/chat/page';
 
 interface ChatTabProps {
   chatType: Chat;
   handleChatType: (type: Chat) => void;
+  groupChatListData: ChatItem[];
+  challengeChatListData: ChatItem[];
 }
 
-const ChatTab = ({ chatType, handleChatType }: ChatTabProps) => {
+const ChatTab = ({ chatType, handleChatType, groupChatListData, challengeChatListData }: ChatTabProps) => {
   return (
     <ul className={'flex gap-1.5'}>
       <li className={'flex flex-1'}>
@@ -19,11 +22,9 @@ const ChatTab = ({ chatType, handleChatType }: ChatTabProps) => {
           <FlagChat className={`${chatType === 'challenge' && 'fill-primary'}`} />
           <div className={'flex-1 text-center font-semibold text-sm leading-6 line-clamp-1'}>챌린지 채팅</div>
           <div
-            className={
-              'px-2 py-1 rounded-full text-[8px] font-semibold text-white bg-primary text-center shadow-primary'
-            }
+            className={`${chatType === 'challenge' ? 'bg-primary' : 'bg-[#969696]'} px-2 py-1 rounded-full text-[8px] font-semibold text-white text-center shadow-primary`}
           >
-            100
+            {challengeChatListData.length || 0}
           </div>
         </button>
       </li>
@@ -35,11 +36,9 @@ const ChatTab = ({ chatType, handleChatType }: ChatTabProps) => {
           <Comments className={`${chatType === 'private' && 'fill-primary'}`} />
           <div className={'flex-1 text-center font-semibold text-sm leading-6 line-clamp-1'}>개인 채팅</div>
           <div
-            className={
-              'px-2 py-1 rounded-full text-[8px] font-semibold text-white bg-[#969696] text-center shadow-primary'
-            }
+            className={`${chatType === 'private' ? 'bg-primary' : 'bg-[#969696]'} px-2 py-1 rounded-full text-[8px] font-semibold text-white text-center shadow-primary`}
           >
-            0
+            {groupChatListData.length || 0}
           </div>
         </button>
       </li>

@@ -4,6 +4,8 @@ import { Plus } from '@/assets/images/icons';
 import ChatListPage from '@/app/(pages)/chat/_components/ChatListPage';
 import Link from 'next/link';
 import { socketApi } from '@/lib/axios/axios';
+import { getServerSession } from 'next-auth';
+import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export interface ChatItem {
   roomId: number;
@@ -14,9 +16,37 @@ export interface ChatItem {
   hasNewMessages: boolean;
 }
 
+interface FetchProps {
+  userId: string;
+}
+
+const fetchGroupChatListData = async ({ userId }: FetchProps) => {
+  const groupChatListData = await socketApi.get<ChatItem[]>('/chat/list/group', {
+    headers: {
+      'user-id': userId,
+    },
+  });
+  return groupChatListData.data;
+};
+
+const fetchChallengeChatListData = async ({ userId }: FetchProps) => {
+  const challengeChatListData = await socketApi.get<ChatItem[]>('/chat/list/challenge', {
+    headers: {
+      'user-id': userId,
+    },
+  });
+  return challengeChatListData.data;
+};
+
 const Page = async () => {
-  const groupChatListData = await socketApi.get<ChatItem[]>('/chat/list/group/user1');
-  const challengeChatListData = await socketApi.get<ChatItem[]>('/chat/list/challenge/user1');
+  const session = await getServerSession(nextAuthOptions);
+
+  const groupChatListData = await fetchGroupChatListData({ userId: 'user1' });
+  const challengeChatListData = await fetchChallengeChatListData({ userId: 'user1' });
+
+  // if (!session) {
+  //   return redirect('/sign-in');
+  // }
 
   return (
     <PageLayout
@@ -31,7 +61,7 @@ const Page = async () => {
         ),
       }}
     >
-      <ChatListPage groupChatListData={groupChatListData.data} challengeChatListData={challengeChatListData.data} />
+      <ChatListPage groupChatListData={groupChatListData} challengeChatListData={challengeChatListData} />
     </PageLayout>
   );
 };

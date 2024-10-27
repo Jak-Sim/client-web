@@ -16,10 +16,9 @@ interface ChatItemProps {
 }
 
 const ChatItem = ({ data }: ChatItemProps) => {
-  console.log(data);
   return (
     <li className={'pl-2 pr-3 py-4 border-b border-[#e2e2e2]'}>
-      <Link href={'/chat/1'}>
+      <Link href={`/chat/${data.roomId}`}>
         <div className={'flex relative'}>
           <div className={'overflow-hidden w-12 h-12 rounded-xl'}>
             <Image src={placeholder} alt={'placeholder'} />

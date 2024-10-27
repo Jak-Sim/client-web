@@ -9,7 +9,7 @@ import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
 import MyChat from './_components/MyChat';
 
-const socket = io('http://localhost:5000');
+const socket = io(process.env.NEXT_PUBLIC_API_URL_SOCKET);
 
 export interface ChatProps {
   id: string;
@@ -18,33 +18,34 @@ export interface ChatProps {
   viewer: number;
 }
 
-const Page = () => {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const Page = ({ params }: PageProps) => {
+  const roomId = params.id;
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState<ChatProps[]>([]);
   const [userId, setUserId] = useState<string>('');
 
   useEffect(() => {
-    socket.on('chatMessage', ({ id, msg, date, viewer }: ChatProps) => {
+    socket.on('chat message', ({ id, msg, date, viewer }: ChatProps) => {
       console.log(id, msg);
       setChat((prev) => [...prev, { id, msg, date, viewer }]);
     });
 
     return () => {
       if (socket) {
-        socket.off('chatMessage');
+        socket.off('chat message');
       }
     };
   }, []);
 
   const sendMessage = () => {
-    if (!message && !userId) return;
-    socket.emit('chatMessage', message);
+    socket.emit('chat message', { message, userId, roomId });
     setMessage('');
-  };
-
-  const sendUser = () => {
-    if (!userId) return;
-    socket.emit('registerUser', userId);
   };
 
   return (
@@ -54,7 +55,6 @@ const Page = () => {
     >
       <div className={'flex'}>
         <input className={' flex-1 border'} type='text' value={userId} onChange={(e) => setUserId(e.target.value)} />
-        <button onClick={sendUser}>Send</button>
       </div>
       <div className={'px-4 py-3'}>
         <div className='flex flex-col'>
