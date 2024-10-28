@@ -1,9 +1,9 @@
 import NextAuth, { type Account, type NextAuthOptions, type Session } from 'next-auth';
 import { setCookie } from 'cookies-next';
-import { api } from '@/lib/axios/axios';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
+import { api } from '@/lib/axios/axios';
 import type { UserData } from '@/types/user';
 
 export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
@@ -11,6 +11,9 @@ export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
 interface Auth {
   auth: {
     statusCode: number;
+    AT: string | null;
+    RT: string | null;
+    social: JaksimOAuthProviderType;
   };
 }
 
@@ -39,18 +42,14 @@ const nextAuthOptions: NextAuthOptions = {
           const provider = account.provider as JaksimOAuthProviderType;
           const sendOauthToApi = async (payload: Account) => await api.post(`/sign-in/${provider}`, payload);
           const response = await sendOauthToApi(account);
-          const statusCode = response.status;
 
+          const statusCode = response.status;
           if (!(statusCode >= 200 && statusCode < 300)) {
             throw new Error(`예상치 못한 응답 상태: ${statusCode}`);
           }
 
-          (account as AccountWithAuth).auth = { statusCode };
-          const { AT, RT } = response.data;
-          if (AT && RT) {
-            setCookie('AT', AT);
-            setCookie('RT', RT);
-          }
+          const { AT, RT } = response.data.data;
+          (account as AccountWithAuth).auth = { statusCode, AT, RT, social: provider };
         }
       } catch (error) {
         throw new Error('소셜 로그인 실패', { cause: error });

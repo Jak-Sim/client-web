@@ -1,7 +1,9 @@
+import { JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
+
 export interface UserData {
   AT: string | null;
   RT: string | null;
-  email: string;
+  userUniqueId: string;
   nickname: string;
-  social: string;
+  social: JaksimOAuthProviderType;
 }
