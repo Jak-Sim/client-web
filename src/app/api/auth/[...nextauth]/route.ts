@@ -1,6 +1,6 @@
 import NextAuth, { type Account, type NextAuthOptions, type Session } from 'next-auth';
-import { cookies } from 'next/headers';
-import api from '@/lib/axios/axios';
+import { setCookie } from 'cookies-next';
+import { api } from '@/lib/axios/axios';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
@@ -48,8 +48,8 @@ const nextAuthOptions: NextAuthOptions = {
           (account as AccountWithAuth).auth = { statusCode };
           const { AT, RT } = response.data;
           if (AT && RT) {
-            cookies().set('AT', AT);
-            cookies().set('RT', RT);
+            setCookie('AT', AT);
+            setCookie('RT', RT);
           }
         }
       } catch (error) {
