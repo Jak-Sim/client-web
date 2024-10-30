@@ -1,7 +1,7 @@
-import type { ChatProps } from '@/app/(pages)/chat/page';
 import { format } from 'date-fns';
+import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 
-const MyChat = ({ msg, viewer, date }: ChatProps) => {
+const MyChat = ({ message, timestamp }: ChatMessage) => {
   return (
     <div className={'flex justify-end mb-4 mr-3'}>
       <div className={'relative'}>
@@ -10,11 +10,11 @@ const MyChat = ({ msg, viewer, date }: ChatProps) => {
             'max-w-[170px] break-words rounded-2xl bg-primary text-white py-3 px-4 font-normal text-xs leading-[14px]'
           }
         >
-          {msg}
+          {message}
         </div>
         <div className={'absolute bottom-0 left-[-25px]'}>
-          <div className={'text-[#969696] font-normal text-[8px]'}>{format(date, 'HH:mm')}</div>
-          <div className={'text-[#969696] font-normal text-[6px]'}>{viewer}명 읽음</div>
+          <div className={'text-[#969696] font-normal text-[8px]'}>{format(timestamp, 'HH:mm')}</div>
+          <div className={'text-[#969696] font-normal text-[6px]'}>{0}명 읽음</div>
         </div>
       </div>
     </div>
