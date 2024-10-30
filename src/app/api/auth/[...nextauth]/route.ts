@@ -1,5 +1,4 @@
 import NextAuth, { type Account, type NextAuthOptions, type Session } from 'next-auth';
-import { setCookie } from 'cookies-next';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
@@ -8,7 +7,7 @@ import type { UserData } from '@/types/user';
 
 export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
 
-interface Auth {
+export interface Auth {
   auth: {
     statusCode: number;
     AT: string | null;
@@ -20,7 +19,7 @@ interface Auth {
 type AccountWithAuth = Account & Auth;
 export type CustomSession = Session & Auth & { account: Account; user: UserData };
 
-const nextAuthOptions: NextAuthOptions = {
+export const nextAuthOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
