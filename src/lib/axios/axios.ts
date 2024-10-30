@@ -14,11 +14,10 @@ interface CustomAxiosInstance extends AxiosInstance {
 
 const api = axios.create({
   baseURL: API_URL,
-});
+}) as CustomAxiosInstance;
 
 const socketApi = axios.create({
   baseURL: SOCKET_URL,
 });
 
-export { socketApi };
-export default api as CustomAxiosInstance;
+export { socketApi, api };

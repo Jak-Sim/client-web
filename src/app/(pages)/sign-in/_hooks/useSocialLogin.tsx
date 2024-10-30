@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
+import { setCookie } from 'cookies-next';
 import { useUserStore } from '@/store/userStore';
 import { type JaksimOAuthProviderType, CustomSession } from '@/app/api/auth/[...nextauth]/route';
 
@@ -31,10 +32,18 @@ export default function useSocialLogin() {
   };
 
   useEffect(() => {
+    if (!sessionWithAccount) return;
+    const { providerAccountId } = sessionWithAccount?.account;
+    const { social, AT = null, RT = null } = sessionWithAccount?.auth;
+    const { name } = sessionWithAccount?.user;
+
+    setUserData({ userUniqueId: providerAccountId, nickname: name ?? '', AT, RT, social });
+
     if (statusCode === 208) {
       newUserRedirect();
-    } else if (statusCode === 209) {
-      setUserData(sessionWithAccount.user);
+    } else if (statusCode === 209 || statusCode === 200) {
+      setCookie('AT', AT);
+      setCookie('RT', RT);
       loginUserRedirect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
