@@ -47,7 +47,7 @@ const ChatItem = ({ data }: ChatItemProps) => {
 const ChatList = ({ chatType, groupChatListData, challengeChatListData }: ChatListProps) => {
   return (
     <div className={'flex-1 flex flex-col mt-2'}>
-      <ul className={'flex-1 flex-col px-2 bg-white rounded-xl'}>
+      <ul className={'flex-1 flex-col px-2 rounded-xl'}>
         {chatType === 'challenge' && challengeChatListData.map((item, index) => <ChatItem data={item} key={index} />)}
         {chatType === 'private' && groupChatListData.map((item, index) => <ChatItem data={item} key={index} />)}
       </ul>
