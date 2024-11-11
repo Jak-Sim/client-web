@@ -2,11 +2,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { CustomSession, JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useForm, Controller } from 'react-hook-form';
 import { setCookie } from 'cookies-next';
 import { api } from '@/lib/axios/axios';
-import TextField from './TextField';
+import Button from '@/components/button/Button';
+import TextField from './v1/TextField';
 import SignUpAgree from './SignUpAgree';
 
 export interface UserSignUpDto {
@@ -129,12 +130,14 @@ export default function SignUp() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className='h-full py-20 px-4 flex flex-col gap-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='h-full py-20 px-6 flex flex-col gap-4'>
         <div className='flex-1'>
-          <label htmlFor='nickname' className='block font-bold text-[1.25rem] mb-4'>
-            <strong className='text-primary'>닉네임</strong>
-            <span className='text-white'>을 입력해주세요.</span>
-          </label>
+          <p className='block text-2xl mb-20 leading-9'>
+            <span>활동할 멋진</span>
+            <br />
+            <strong className='font-bold'>닉네임</strong>
+            <span>을 정해보세요!</span>
+          </p>
 
           <Controller
             name='nickname'
@@ -152,6 +155,7 @@ export default function SignUp() {
                 autoFocus={true}
                 autoComplete='off'
                 maxLength={12}
+                placeholder='...닉네임'
               />
             )}
           />
@@ -160,34 +164,11 @@ export default function SignUp() {
         <div className='flex flex-col justify-center items-center'>
           <SignUpAgree isAgree={isAgree} handleAgreeChange={handleAgreeChange} enable={isUsernameValid} />
 
-          <button
-            type='submit'
-            className='button button-primary w-[13rem] h-[3.5rem] rounded-[3.125rem] font-bold'
-            disabled={!isUsernameValid || !isAgree}
-          >
-            가입하기
-          </button>
-
-          <TempLogOutButton />
+          <Button disabled={!isUsernameValid || !isAgree} type='submit'>
+            {!isUsernameValid || !isAgree ? '입력을 완료해 주세요' : '시작하기'}
+          </Button>
         </div>
       </form>
     </>
-  );
-}
-
-function TempLogOutButton() {
-  const { data: session } = useSession();
-
-  return (
-    <div>
-      <button
-        onClick={() => {
-          signOut();
-        }}
-        className='absolute bottom-0 right-1/2 translate-x-1/2 py-6 text-sm text-red-500 underline'
-      >
-        {session ? '테스트용 세션 로그아웃' : ''}
-      </button>
-    </div>
   );
 }

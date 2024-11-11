@@ -60,34 +60,24 @@ body {
     @apply bg-error-dark text-gray-400;
   }
 
-  .button-primary {
-    @apply bg-primary text-white;
-  }
-  .button-primary:disabled {
-    @apply bg-grayscale-200 text-white;
-  }
-  .button-secondary {
-    @apply bg-white outline-primary text-primary;
-  }
-
   .button {
     @apply relative transition-colors duration-200;
   }
-  .button:hover::after,
-  .button:active:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+
+  /* v1 */
+  .button-primary {
+    @apply bg-v1-orange-500 text-white;
   }
-  .button:hover::after,
-  .button:hover::after {
-    background-color: rgba(0, 0, 0, 0.05);
+  .button-primary:disabled {
+    @apply bg-v1-grey-300 text-v1-subtext-500;
   }
-  .button:active::after,
-  .button:active::after {
-    background-color: rgba(0, 0, 0, 0.1);
+  .button-primary:not(:disabled):hover {
+    @apply bg-v1-orange-400;
+  }
+  .button-primary:not(:disabled):active {
+    @apply bg-v1-orange-700;
+  }
+  .button-secondary {
+    @apply bg-white outline-primary text-primary;
   }
 }

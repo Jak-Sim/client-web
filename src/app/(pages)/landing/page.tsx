@@ -2,7 +2,7 @@ import Image from 'next/image';
 import logoLanding from '@/assets/images/logos/landing.png';
 import LoginCheck from './_components/LoginCheck';
 
-const Page = () => {
+export default function Page() {
   return (
     <>
       <main className='w-full h-full flex flex-col bg-gradient-to-br from-[#FF825B] via-[#FA715E] to-[#F56060]'>
@@ -13,6 +13,4 @@ const Page = () => {
       <LoginCheck />
     </>
   );
-};
-
-export default Page;
+}
