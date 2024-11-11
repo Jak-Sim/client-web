@@ -13,7 +13,7 @@ export default function LoginCheck() {
     } else {
       router.push('/challenge');
     }
-  }, [session]);
+  }, [session, router]);
 
   return null;
 }
