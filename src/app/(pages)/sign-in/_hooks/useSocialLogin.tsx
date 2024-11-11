@@ -2,12 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import { setCookie } from 'cookies-next';
-import { useUserStore } from '@/store/userStore';
 import { type JaksimOAuthProviderType, CustomSession } from '@/app/api/auth/[...nextauth]/route';
 
 export default function useSocialLogin() {
   const router = useRouter();
-  const { userData, setUserData } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
@@ -25,7 +23,7 @@ export default function useSocialLogin() {
         router.push('/sign-up');
       }
     } catch (error) {
-      console.error(`${provider} 로그인 중 오류 발생:`, error);
+      console.error(`${provider} 로그인 시도 중 오류 발생:`, error);
     } finally {
       setIsLoading(false);
     }
@@ -33,11 +31,7 @@ export default function useSocialLogin() {
 
   useEffect(() => {
     if (!sessionWithAccount) return;
-    const { providerAccountId } = sessionWithAccount?.account;
-    const { social, AT = null, RT = null } = sessionWithAccount?.auth;
-    const { name } = sessionWithAccount?.user;
-
-    setUserData({ userUniqueId: providerAccountId, nickname: name ?? '', AT, RT, social });
+    const { AT = null, RT = null } = sessionWithAccount?.auth;
 
     if (statusCode === 208) {
       newUserRedirect();
@@ -51,7 +45,6 @@ export default function useSocialLogin() {
 
   return {
     login,
-    userData,
     isLoading,
   };
 }

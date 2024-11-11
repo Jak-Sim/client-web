@@ -1,19 +1,26 @@
 'use client';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { CustomSession, JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
 import { signOut, useSession } from 'next-auth/react';
 import { useForm, Controller } from 'react-hook-form';
 import { setCookie } from 'cookies-next';
-import { useUserStore } from '@/store/userStore';
-import { type UserData } from '@/types/user';
+import { api } from '@/lib/axios/axios';
 import TextField from './TextField';
 import SignUpAgree from './SignUpAgree';
-import { api } from '@/lib/axios/axios';
+
+export interface UserSignUpDto {
+  AT: string | null;
+  RT: string | null;
+  userUniqueId: string;
+  nickname: string;
+  social: JaksimOAuthProviderType;
+}
 
 export default function SignUp() {
   const router = useRouter();
-  const { userData, setUserData } = useUserStore();
   const { data: session } = useSession();
+  const sessionWithAccount = session as CustomSession;
 
   const {
     control,
@@ -21,9 +28,10 @@ export default function SignUp() {
     formState: { errors },
     setError,
     clearErrors,
+    setValue,
     watch,
-  } = useForm<UserData>({
-    defaultValues: userData ?? { nickname: session?.user?.name ?? '' },
+  } = useForm<UserSignUpDto>({
+    defaultValues: { nickname: sessionWithAccount?.user?.name ?? '' },
   });
 
   const [isUsernameValid, setIsUsernameValid] = useState(false);
@@ -31,15 +39,20 @@ export default function SignUp() {
   const isValidating = useRef(true);
   const username = watch('nickname');
 
-  const onSubmit = async (data: UserData) => {
-    if (!userData) return;
-    const user = { ...userData, nickname: data.nickname, social: data.social };
+  const onSubmit = async (data: UserSignUpDto) => {
+    if (!sessionWithAccount) return;
 
-    const response = (await api.post('/sign-up', { ...user, social: user.social.toUpperCase() })) as {
-      data: { data: UserData };
+    const user = {
+      AT: sessionWithAccount.auth.AT,
+      RT: sessionWithAccount.auth.RT,
+      nickname: data.nickname,
+      social: sessionWithAccount.account.provider.toUpperCase(),
+      userUniqueId: sessionWithAccount.account.providerAccountId,
+    };
+    const response = (await api.post('/sign-up', user)) as {
+      data: { data: UserSignUpDto };
     };
     const { AT, RT } = response.data.data;
-    setUserData({ ...user, AT, RT });
     setCookie('AT', AT);
     setCookie('RT', RT);
     router.push('/');
@@ -58,10 +71,11 @@ export default function SignUp() {
       if (username?.length < 2) return;
 
       try {
-        // await api.post('/sign-up/nick-check', { nickname: username });
+        await api.post('/sign-up/nick-check', { nickname: username });
         return true;
       } catch (error) {
         if (error instanceof Error) {
+          // TODO: 중복된 닉네임 오류 특정하기, statusCode 확인
           setError('nickname', {
             type: 'manual',
             message: error.message ?? '중복된 닉네임이에요. 다른 닉네임은 어떠신가요?',
@@ -70,8 +84,14 @@ export default function SignUp() {
         return false;
       }
     },
-    [username, setError],
+    [setError],
   );
+
+  useEffect(() => {
+    if (sessionWithAccount) {
+      setValue('nickname', sessionWithAccount.user.name ?? '');
+    }
+  }, [sessionWithAccount, setValue]);
 
   useEffect(() => {
     const validateUsername = async () => {
