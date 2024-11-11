@@ -88,19 +88,20 @@ export const nextAuthOptions: NextAuthOptions = {
             setCookie('AT', AT);
             setCookie('RT', RT);
           } catch (error) {
-            const statusCode = (error as AxiosError).response?.status;
-
-            switch (statusCode) {
-              case 422: // 로그아웃 처리
-                signOut();
-                break;
-              case 423: // 알 수 없는 에러
-                signOut();
-                break;
-              default:
-                console.error(
-                  `\x1b[31m[ERROR]\x1b[0m 토큰 갱신 에러${statusCode ? `, statusCode: ${coloredStatusCode(statusCode)}` : ''}`,
-                );
+            if (error instanceof AxiosError) {
+              const statusCode = error.response?.status;
+              switch (statusCode) {
+                case 422: // 로그아웃 처리
+                  signOut();
+                  break;
+                case 423: // 알 수 없는 에러
+                  signOut();
+                  break;
+                default:
+                  console.error(
+                    `\x1b[31m[ERROR]\x1b[0m 토큰 갱신 에러${statusCode ? `, statusCode: ${coloredStatusCode(statusCode)}` : ''}\n${error.message}`,
+                  );
+              }
             }
           }
         }
