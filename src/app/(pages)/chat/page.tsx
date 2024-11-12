@@ -23,47 +23,48 @@ interface FetchProps {
 const room1 = [
   {
     roomId: 1,
-    roomName: "General Chat",
-    roomType: "challenge",
-    lastMessage: "Hello everyone!",
-    lastTimestamp: "2024-11-07T15:30:00",
-    hasNewMessages: true
+    roomName: 'General Chat',
+    roomType: 'challenge',
+    lastMessage: 'Hello everyone!',
+    lastTimestamp: '2024-11-07T15:30:00',
+    hasNewMessages: true,
   },
   {
     roomId: 2,
-    roomName: "Project Alpha",
-    roomType: "challenge",
-    lastMessage: "Please review the document.",
-    lastTimestamp: "2024-11-06T09:15:00",
-    hasNewMessages: false
+    roomName: 'Project Alpha',
+    roomType: 'challenge',
+    lastMessage: 'Please review the document.',
+    lastTimestamp: '2024-11-06T09:15:00',
+    hasNewMessages: false,
   },
   {
     roomId: 3,
-    roomName: "Random",
-    roomType: "challenge",
-    lastMessage: "Check out this meme!",
-    lastTimestamp: "2024-11-05T12:45:00",
-    hasNewMessages: true
+    roomName: 'Random',
+    roomType: 'challenge',
+    lastMessage: 'Check out this meme!',
+    lastTimestamp: '2024-11-05T12:45:00',
+    hasNewMessages: true,
   },
 ];
 
-const room2 = [   {
-  roomId: 4,
-  roomName: "Support",
-  roomType: "private",
-  lastMessage: null,
-  lastTimestamp: null,
-  hasNewMessages: false
-},
+const room2 = [
+  {
+    roomId: 4,
+    roomName: 'Support',
+    roomType: 'private',
+    lastMessage: null,
+    lastTimestamp: null,
+    hasNewMessages: false,
+  },
   {
     roomId: 5,
-    roomName: "Development Team",
-    roomType: "private",
-    lastMessage: "Code review at 3 PM.",
-    lastTimestamp: "2024-11-07T10:00:00",
-    hasNewMessages: true
-  }]
-
+    roomName: 'Development Team',
+    roomType: 'private',
+    lastMessage: 'Code review at 3 PM.',
+    lastTimestamp: '2024-11-07T10:00:00',
+    hasNewMessages: true,
+  },
+];
 
 const fetchGroupChatListData = async ({ userId }: FetchProps) => {
   const groupChatListData = await socketApi.get<ChatItem[]>('/chat/list/group', {
@@ -86,8 +87,8 @@ const fetchChallengeChatListData = async ({ userId }: FetchProps) => {
 const Page = async () => {
   const session = await getServerSession(nextAuthOptions);
 
-  const groupChatListData = room1;
-  const challengeChatListData = room2;
+  const groupChatListData = await fetchGroupChatListData({ userId: 'user1' });
+  const challengeChatListData = await fetchChallengeChatListData({ userId: 'user1' });
 
   // if (!session) {
   //   return redirect('/sign-in');
