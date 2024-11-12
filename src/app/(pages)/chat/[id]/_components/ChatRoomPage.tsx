@@ -23,6 +23,18 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [userId, setUserId] = useState<string>('');
 
   useEffect(() => {
+    socket.on('connect', () => {
+      if (id) {
+        socket.emit('joinRoom', id);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on('chat message', (data: ChatMessage) => {
+      setChat((prev) => [...prev, data]);
+    });
+
     return () => {
       if (socket) {
         socket.off('chat message');
@@ -34,8 +46,6 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
     socket.emit('chat message', { message, userId, roomId: id });
     setMessage('');
   };
-
-  console.log(chat);
 
   return (
     <PageLayout

@@ -30,8 +30,6 @@ const Page = async ({ params }: PageProps) => {
 
   const previousChatMessageData = await fetchPreviousChatMessageData({ roomId: id });
 
-  console.log(previousChatMessageData);
-
   return <ChatRoomPage id={id} previousChatMessageData={previousChatMessageData} />;
 };
 
