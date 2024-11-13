@@ -1,4 +1,5 @@
 import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
+import { format } from 'date-fns';
 
 const OtherChat = ({ message, userId, timestamp }: ChatMessage) => {
   return (
@@ -12,7 +13,7 @@ const OtherChat = ({ message, userId, timestamp }: ChatMessage) => {
           {message}
         </div>
         <div className={'absolute bottom-0 right-[-25px]'}>
-          {/*<div className={'text-[#969696] font-normal text-[8px]'}>{format(date, 'HH:mm')}</div>*/}
+          <div className={'text-[#969696] font-normal text-[8px]'}>{format(timestamp, 'HH:mm')}</div>
           <div className={'text-[#969696] font-normal text-[6px]'}>{0}명 읽음</div>
         </div>
       </div>
