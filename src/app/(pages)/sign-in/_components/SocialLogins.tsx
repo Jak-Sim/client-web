@@ -1,5 +1,7 @@
 'use client';
+
 import { GoogleLogin, KakaoLogin, NaverLogin } from '@/assets/images/icons';
+
 import useSocialLogin from '../_hooks/useSocialLogin';
 import SocialLoginButton from './SocialLoginButton';
 
@@ -8,7 +10,7 @@ export default function SocialLogins() {
 
   return (
     <div
-      className={`w-full flex flex-col gap-4 justify-center px-6 ${isLoading ? 'cursor-default pointer-events-none' : ''}`}
+      className={`flex w-full flex-col justify-center gap-4 px-6 ${isLoading ? 'pointer-events-none cursor-default' : ''}`}
     >
       <SocialLoginButton
         icon={KakaoLogin}

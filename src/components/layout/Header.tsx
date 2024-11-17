@@ -10,12 +10,12 @@ const Header = ({ title, left, right }: HeaderProps) => {
   return (
     <div
       className={
-        'relative p-[10px] h-[44px] flex justify-between items-center border-b border-[#e2e2e2] shadow-black font-bold'
+        'relative flex h-[44px] items-center justify-between border-b border-[#e2e2e2] p-[10px] font-bold shadow-black'
       }
     >
-      <div className={'flex justify-center items-center'}>{left}</div>
-      <h1 className='absolute left-1/2 transform -translate-x-1/2 text-lg font-semibold text-center'>{title}</h1>
-      <div className={'flex justify-center items-center'}>{right}</div>
+      <div className={'flex items-center justify-center'}>{left}</div>
+      <h1 className='absolute left-1/2 -translate-x-1/2 transform text-center text-lg font-semibold'>{title}</h1>
+      <div className={'flex items-center justify-center'}>{right}</div>
     </div>
   );
 };

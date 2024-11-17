@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import './globals.css';
 import { ReactNode } from 'react';
+
+import './globals.css';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={` ${pretendard.className} ${nimbusSans.variable} antialiased`}>
-        <div className={'flex flex-col max-w-[400px] m-auto h-screen'}>{children}</div>
+        <div className={'m-auto flex h-screen max-w-[400px] flex-col'}>{children}</div>
       </body>
     </html>
   );

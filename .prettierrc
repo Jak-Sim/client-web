@@ -1,7 +1,11 @@
 {
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
   "jsxSingleQuote": true,
   "semi": true,
   "printWidth": 120,
   "proseWrap": "never",
-  "singleQuote": true
+  "singleQuote": true,
+  "importOrder": ["^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

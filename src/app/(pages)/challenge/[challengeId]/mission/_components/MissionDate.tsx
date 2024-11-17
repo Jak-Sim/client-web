@@ -1,12 +1,13 @@
 'use client';
 
+import Calendar from '@/assets/images/icons/calendar.svg';
+import { ko } from 'date-fns/locale/ko';
 import React, { useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './MissionDate.css';
-import Calendar from '@/assets/images/icons/calendar.svg';
-import { ko } from 'date-fns/locale/ko';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+import './MissionDate.css';
 
 registerLocale('ko', ko);
 
@@ -21,11 +22,11 @@ const MissionDate = () => {
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
       }) => (
-        <div className={'flex items-center justify-between py-1 px-3'}>
+        <div className={'flex items-center justify-between px-3 py-1'}>
           <button type='button' onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
             <FaAngleLeft size={20} />
           </button>
-          <span className={'font-semibold text-base'}>
+          <span className={'text-base font-semibold'}>
             {date.getFullYear()}년 {date.getMonth() + 1}월
           </span>
           <button type='button' onClick={increaseMonth} disabled={nextMonthButtonDisabled}>

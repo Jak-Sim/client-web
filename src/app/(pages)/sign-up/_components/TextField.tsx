@@ -20,11 +20,11 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
           value={value}
           onChange={onChange}
           ref={ref}
-          className={`w-full h-[3.125rem] mb-1 px-4 bg-transparent border rounded-[3.125rem] font-semibold outline-none ${style}`}
+          className={`mb-1 h-[3.125rem] w-full rounded-[3.125rem] border bg-transparent px-4 font-semibold outline-none ${style}`}
           {...props}
         />
-        {isError && <p className='text-error-dark text-right text-[12px]'>{errorMessage}</p>}
-        {isValid && <p className='text-submit-dark text-right text-[12px]'>{validMessage}</p>}
+        {isError && <p className='text-right text-[12px] text-error-dark'>{errorMessage}</p>}
+        {isValid && <p className='text-right text-[12px] text-submit-dark'>{validMessage}</p>}
       </>
     );
   },

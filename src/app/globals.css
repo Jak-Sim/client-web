@@ -66,7 +66,7 @@ body {
     @apply bg-v1-orange-700;
   }
   .button-secondary {
-    @apply bg-white outline-primary text-primary;
+    @apply bg-white text-primary outline-primary;
   }
 }
 

@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
 import { AddCircle, UpArrowCircle, UpArrowCircleActive } from '@/assets/images/icons';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ChatSendFooterProps {
   message: string;
@@ -10,12 +10,12 @@ interface ChatSendFooterProps {
 const ChatSendFooter = ({ message, setMessage, sendMessage }: ChatSendFooterProps) => {
   return (
     <>
-      <div className={'flex pt-2 pb-4 px-2 border-t border-[#e2e2e2]'}>
+      <div className={'flex border-t border-[#e2e2e2] px-2 pb-4 pt-2'}>
         <button type={'button'} className={'p-1'}>
           <AddCircle />
         </button>
         <input
-          className={'flex-1 px-4 py-3 text-xs border border-[#e2e2e2] rounded-[50px] placeholder:text-[#999999]'}
+          className={'flex-1 rounded-[50px] border border-[#e2e2e2] px-4 py-3 text-xs placeholder:text-[#999999]'}
           type='text'
           placeholder={'채팅 메세지를 입력해주세요.'}
           value={message}

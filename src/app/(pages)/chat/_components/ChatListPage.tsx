@@ -1,9 +1,9 @@
 'use client';
 
-import ChatTab from '@/app/(pages)/chat/_components/ChatTab';
 import ChatList from '@/app/(pages)/chat/_components/ChatList';
-import { useState } from 'react';
+import ChatTab from '@/app/(pages)/chat/_components/ChatTab';
 import type { ChatItem } from '@/app/(pages)/chat/page';
+import { useState } from 'react';
 
 export type Chat = 'challenge' | 'private';
 

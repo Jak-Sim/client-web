@@ -1,14 +1,16 @@
 'use client';
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+
 import { CustomSession, JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
-import { useSession } from 'next-auth/react';
-import { useForm, Controller } from 'react-hook-form';
-import { setCookie } from 'cookies-next';
-import { api } from '@/lib/axios/axios';
 import Button from '@/components/button/Button';
-import TextField from './v1/TextField';
+import { api } from '@/lib/axios/axios';
+import { setCookie } from 'cookies-next';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
 import SignUpAgree from './SignUpAgree';
+import TextField from './v1/TextField';
 
 export interface UserSignUpDto {
   AT: string | null;
@@ -130,9 +132,9 @@ export default function SignUp() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className='h-full py-20 px-6 flex flex-col gap-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex h-full flex-col gap-4 px-6 py-20'>
         <div className='flex-1'>
-          <p className='block text-2xl mb-20 leading-9'>
+          <p className='mb-20 block text-2xl leading-9'>
             <span>활동할 멋진</span>
             <br />
             <strong className='font-bold'>닉네임</strong>
@@ -161,7 +163,7 @@ export default function SignUp() {
           />
         </div>
 
-        <div className='flex flex-col justify-center items-center'>
+        <div className='flex flex-col items-center justify-center'>
           <SignUpAgree isAgree={isAgree} handleAgreeChange={handleAgreeChange} enable={isUsernameValid} />
 
           <Button disabled={!isUsernameValid || !isAgree} type='submit'>

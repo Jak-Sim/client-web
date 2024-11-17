@@ -19,12 +19,12 @@ export default function SignUpAgree({
 
       <label
         htmlFor='agree'
-        className='text-v1-text-primary-500 text-[0.75rem] flex items-center cursor-pointer select-none'
+        className='flex cursor-pointer select-none items-center text-[0.75rem] text-v1-text-primary-500'
       >
         <div
-          className={`w-4 h-4 p-1 rounded-full border mr-1 ${enable || isAgree ? 'border-primary' : 'border-v1-grey-500'}`}
+          className={`mr-1 h-4 w-4 rounded-full border p-1 ${enable || isAgree ? 'border-primary' : 'border-v1-grey-500'}`}
         >
-          <div className={`w-full h-full rounded-full ${isAgree ? 'bg-primary' : ''}`} />
+          <div className={`h-full w-full rounded-full ${isAgree ? 'bg-primary' : ''}`} />
         </div>
         <span>개인 정보 제공 약관에 동의합니다.</span>
       </label>

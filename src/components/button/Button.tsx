@@ -7,10 +7,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button({ children, className, isLoading, ...props }: ButtonProps) {
   return (
-    <button className={`button button-primary w-full h-[3.75rem] rounded-xl font-bold text-xl ${className}`} {...props}>
+    <button className={`button button-primary h-[3.75rem] w-full rounded-xl text-xl font-bold ${className}`} {...props}>
       <div className='flex items-center justify-center gap-1'>
         {isLoading ? (
-          <LoadingIcon alt='loading' className='w-6 h-6 animate-spin' style={{ animationDuration: '3s' }} />
+          <LoadingIcon alt='loading' className='h-6 w-6 animate-spin' style={{ animationDuration: '3s' }} />
         ) : null}
         {children}
       </div>

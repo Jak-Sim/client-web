@@ -17,10 +17,10 @@ const FooterItem = ({ text, name, icon: Icon }: FooterItemProps) => {
 
   return (
     <li className='flex-1'>
-      <Link href={`/${name}`} className='flex flex-col justify-center items-center'>
-        <Icon className={ isActive ? 'fill-primary w-6 h-6' : 'w-6 h-6'} />
+      <Link href={`/${name}`} className='flex flex-col items-center justify-center'>
+        <Icon className={isActive ? 'h-6 w-6 fill-primary' : 'h-6 w-6'} />
         <p
-          className={`flex justify-center items-center min-w-[28px] h-[22px] text-[10px] font-semibold ${isActive && 'text-primary'}`}
+          className={`flex h-[22px] min-w-[28px] items-center justify-center text-[10px] font-semibold ${isActive && 'text-primary'}`}
         >
           {text}
         </p>

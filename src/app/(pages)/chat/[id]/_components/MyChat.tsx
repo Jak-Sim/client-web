@@ -1,20 +1,20 @@
-import { format } from 'date-fns';
 import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
+import { format } from 'date-fns';
 
 const MyChat = ({ message, timestamp }: ChatMessage) => {
   return (
-    <div className={'flex justify-end mb-4 mr-3'}>
+    <div className={'mb-4 mr-3 flex justify-end'}>
       <div className={'relative'}>
         <div
           className={
-            'max-w-[170px] break-words rounded-2xl bg-primary text-white py-3 px-4 font-normal text-xs leading-[14px]'
+            'max-w-[170px] break-words rounded-2xl bg-primary px-4 py-3 text-xs font-normal leading-[14px] text-white'
           }
         >
           {message}
         </div>
         <div className={'absolute bottom-0 left-[-25px]'}>
-          <div className={'text-[#969696] font-normal text-[8px]'}>{format(timestamp, 'HH:mm')}</div>
-          <div className={'text-[#969696] font-normal text-[6px]'}>{0}명 읽음</div>
+          <div className={'text-[8px] font-normal text-[#969696]'}>{format(timestamp, 'HH:mm')}</div>
+          <div className={'text-[6px] font-normal text-[#969696]'}>{0}명 읽음</div>
         </div>
       </div>
     </div>

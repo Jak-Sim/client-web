@@ -13,15 +13,15 @@ export default function SocialLoginButton({
 }) {
   return (
     <button
-      className={`w-full h-[3.5rem] rounded-xl overflow-hidden flex items-center justify-center ${className}`}
+      className={`flex h-[3.5rem] w-full items-center justify-center overflow-hidden rounded-xl ${className}`}
       onClick={onClick}
     >
-      <div className='rounded-full overflow-hidden w-[3rem] h-[3rem] flex items-center justify-center'>
+      <div className='flex h-[3rem] w-[3rem] items-center justify-center overflow-hidden rounded-full'>
         <div>
           <Icon />
         </div>
       </div>
-      <span className='w-[6rem] text-left font-semibold mt-[1px]'>{buttonText}</span>
+      <span className='mt-[1px] w-[6rem] text-left font-semibold'>{buttonText}</span>
     </button>
   );
 }

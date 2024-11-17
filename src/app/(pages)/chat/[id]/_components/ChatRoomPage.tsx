@@ -1,14 +1,14 @@
 'use client';
 
-import PageLayout from '@/components/layout/PageLayout';
-import HeaderBackButton from '@/components/layout/HeaderBackButton';
-import { useEffect, useRef, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
-import { Plus } from '@/assets/images/icons';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
-import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
+import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
+import { Plus } from '@/assets/images/icons';
+import HeaderBackButton from '@/components/layout/HeaderBackButton';
+import PageLayout from '@/components/layout/PageLayout';
+import { useEffect, useRef, useState } from 'react';
+import { Socket, io } from 'socket.io-client';
 
 interface ChatRoomPageProps {
   id: string;
@@ -56,7 +56,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
       footer={<ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} />}
     >
       <div className={'flex'}>
-        <input className={' flex-1 border'} type='text' value={userId} onChange={(e) => setUserId(e.target.value)} />
+        <input className={'flex-1 border'} type='text' value={userId} onChange={(e) => setUserId(e.target.value)} />
       </div>
       <div className={'px-4 py-3'}>
         <div className='flex flex-col' ref={roomRef}>
