@@ -10,9 +10,9 @@ const Footer = () => {
   return (
     <footer className='border-t border-[#e2e2e2] bg-white'>
       <ul className='flex justify-between px-2 pb-[3px] pt-[14px] text-center'>
-        <FooterItem name={'feed'} text={'피드'} icon={BiCategoryAlt} />
         <FooterItem name={'challenge'} text={'챌린지'} icon={Flag} />
         <FooterItem name={'chat'} text={'채팅'} icon={Comment} />
+        <FooterItem name={'feed'} text={'피드'} icon={BiCategoryAlt} />
         <FooterItem name={'mypage'} text={'마이페이지'} icon={Profile} />
       </ul>
     </footer>
