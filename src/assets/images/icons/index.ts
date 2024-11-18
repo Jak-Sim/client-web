@@ -9,6 +9,8 @@ import Comments from './comments.svg';
 import CrossCircle from './cross-circle.svg';
 import Crown from './crown.svg';
 import ChatCrown from './chat-crown.svg';
+import Code from './code.svg';
+import FilePlus from './file-plus.svg';
 import Flag from './flag.svg';
 import FlagChat from './flag-chat.svg';
 import Gem from './gem.svg';
@@ -18,6 +20,7 @@ import NaverLogin from './naver-login.svg';
 import Plus from './plus.svg';
 import Profile from './profile.svg';
 import Search from './search.svg';
+import SearchShiny from './search-shiny.svg';
 import UpArrowCircle from './up-arrow-circle.svg';
 import UpArrowCircleActive from './up-arrow-circle-active.svg';
 
@@ -33,6 +36,8 @@ export {
   CrossCircle,
   Crown,
   ChatCrown,
+  Code,
+  FilePlus,
   Flag,
   FlagChat,
   Gem,
@@ -42,6 +47,7 @@ export {
   Plus,
   Profile,
   Search,
+  SearchShiny,
   UpArrowCircle,
   UpArrowCircleActive,
 };
