@@ -1,10 +1,10 @@
 'use client';
 
-import LeftChevron from '@/assets/images/icons/chevron.svg';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Left from '@/assets/images/icons/Left.svg';
 
-const HeaderBackButton = () => {
+const HeaderBackButton = ({ onClick }: { onClick?: () => void }) => {
   const router = useRouter();
 
   const handleBack = useCallback(() => {
@@ -12,8 +12,8 @@ const HeaderBackButton = () => {
   }, [router]);
 
   return (
-    <button onClick={handleBack}>
-      <LeftChevron />
+    <button type={'button'} onClick={onClick || handleBack}>
+      <Left className={'h-6 w-6'} />
     </button>
   );
 };

@@ -1,17 +1,16 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import Footer from '@/components/layout/Footer';
-import Header, { HeaderProps } from '@/components/layout/Header';
 
 interface PageLayoutProps {
   className?: string;
-  header: HeaderProps;
+  header: ReactNode;
   footer?: ReactNode;
 }
 
 const PageLayout = ({ header, footer, children, className }: PropsWithChildren<PageLayoutProps>) => {
   return (
     <>
-      <Header {...header} />
+      {header}
       <main className={`flex-1 overflow-auto bg-[#F2E7E2] ${className || ''}`}>{children}</main>
       {footer ? footer : <Footer />}
     </>
