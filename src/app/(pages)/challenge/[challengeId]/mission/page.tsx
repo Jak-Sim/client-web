@@ -1,11 +1,23 @@
 import MissionDate from '@/app/(pages)/challenge/[challengeId]/mission/_components/MissionDate';
 import Repeat from '@/app/(pages)/challenge/[challengeId]/mission/_components/Repeat';
-import HeaderBackButton from '@/components/layout/HeaderBackButton';
+import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 
 const Page = () => {
   return (
-    <PageLayout header={{ title: '새 미션 등록하기', left: <HeaderBackButton /> }}>
+    <PageLayout
+      header={
+        <Header>
+          <Header.Item>
+            <Header.BackButton />
+          </Header.Item>
+          <Header.Title>새 미션 등록하기</Header.Title>
+          <Header.Item>
+            <Header.GrayText>임시저장</Header.GrayText>
+          </Header.Item>
+        </Header>
+      }
+    >
       <div className={'flex h-full flex-1 flex-col p-5 pt-8'}>
         <div className={'flex flex-col gap-3 pb-8'}>
           <input

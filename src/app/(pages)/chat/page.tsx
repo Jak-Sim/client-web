@@ -1,11 +1,11 @@
+import { getServerSession } from 'next-auth';
+import Link from 'next/link';
 import ChatListPage from '@/app/(pages)/chat/_components/ChatListPage';
 import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Plus } from '@/assets/images/icons';
-import HeaderBackButton from '@/components/layout/HeaderBackButton';
+import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { socketApi } from '@/lib/axios/axios';
-import { getServerSession } from 'next-auth';
-import Link from 'next/link';
 
 export interface ChatItem {
   roomId: number;
@@ -97,15 +97,18 @@ const Page = async () => {
   return (
     <PageLayout
       className={'flex flex-col bg-[#f2f2f7] p-3 pt-2'}
-      header={{
-        title: '채팅',
-        left: <HeaderBackButton />,
-        right: (
-          <Link href={'/chat/create'}>
-            <Plus />
-          </Link>
-        ),
-      }}
+      header={
+        <Header>
+          <Header.Item>
+            <Header.BoldText bold={'채팅'} />
+          </Header.Item>
+          <Header.Item>
+            <Link href={'/chat/create'}>
+              <Plus />
+            </Link>
+          </Header.Item>
+        </Header>
+      }
     >
       <ChatListPage groupChatListData={groupChatListData} challengeChatListData={challengeChatListData} />
     </PageLayout>

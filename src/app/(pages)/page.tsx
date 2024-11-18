@@ -1,20 +1,17 @@
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 
-const Page = () => {
+export default function Home() {
   return (
     <PageLayout
+      className={'bg-primary'}
       header={
         <Header>
-          <Header.Item>
-            <Header.BoldText bold={'작심'} text={'님의 챌린지'} />
-          </Header.Item>
+          <Header.Title>메인페이지</Header.Title>
         </Header>
       }
     >
-      챌린지
+      메인페이지
     </PageLayout>
   );
-};
-
-export default Page;
+}
