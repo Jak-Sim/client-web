@@ -16,8 +16,8 @@ const HeaderTitle = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const HeaderGrayText = ({ children }: { children: ReactNode }) => {
-  return <div className='cursor-pointer text-sm font-medium text-v1-text-primary-400'>{children}</div>;
+const HeaderGrayText = ({ children, disabled }: { children: ReactNode; disabled?: boolean }) => {
+  return <div className={cn('cursor-pointer text-sm font-medium text-v1-text-primary-400', disabled && 'text-v1-text-primary-200')}>{children}</div>;
 };
 
 const HeaderIconWrapper = ({ children }: { children: ReactNode }) => {
