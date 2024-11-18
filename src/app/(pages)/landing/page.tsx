@@ -1,6 +1,5 @@
-import logoLanding from '@/assets/images/logos/landing.png';
 import Image from 'next/image';
-
+import logoLanding from '@/assets/images/logos/landing.png';
 import LoginCheck from './_components/LoginCheck';
 
 export default function Page() {

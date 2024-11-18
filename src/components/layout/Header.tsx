@@ -17,7 +17,7 @@ const HeaderTitle = ({ children }: { children: ReactNode }) => {
 };
 
 const HeaderGrayText = ({ children }: { children: ReactNode }) => {
-  return <div className='cursor-pointer text-sm font-medium text-neutral-200'>{children}</div>;
+  return <div className='cursor-pointer text-sm font-medium text-v1-text-primary-400'>{children}</div>;
 };
 
 const HeaderIconWrapper = ({ children }: { children: ReactNode }) => {
@@ -46,7 +46,7 @@ const Header = ({ children, className }: { children: ReactNode; className?: stri
   return (
     <div
       className={cn(
-        'relative flex h-[56px] items-center justify-between border-b border-[#e2e2e2] px-6 py-4 font-bold shadow-black',
+        'relative flex h-[56px] items-center justify-between border-b text-v1-text-primary-500 px-6 py-4 font-bold shadow-black',
         className,
       )}
     >

@@ -1,14 +1,13 @@
 'use client';
 
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { setCookie } from 'cookies-next';
+import { Controller, useForm } from 'react-hook-form';
 import { CustomSession, JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
 import Button from '@/components/button/Button';
 import { api } from '@/lib/axios/axios';
-import { setCookie } from 'cookies-next';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-
 import SignUpAgree from './SignUpAgree';
 import TextField from './v1/TextField';
 

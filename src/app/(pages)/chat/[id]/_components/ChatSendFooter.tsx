@@ -1,5 +1,5 @@
-import { AddCircle, UpArrowCircle, UpArrowCircleActive } from '@/assets/images/icons';
 import { Dispatch, SetStateAction } from 'react';
+import { AddCircle, UpArrowCircle, UpArrowCircleActive } from '@/assets/images/icons';
 
 interface ChatSendFooterProps {
   message: string;

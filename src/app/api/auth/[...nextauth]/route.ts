@@ -1,13 +1,13 @@
-import { api } from '@/lib/axios/axios';
-import { coloredStatusCode } from '@/utils/coloredStatusCode';
-import { AxiosError } from 'axios';
-import { setCookie } from 'cookies-next';
-import { jwtDecode } from 'jwt-decode';
 import NextAuth, { type Account, type NextAuthOptions, type Session, User } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
 import { signOut } from 'next-auth/react';
+import { AxiosError } from 'axios';
+import { setCookie } from 'cookies-next';
+import { jwtDecode } from 'jwt-decode';
+import { api } from '@/lib/axios/axios';
+import { coloredStatusCode } from '@/utils/coloredStatusCode';
 
 export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
 

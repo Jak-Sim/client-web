@@ -1,21 +1,20 @@
-import HeaderBackButton from "@/components/layout/HeaderBackButton";
-import PageLayout from "@/components/layout/PageLayout";
-import ChallengeLinkButtonBox from "./_components/ChallengeLinkButtonBox";
-import Header from "@/components/layout/Header";
+import Header from '@/components/layout/Header';
+import PageLayout from '@/components/layout/PageLayout';
+import ChallengeLinkButtonBox from './_components/ChallengeLinkButtonBox';
 
 const Page = () => {
   return (
     <PageLayout
       header={
-        <Header className="bg-v1-background border-none">
-          <Header.BoldText bold="챌린지" />
+        <Header className='border-none bg-v1-background'>
+          <Header.BoldText bold='챌린지' />
         </Header>
       }
-      className="bg-v1-background"
+      className='bg-v1-background'
     >
-      <div className="flex flex-col h-full justify-between px-6 pb-16">
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <p className="text-2xl text-v1-text-primary-300 break-keep text-center">아직 시작한 챌린지가 없어요</p>
+      <div className='flex h-full flex-col justify-between px-6 pb-16'>
+        <div className='flex flex-1 flex-col items-center justify-center'>
+          <p className='break-keep text-center text-2xl text-v1-text-primary-300'>아직 시작한 챌린지가 없어요</p>
         </div>
         <ChallengeLinkButtonBox />
       </div>

@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
 import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
@@ -7,8 +9,6 @@ import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 import { Plus } from '@/assets/images/icons';
 import HeaderBackButton from '@/components/layout/HeaderBackButton';
 import PageLayout from '@/components/layout/PageLayout';
-import { useEffect, useRef, useState } from 'react';
-import { Socket, io } from 'socket.io-client';
 
 interface ChatRoomPageProps {
   id: string;

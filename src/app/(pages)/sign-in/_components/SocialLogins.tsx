@@ -1,7 +1,6 @@
 'use client';
 
 import { GoogleLogin, KakaoLogin, NaverLogin } from '@/assets/images/icons';
-
 import useSocialLogin from '../_hooks/useSocialLogin';
 import SocialLoginButton from './SocialLoginButton';
 

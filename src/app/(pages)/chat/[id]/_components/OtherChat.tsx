@@ -1,5 +1,5 @@
-import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 import { format } from 'date-fns';
+import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 
 const OtherChat = ({ message, userId, timestamp }: ChatMessage) => {
   return (
