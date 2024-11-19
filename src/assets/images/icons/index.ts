@@ -23,6 +23,7 @@ import Search from './search.svg';
 import SearchShiny from './search-shiny.svg';
 import UpArrowCircle from './up-arrow-circle.svg';
 import UpArrowCircleActive from './up-arrow-circle-active.svg';
+import X from './x.svg';
 
 export {
   AddCircle,
@@ -50,4 +51,5 @@ export {
   SearchShiny,
   UpArrowCircle,
   UpArrowCircleActive,
+  X,
 };
