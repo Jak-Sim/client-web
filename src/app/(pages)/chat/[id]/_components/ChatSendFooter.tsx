@@ -1,19 +1,31 @@
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useRef } from 'react';
 import { AddCircle, UpArrowCircle, UpArrowCircleActive } from '@/assets/images/icons';
 
 interface ChatSendFooterProps {
   message: string;
   setMessage: Dispatch<SetStateAction<string>>;
   sendMessage: () => void;
+  sendImage: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ChatSendFooter = ({ message, setMessage, sendMessage }: ChatSendFooterProps) => {
+const ChatSendFooter = ({ message, setMessage, sendMessage, sendImage }: ChatSendFooterProps) => {
+  const labelRef = useRef<HTMLLabelElement>(null);
   return (
     <>
       <div className={'flex border-t border-[#e2e2e2] px-2 pb-4 pt-2'}>
-        <button type={'button'} className={'p-1'}>
-          <AddCircle />
-        </button>
+        <label htmlFor='image' className={'p-1'} ref={labelRef}>
+          <button
+            type={'button'}
+            onClick={() => {
+              if (labelRef.current) {
+                labelRef.current.click();
+              }
+            }}
+          >
+            <AddCircle />
+            <input type='file' hidden id={'image'} accept='image/*' onChange={sendImage} />
+          </button>
+        </label>
         <input
           className={'flex-1 rounded-[50px] border border-[#e2e2e2] px-4 py-3 text-xs placeholder:text-[#999999]'}
           type='text'
