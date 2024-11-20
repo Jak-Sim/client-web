@@ -26,16 +26,24 @@ const ChatSendFooter = ({ message, setMessage, sendMessage, sendImage }: ChatSen
             <input type='file' hidden id={'image'} accept='image/*' onChange={sendImage} />
           </button>
         </label>
-        <input
-          className={'flex-1 rounded-[50px] border border-[#e2e2e2] px-4 py-3 text-xs placeholder:text-[#999999]'}
-          type='text'
-          placeholder={'채팅 메세지를 입력해주세요.'}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button type={'submit'} className={'p-1'} onClick={sendMessage}>
-          {message ? <UpArrowCircleActive /> : <UpArrowCircle />}
-        </button>
+        <form
+          className={'flex flex-1'}
+          onSubmit={(e) => {
+            e.preventDefault();
+            sendMessage();
+          }}
+        >
+          <input
+            className={'flex-1 rounded-[50px] border border-[#e2e2e2] px-4 py-3 text-xs placeholder:text-[#999999]'}
+            type='text'
+            placeholder={'채팅 메세지를 입력해주세요.'}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type={'submit'} className={'p-1'}>
+            {message ? <UpArrowCircleActive /> : <UpArrowCircle />}
+          </button>
+        </form>
       </div>
     </>
   );

@@ -42,7 +42,6 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
 
   const sendMessage = () => {
     socket.emit('chat message', { message, userId, roomId: id });
-
     setMessage('');
   };
 
@@ -74,7 +73,12 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
     }
   };
 
-  console.log(previousChatMessageData);
+  useEffect(() => {
+    roomRef.current!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    });
+  }, [chat]);
 
   return (
     <PageLayout
