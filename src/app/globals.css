@@ -68,6 +68,34 @@ body {
   .button-secondary {
     @apply bg-white text-primary outline-primary;
   }
+
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  .slider {
+    pointer-events: none;
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #fff; /* Green background */
+    box-shadow: 0px 3px 4px 0px #0000001a;
+    border-radius: 50%;
+    cursor: pointer; /* Cursor on hover */
+    pointer-events: auto;
+    position: relative;
+  }
+  .slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #fff; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    pointer-events: auto;
+    position: relative;
+    z-index: 9;
+  }
 }
 
 @layer base {

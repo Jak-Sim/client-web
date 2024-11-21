@@ -55,7 +55,7 @@ export default function HashTags({
             placeholder={!dirtyFields.hashtagInput ? '해시태그로#챌린지를#소개해요' : ''}
             id='hashtag-input'
             type='text'
-            className='w-full min-w-10 bg-transparent outline-none'
+            className='w-full min-w-20 bg-transparent outline-none'
             autoComplete='off'
             maxLength={MAX_HASHTAG_LENGTH - hashtagTextLength - 1}
             disabled={hashtagTextLength >= MAX_HASHTAG_LENGTH}

@@ -7,6 +7,7 @@ import { setCookie } from 'cookies-next';
 import { Controller, useForm } from 'react-hook-form';
 import { CustomSession, JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
 import Button from '@/components/button/Button';
+import InputUnderline from '@/components/input/InputUnderline';
 import { api } from '@/lib/axios/axios';
 import SignUpAgree from './SignUpAgree';
 import TextField from './v1/TextField';
@@ -147,7 +148,7 @@ export default function SignUp() {
               validate: checkUsername,
             }}
             render={({ field }) => (
-              <TextField
+              <InputUnderline
                 {...field}
                 isError={!!errors.nickname}
                 isValid={isUsernameValid}
@@ -157,6 +158,7 @@ export default function SignUp() {
                 autoComplete='off'
                 maxLength={12}
                 placeholder='...닉네임'
+                style={{ fontSize: '2rem', fontWeight: 600 }}
               />
             )}
           />
