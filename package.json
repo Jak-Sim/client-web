@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --cache",
-    "prettier": "npx prettier --cache --write ./src/app",
+    "lint": "next lint",
+    "prettier": "npx prettier --write ./src/app",
     "swagger-typescript-api": "swagger-typescript-api -p ./src/types/CHAT_SCHEMA.json -r -o src/models --modular -d --extract-request-body --extract-response-body --extract-response-error --axios",
     "postinstall": "husky",
     "lint-staged": "lint-staged"
