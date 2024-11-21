@@ -9,7 +9,14 @@
     "lint": "next lint --cache",
     "prettier": "npx prettier --cache --write ./src/app",
     "swagger-typescript-api": "swagger-typescript-api -p ./src/types/CHAT_SCHEMA.json -r -o src/models --modular -d --extract-request-body --extract-response-body --extract-response-error --axios",
-    "postinstall": "husky"
+    "postinstall": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --config ./.prettierrc --write -u"
+    ]
   },
   "dependencies": {
     "@radix-ui/react-switch": "^1.1.1",
@@ -44,7 +51,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
-    "husky": "^9.1.7",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
