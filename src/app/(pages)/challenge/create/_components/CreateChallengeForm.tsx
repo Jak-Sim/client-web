@@ -4,6 +4,7 @@ import InputUnderline from '@/components/input/InputUnderline';
 import { Switch } from '@/components/ui/switch';
 import HashTags from './HashTags';
 import TwoWaySlider from './TwoWaySlider';
+import UploadThumbnail from './UploadThumbnail';
 
 export default function CreateChallengeForm() {
   const [challengeName, setChallengeName] = useState('');
@@ -12,6 +13,8 @@ export default function CreateChallengeForm() {
   return (
     <div className='flex h-full flex-col justify-between px-6 pb-8'>
       <div className='flex flex-1 flex-col gap-8 py-10'>
+        <UploadThumbnail />
+
         <div>
           <InputUnderline
             value={challengeName}
@@ -40,9 +43,7 @@ export default function CreateChallengeForm() {
               description='공개되지 않은 챌린지는 코드로 참여 할수 있어요'
             />
           </div>
-          <div>
-            <Switch />
-          </div>
+          <Switch />
         </div>
       </div>
 
