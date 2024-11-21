@@ -4,9 +4,9 @@ import { cn } from '@/lib/shadcn/utils';
 
 const HeaderBoldText = ({ bold, text, className }: { bold: string; text?: string; className?: string }) => {
   return (
-    <div className={'text-2xl'}>
+    <h1 className={'text-2xl'}>
       <span className={cn('font-semibold', className)}>{bold}</span> <span className={'font-normal'}>{text}</span>
-    </div>
+    </h1>
   );
 };
 
@@ -17,17 +17,34 @@ const HeaderTitle = ({ children }: { children: ReactNode }) => {
 };
 
 const HeaderGrayText = ({ children, disabled }: { children: ReactNode; disabled?: boolean }) => {
-  return <div className={cn('cursor-pointer text-sm font-medium text-v1-text-primary-400', disabled && 'text-v1-text-primary-200')}>{children}</div>;
+  return (
+    <div
+      className={cn(
+        'cursor-pointer text-sm font-medium text-v1-text-primary-400',
+        disabled && 'text-v1-text-primary-200',
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 const HeaderIconWrapper = ({ children }: { children: ReactNode }) => {
   return <div className={'flex items-center gap-4'}>{children}</div>;
 };
 
-const HeaderIcon = ({ Icon, onClick }: { Icon: ComponentType<SVGProps<SVGSVGElement>>; onClick?: () => void }) => {
+const HeaderIcon = ({
+  Icon,
+  onClick,
+  className,
+}: {
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  onClick?: () => void;
+  className?: string;
+}) => {
   return (
-    <button type={'button'} onClick={onClick}>
-      <Icon className={'h-6 w-6'} />
+    <button type={'button'} className={'flex h-6 w-6 items-center justify-center'} onClick={onClick}>
+      <Icon className={cn(className)} />
     </button>
   );
 };
@@ -37,16 +54,14 @@ const HeaderItem = ({ children }: { children?: ReactNode }) => {
 };
 
 const HeaderCenter = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className='absolute left-1/2 -translate-x-1/2 transform text-center text-lg font-semibold'>{children}</div>
-  );
+  return <h1 className='absolute left-1/2 -translate-x-1/2 transform text-center text-lg font-semibold'>{children}</h1>;
 };
 
 const Header = ({ children, className }: { children: ReactNode; className?: string }) => {
   return (
     <div
       className={cn(
-        'relative flex h-[56px] items-center justify-between border-b text-v1-text-primary-500 px-6 py-4 font-bold shadow-black',
+        'relative flex h-[56px] items-center justify-between border-b px-6 py-4 font-bold text-v1-text-primary-500 shadow-black',
         className,
       )}
     >
