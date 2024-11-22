@@ -7,9 +7,10 @@ import FeedAvatar from '@/assets/images/placeholder/FeedAvatar.png';
 import { cn } from '@/lib/shadcn/utils';
 
 const FeedUserProfile = () => {
-  const [isFallowed, setIsFallowed] = useState(false);
-  const handleFallow = () => {
-    setIsFallowed(!isFallowed);
+  const [isFollowed, setIsFollowed] = useState(false);
+
+  const handleFollow = () => {
+    setIsFollowed(!isFollowed);
   };
   return (
     <div className={'px-8 pt-8'}>
@@ -17,7 +18,7 @@ const FeedUserProfile = () => {
         <div className={'relative h-[112px] w-[112px] flex-none rounded-full bg-amber-200'}>
           <Image src={FeedAvatar} alt={'avatar'} fill />
         </div>
-        <div className={''}>
+        <div>
           <p className={'pb-4 font-medium text-v1-text-primary-500'}>
             책은 나를 조금 더 맛진 세상으로 데려다 줄꺼라 믿어요 📚💫
           </p>
@@ -51,11 +52,11 @@ const FeedUserProfile = () => {
       </div>
       <div className={'flex gap-2 pt-[30px]'}>
         <button
-          onClick={handleFallow}
+          onClick={handleFollow}
           type={'button'}
           className={cn(
             'flex-1 rounded-[20px] border border-v1-orange-500 p-1 font-medium leading-7',
-            isFallowed ? 'bg-v1-orange-500 text-white' : 'bg-v1-orange-50 text-v1-orange-500',
+            isFollowed ? 'bg-v1-orange-500 text-white' : 'bg-v1-orange-50 text-v1-orange-500',
           )}
         >
           팔로우

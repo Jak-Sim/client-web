@@ -29,6 +29,7 @@ export default function RootLayout({
     <html lang='ko'>
       <body className={` ${pretendard.className} ${nimbusSans.variable} antialiased`}>
         <div className={'m-auto flex h-screen max-w-[400px] flex-col'}>{children}</div>
+        <div id={'modal-root'}></div>
       </body>
     </html>
   );
