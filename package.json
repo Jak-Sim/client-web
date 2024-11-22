@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "npx prettier --write ./src/app",
-    "swagger-typescript-api": "swagger-typescript-api -p ./src/types/CHAT_SCHEMA.json -r -o src/models --modular -d --extract-request-body --extract-response-body --extract-response-error --axios",
+    "swagger-chat": "swagger-typescript-api -t ./src/models/templates -p src/models/swagger/chat.yaml -r -o src/models/chat --modular -d --extract-request-body --extract-response-body --extract-response-error --axios",
     "postinstall": "husky",
     "lint-staged": "lint-staged"
   },

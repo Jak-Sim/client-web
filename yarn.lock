@@ -5355,9 +5355,9 @@ swagger-schema-official@2.0.0-bab6bed:
   integrity sha512-rCC0NWGKr/IJhtRuPq/t37qvZHI/mH4I4sxflVM+qgVe5Z2uOCivzWaVbuioJaB61kvm5UvB7b49E+oBY0M8jA==
 
 swagger-typescript-api@^13.0.22:
-  version "13.0.22"
-  resolved "https://registry.yarnpkg.com/swagger-typescript-api/-/swagger-typescript-api-13.0.22.tgz#d7e0711fb51530ade90391e6ca2cc5fb7b4fd471"
-  integrity sha512-LVLOWvozOE3izesDrfmhOpwr6XsCRGsrfJuAXsaHkzQxYPAcpSRIAzodmz1hcGJ8BOPiBCKocH1LQ96F0lmmAw==
+  version "13.0.23"
+  resolved "https://registry.yarnpkg.com/swagger-typescript-api/-/swagger-typescript-api-13.0.23.tgz#411d421a64877c5f168260329fefda6d7bf4629f"
+  integrity sha512-HhoIepxlFEU7Ol42Gh8/tvwhSxdkHcweX2tRkNhbZYBiEA+rK3C6N85MnwoeQR5XbidE3Kz8mLOqIerVGgR9uw==
   dependencies:
     "@types/swagger-schema-official" "^2.0.25"
     consola "^3.2.3"

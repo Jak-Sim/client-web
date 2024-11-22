@@ -1,14 +1,10 @@
 import ChatRoomPage from '@/app/(pages)/chat/[id]/_components/ChatRoomPage';
-import { socketApi } from '@/lib/axios/axios';
+import { Message } from '@/models/chat/Message';
 
 interface PageProps {
   params: {
     id: string;
   };
-}
-
-interface FetchProps {
-  roomId: string;
 }
 
 export interface ChatMessage {
@@ -31,24 +27,12 @@ export interface ImageChatMessage {
   userId: 'string';
 }
 
-// id: '1731860245286-0';
-// imageId: 6;
-// imageType: 'normal';
-// imageUrl: 'https://jaksimimage2.s3.ap-northeast-2.amazonaws.com/uploads/1731860245137-154101143.jpeg';
-// roomId: 17;
-// timestamp: 1731860245285;
-// type: 'image';
-// userId: 'user2';
-
-const fetchPreviousChatMessageData = async ({ roomId }: FetchProps) => {
-  const previousChatMessageData = await socketApi.get<(ChatMessage | ImageChatMessage)[]>(`/chat/message/${roomId}`);
-  return previousChatMessageData.data;
-};
+const messageApi = new Message();
 
 const Page = async ({ params }: PageProps) => {
   const { id } = params;
 
-  const previousChatMessageData = await fetchPreviousChatMessageData({ roomId: id });
+  const { data: previousChatMessageData } = await messageApi.messageDetail(Number(id));
 
   return <ChatRoomPage id={id} previousChatMessageData={previousChatMessageData} />;
 };

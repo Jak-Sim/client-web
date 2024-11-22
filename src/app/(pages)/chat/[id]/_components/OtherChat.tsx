@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
-import { ChatMessage, ImageChatMessage } from '@/app/(pages)/chat/[id]/page';
+import { MessageDetailData } from '@/models/chat/data-contracts';
 
-const OtherChat = (props: ChatMessage | ImageChatMessage) => {
+type Message = MessageDetailData[number];
+
+const OtherChat = (props: Message) => {
   return (
     <div className={'mb-4 flex gap-2'}>
       <div className={'h-8 w-8 rounded-full bg-[#f6f6f6]'} />

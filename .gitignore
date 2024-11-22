@@ -37,3 +37,6 @@ next-env.d.ts
 
 # workspace
 .idea
+
+# swagger
+src/models/swagger/*

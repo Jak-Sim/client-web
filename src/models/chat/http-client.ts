@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,9 +10,11 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-
+import { getServerSession } from 'next-auth';
+import { getSession } from 'next-auth/react';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
 import axios from 'axios';
+import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -54,10 +58,23 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || '' });
+    this.instance = axios.create({
+      ...axiosConfig,
+      baseURL: axiosConfig.baseURL || 'process.env.NEXT_PUBLIC_API_URL_SOCKET',
+    });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
+    this.instance.interceptors.request.use(async (config) => {
+      const getSessionFn = typeof window === undefined ? getServerSession : getSession;
+      const session = (await getSessionFn(nextAuthOptions)) as { auth: { AT: string } } | undefined;
+      const AT = session?.auth?.AT;
+      if (AT) {
+        config.headers.AT = AT;
+      }
+
+      return config;
+    });
   }
 
   public setSecurityData = (data: SecurityDataType | null) => {
@@ -121,11 +138,11 @@ export class HttpClient<SecurityDataType = unknown> {
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = format || this.format || undefined;
 
-    if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
+    if (type === ContentType.FormData && body && typeof body === 'object') {
       body = this.createFormData(body as Record<string, unknown>);
     }
 
-    if (type === ContentType.Text && body && body !== null && typeof body !== 'string') {
+    if (type === ContentType.Text && body && typeof body !== 'string') {
       body = JSON.stringify(body);
     }
 

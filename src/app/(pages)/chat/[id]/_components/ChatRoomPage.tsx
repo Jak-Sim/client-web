@@ -5,20 +5,20 @@ import { io } from 'socket.io-client';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
 import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
-import { ChatMessage, ImageChatMessage } from '@/app/(pages)/chat/[id]/page';
 import { Plus } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { socketApi } from '@/lib/axios/axios';
+import { MessageDetailData } from '@/models/chat/data-contracts';
 
 interface ChatRoomPageProps {
   id: string;
-  previousChatMessageData: (ChatMessage | ImageChatMessage)[];
+  previousChatMessageData: MessageDetailData;
 }
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState<(ChatMessage | ImageChatMessage)[]>(previousChatMessageData);
+  const [chat, setChat] = useState<MessageDetailData[]>(previousChatMessageData);
   const roomRef = useRef<HTMLDivElement>(null);
   const [userId, setUserId] = useState<string>('');
   const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
@@ -26,11 +26,11 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   useEffect(() => {
     socket.emit('joinRoom', id);
 
-    socket.on('chat message', (data: ChatMessage | ImageChatMessage) => {
+    socket.on('chat message', (data: MessageDetailData) => {
       setChat((prev) => [...prev, data]);
     });
 
-    socket.on('chat image', (data: ChatMessage | ImageChatMessage) => {
+    socket.on('chat image', (data: MessageDetailData) => {
       setChat((prev) => [...prev, data]);
     });
 
@@ -38,7 +38,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
       socket.off('chat message');
       socket.off('chat image');
     };
-  }, [id]);
+  }, [id, socket]);
 
   const sendMessage = () => {
     socket.emit('chat message', { message, userId, roomId: id });
