@@ -1,7 +1,5 @@
 /* eslint-disable */
-
 /* tslint:disable */
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -10,23 +8,23 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { RoomsDeleteData } from './data-contracts';
+
+import { DeleteRoomIdData } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class Rooms<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class RoomId<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
-   * @description Deletes a chat room with the specified room ID.
+   * @description Delete a chat room.
    *
    * @tags Chat Rooms
-   * @name RoomsDelete
-   * @summary Delete a chat room
-   * @request DELETE:/rooms/{roomId}
-   * @response `200` `RoomsDeleteData` Room deleted successfully
-   * @response `500` `void` Failed to delete room
+   * @name DeleteRoomId
+   * @request DELETE:/{roomId}
+   * @response `200` `DeleteRoomIdData` OK
+   * @response `500` `void` Internal Server Error
    */
-  roomsDelete = (roomId: number, params: RequestParams = {}) =>
-    this.request<RoomsDeleteData, void>({
-      path: `/rooms/${roomId}`,
+  deleteRoomId = (roomId: string, params: RequestParams = {}) =>
+    this.request<DeleteRoomIdData, void>({
+      path: `/${roomId}`,
       method: 'DELETE',
       ...params,
     });

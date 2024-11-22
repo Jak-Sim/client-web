@@ -17,7 +17,7 @@ const MyChat = (props: Message) => {
             {props.message}
           </div>
         )}
-        {props.type === 'image' && (
+        {props.type === 'image' && props.imageUrl && (
           <div className={'relative h-[170px] w-[170px] overflow-hidden rounded-2xl bg-v1-primary text-xs font-normal'}>
             <Image src={props.imageUrl} sizes={'170px'} className={'object-cover'} fill alt={props.type} />
           </div>

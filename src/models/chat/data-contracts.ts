@@ -9,26 +9,14 @@
  * ---------------------------------------------------------------
  */
 
-export type GroupListData = {
-  roomId?: number;
-  name?: string;
-}[];
+export type GroupListData = any;
 
-export type ChallengeListData = {
-  roomId?: number;
-  name?: string;
-}[];
+export type ChallengeListData = any;
 
-export type MessageDetailData = {
-  messageId?: number;
-  userId?: string;
-  message?: string;
-  /** @format date-time */
-  timestamp?: string;
-}[];
+export type MessageDetailData = any;
 
 export interface CreateCreatePayload {
-  roomName?: string;
+  roomName: string;
   type?: string;
   participants?: string[];
 }
@@ -43,4 +31,22 @@ export interface ChallengeCreatePayload {
 
 export type ChallengeCreateData = any;
 
-export type RoomsDeleteData = any;
+export interface UploadCreatePayload {
+  roomId?: string;
+}
+
+export type UploadCreateData = any;
+
+export interface UploadCreateBody {
+  roomId?: string;
+  userId?: string;
+}
+
+export type UploadCreateResult = any;
+
+export interface ConfirmCreatePayload {
+  imageId?: string;
+  status?: string;
+}
+
+export type ConfirmCreateData = any;

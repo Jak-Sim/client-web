@@ -9,22 +9,21 @@
  * ---------------------------------------------------------------
  */
 
-import { MessageDetailData } from './data-contracts';
+import { HealthListData } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class Message<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Health<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
-   * @description Fetch messages for a specific chat room.
+   * No description
    *
-   * @tags Chat Rooms
-   * @name MessageDetail
-   * @request GET:/message/{roomId}
-   * @response `200` `MessageDetailData` OK
-   * @response `500` `void` Internal Server Error
+   * @tags Default
+   * @name HealthList
+   * @request GET:/health
+   * @response `200` `HealthListData` OK
    */
-  messageDetail = (roomId: any, params: RequestParams = {}) =>
-    this.request<MessageDetailData, void>({
-      path: `/message/${roomId}`,
+  healthList = (params: RequestParams = {}) =>
+    this.request<HealthListData, any>({
+      path: `/health`,
       method: 'GET',
       ...params,
     });

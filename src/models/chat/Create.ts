@@ -1,7 +1,5 @@
 /* eslint-disable */
-
 /* tslint:disable */
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -10,20 +8,20 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+
 import { ChallengeCreateData, ChallengeCreatePayload, CreateCreateData, CreateCreatePayload } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Create<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
-   * @description Creates a new chat room with the given name, type, and participants.
+   * @description Create a new chat room.
    *
    * @tags Chat Rooms
    * @name CreateCreate
-   * @summary Create a new chat room
    * @request POST:/create
-   * @response `201` `CreateCreateData` Room created successfully
-   * @response `400` `void` Missing User ID in headers
-   * @response `500` `void` Failed to create room
+   * @response `201` `CreateCreateData` Created
+   * @response `400` `void` Bad Request
+   * @response `500` `void` Internal Server Error
    */
   createCreate = (data: CreateCreatePayload, params: RequestParams = {}) =>
     this.request<CreateCreateData, void>({
@@ -34,17 +32,16 @@ export class Create<SecurityDataType = unknown> extends HttpClient<SecurityDataT
       ...params,
     });
   /**
-   * @description Creates a new chat room associated with a specific challenge.
+   * @description Create a new challenge chat room.
    *
    * @tags Chat Rooms
    * @name ChallengeCreate
-   * @summary Create a new challenge chat room
    * @request POST:/create/challenge/{challengeId}
-   * @response `201` `ChallengeCreateData` Challenge room created successfully
-   * @response `400` `void` Invalid request data
-   * @response `500` `void` Failed to create challenge chat room
+   * @response `201` `ChallengeCreateData` Created
+   * @response `400` `void` Bad Request
+   * @response `500` `void` Internal Server Error
    */
-  challengeCreate = (challengeId: number, data: ChallengeCreatePayload, params: RequestParams = {}) =>
+  challengeCreate = (challengeId: any, data: ChallengeCreatePayload, params: RequestParams = {}) =>
     this.request<ChallengeCreateData, void>({
       path: `/create/challenge/${challengeId}`,
       method: 'POST',
