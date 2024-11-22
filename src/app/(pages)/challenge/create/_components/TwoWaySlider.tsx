@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import Slider from '@/components/input/Slider';
 
-export default function TwoWaySlider() {
-  const min = 1;
+export default function TwoWaySlider({
+  value,
+  onChange,
+}: {
+  value: [number, number];
+  onChange: (value: [number, number]) => void;
+}) {
+  const defaultTwoWayValue: [number, number] = [value[0], value[1]];
+  const min = 2;
   const max = 10;
-  const defaultTwoWayValue: [number, number] = [2, 4];
 
   const getSliderValue = (value: number) => {
-    return ((value - 1) / (max - 1)) * 100;
+    return ((value - min) / (max - min)) * 100;
   };
 
   const [inputValue, setInputValue] = useState<[number, number]>(defaultTwoWayValue);
@@ -23,6 +29,7 @@ export default function TwoWaySlider() {
       if (value <= inputValue[1]) {
         setSliderValue([getSliderValue(value), sliderValue[1]]);
         setInputValue([value, inputValue[1]]);
+        onChange([value, inputValue[1]]);
       } else {
         event.target.value = inputValue[1].toString();
       }
@@ -30,6 +37,7 @@ export default function TwoWaySlider() {
       if (value >= inputValue[0]) {
         setSliderValue([sliderValue[0], getSliderValue(value)]);
         setInputValue([inputValue[0], value]);
+        onChange([inputValue[0], value]);
       } else {
         event.target.value = inputValue[0].toString();
       }

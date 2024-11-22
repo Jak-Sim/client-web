@@ -1,12 +1,8 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function HashTags({
-  hashtags,
-  setHashtags,
-}: {
-  hashtags: Set<string>;
-  setHashtags: (hashtags: Set<string>) => void;
-}) {
+export default function HashTags({ value, onChange }: { value: string[]; onChange: (value: string[]) => void }) {
+  const [hashtags, setHashtags] = useState<Set<string>>(new Set(value));
   const MAX_HASHTAG_LENGTH = 50;
 
   const {
@@ -20,12 +16,14 @@ export default function HashTags({
   const handleAddHashtag = (hashtag: string) => {
     if (hashtag.trim()) {
       setHashtags(new Set(hashtags.add('#' + hashtag)));
+      onChange(Array.from(hashtags));
     }
   };
 
   const handleRemoveHashtag = (hashtag: string) => {
     hashtags.delete(hashtag);
     setHashtags(new Set(hashtags));
+    onChange(Array.from(hashtags));
   };
 
   const hashtagTextLength = Array.from(hashtags).join('').length;
@@ -50,7 +48,7 @@ export default function HashTags({
         <div
           className={`mt-[1px] flex flex-1 items-center text-v1-text-primary-200 ${hashtagTextLength < MAX_HASHTAG_LENGTH && dirtyFields.hashtagInput ? '' : ''} ${hashtagTextLength >= MAX_HASHTAG_LENGTH ? 'invisible h-0' : ''}`}
         >
-          <span>#</span>
+          <label htmlFor='hashtag-input'>#</label>
           <input
             placeholder={!dirtyFields.hashtagInput ? '해시태그로#챌린지를#소개해요' : ''}
             id='hashtag-input'
@@ -59,6 +57,17 @@ export default function HashTags({
             autoComplete='off'
             maxLength={MAX_HASHTAG_LENGTH - hashtagTextLength - 1}
             disabled={hashtagTextLength >= MAX_HASHTAG_LENGTH}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+              }
+              if (e.key === 'Backspace' && hashtagInputLength === 0) {
+                const lastHashtag = Array.from(hashtags).pop();
+                if (lastHashtag) {
+                  handleRemoveHashtag(lastHashtag);
+                }
+              }
+            }}
             onKeyUp={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 handleAddHashtag(getValues('hashtagInput'));

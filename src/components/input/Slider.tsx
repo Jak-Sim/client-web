@@ -50,7 +50,7 @@ const TwoWaySlider = ({
   onChange: (event: React.ChangeEvent<HTMLInputElement>, type: 'from' | 'to') => void;
 }) => {
   return (
-    <div className='relative mb-5 mt-4 w-full'>
+    <div className='relative my-4 w-full'>
       <SliderTrack>
         <SliderProgress style={{ left: `${sliderValue[0]}%`, right: `${100 - sliderValue[1]}%` }} />
       </SliderTrack>

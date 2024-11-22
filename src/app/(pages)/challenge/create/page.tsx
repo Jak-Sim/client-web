@@ -9,7 +9,7 @@ import HeaderTempSaveButton from './_components/TempSaveChallengeButton';
 import useTempSaveChallenge from './_hooks/useTempSaveChallenge';
 
 const Page = () => {
-  const { challenge, saveTempChallenge } = useTempSaveChallenge();
+  const { tempSaved, saveTempChallenge, removeTempChallenge, updateChallenge } = useTempSaveChallenge();
 
   return (
     <PageLayout
@@ -19,12 +19,12 @@ const Page = () => {
             <Header.Icon Icon={X} />
           </Link>
           <Header.Center>챌린지 생성하기</Header.Center>
-          <HeaderTempSaveButton saveTempFn={saveTempChallenge} tempSaveExists={!!challenge} />
+          <HeaderTempSaveButton saveTempFn={saveTempChallenge} tempSaveExists={!!tempSaved.current} />
         </Header>
       }
       className='animate-fade-in h-full bg-v1-background'
     >
-      <CreateChallengeForm />
+      <CreateChallengeForm removeTempChallenge={removeTempChallenge} updateChallenge={updateChallenge} />
     </PageLayout>
   );
 };

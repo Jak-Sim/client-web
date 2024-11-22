@@ -1,18 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-
-interface Challenge {
-  title: string;
-  description: string;
-  tags: string[];
-  public: boolean;
-  person: {
-    min: number;
-    max: number;
-  };
-  thumbnail: string;
-}
+import { Challenge } from '../_components/CreateChallengeForm';
 
 export default function useTempSaveChallenge() {
   const tempSaved = useRef<string | null>(null);
@@ -28,23 +17,18 @@ export default function useTempSaveChallenge() {
     return null;
   };
 
-  const saveTempChallenge = () => {
-    const TEMP = {
-      title: '제목',
-      description: '설명',
-      tags: ['태그1', '태그2', '태그3'],
-      public: true,
-      person: { min: 1, max: 10 },
-      thumbnail: 'https://via.placeholder.com/150',
-    };
+  const updateChallenge = (challenge: Challenge) => {
+    setChallenge(challenge);
+  };
 
+  const saveTempChallenge = () => {
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('challenge', JSON.stringify(TEMP));
-      tempSaved.current = JSON.stringify(TEMP);
+      localStorage.setItem('challenge', JSON.stringify(challenge));
+      tempSaved.current = JSON.stringify(challenge);
     }
   };
 
-  const clearTempChallenge = () => {
+  const removeTempChallenge = () => {
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem('challenge');
       tempSaved.current = null;
@@ -52,8 +36,12 @@ export default function useTempSaveChallenge() {
   };
 
   useEffect(() => {
-    setChallenge(loadChallenge());
+    const loadedChallenge = loadChallenge();
+    if (loadedChallenge) {
+      setChallenge(loadedChallenge);
+      tempSaved.current = loadedChallenge;
+    }
   }, []);
 
-  return { challenge, loadChallenge, saveTempChallenge, clearTempChallenge };
+  return { challenge, loadChallenge, saveTempChallenge, removeTempChallenge, updateChallenge, tempSaved };
 }

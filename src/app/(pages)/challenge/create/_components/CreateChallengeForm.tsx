@@ -1,38 +1,102 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import Button from '@/components/button/Button';
 import InputUnderline from '@/components/input/InputUnderline';
 import { Switch } from '@/components/ui/switch';
+import { api } from '@/lib/axios/axios';
 import HashTags from './HashTags';
 import TwoWaySlider from './TwoWaySlider';
 import UploadThumbnail from './UploadThumbnail';
 
-export default function CreateChallengeForm() {
-  const [challengeName, setChallengeName] = useState('');
-  const [hashtags, setHashtags] = useState<Set<string>>(new Set());
+interface CreateChallengeFormProps {
+  removeTempChallenge: () => void;
+  updateChallenge: (challenge: Challenge) => void;
+}
+
+export interface Challenge {
+  challengeName: string;
+  backgroundImage: string;
+  isPublic: boolean;
+  minParticipants: number;
+  maxParticipants: number;
+  tags: string[];
+}
+
+export default function CreateChallengeForm({ removeTempChallenge, updateChallenge }: CreateChallengeFormProps) {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<Challenge>({
+    defaultValues: {
+      challengeName: '',
+      backgroundImage: '',
+      isPublic: false,
+      minParticipants: 3,
+      maxParticipants: 10,
+      tags: [],
+    },
+  });
+
+  const challengeName = useWatch({ control, name: 'challengeName' });
+  const minParticipants = useWatch({ control, name: 'minParticipants' });
+  const maxParticipants = useWatch({ control, name: 'maxParticipants' });
+  const watchedValues = useWatch({ control });
+
+  const participantsChange = (value: [number, number]) => {
+    if (getValues('minParticipants') !== value[0]) setValue('minParticipants', value[0]);
+    if (getValues('maxParticipants') !== value[1]) setValue('maxParticipants', value[1]);
+  };
+
+  const onSubmit = (data: Challenge) => {
+    const { challengeName, ...rest } = data;
+    const newData = {
+      name: challengeName,
+      ...rest,
+    };
+    api.post('/challenge/create', newData);
+
+    removeTempChallenge();
+  };
+
+  useEffect(() => {
+    if (watchedValues) {
+      updateChallenge(getValues());
+    }
+  }, [watchedValues]);
 
   return (
-    <div className='flex h-full flex-col justify-between px-6 pb-8'>
+    <form className='flex h-full flex-col justify-between px-6 pb-8' onSubmit={handleSubmit(onSubmit)}>
       <div className='flex flex-1 flex-col gap-8 py-10'>
         <UploadThumbnail />
 
         <div>
           <InputUnderline
-            value={challengeName}
             placeholder='챌린지 이름을 입력해 주세요'
-            onChange={(e) => setChallengeName(e.target.value)}
             hasMaxLength={true}
             maxLength={20}
+            currentLength={challengeName.length}
+            isError={!!errors.challengeName}
+            {...register('challengeName', { required: true, maxLength: 20 })}
           />
-          <HashTags hashtags={hashtags} setHashtags={setHashtags} />
+
+          <Controller
+            control={control}
+            name='tags'
+            render={({ field }) => <HashTags value={field.value} onChange={field.onChange} />}
+          />
         </div>
 
-        <div>
+        <div className='mb-6 mt-2'>
           <FieldTitleAndDescription
             title='챌린지 참여 인원 수'
             description='참여할 수 있는 최대의 인원 수를 설정해요.'
           />
-          <div className='mt-4'>
-            <TwoWaySlider />
+          <div className='mt-2'>
+            <TwoWaySlider value={[minParticipants, maxParticipants]} onChange={participantsChange} />
           </div>
         </div>
 
@@ -43,12 +107,16 @@ export default function CreateChallengeForm() {
               description='공개되지 않은 챌린지는 코드로 참여 할수 있어요'
             />
           </div>
-          <Switch />
+          <Controller
+            control={control}
+            name='isPublic'
+            render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
+          />
         </div>
       </div>
 
       <Button>챌린지 생성 완료</Button>
-    </div>
+    </form>
   );
 }
 
