@@ -59,6 +59,7 @@ export default function CreateChallengeForm({
   const challengeName = useWatch({ control, name: 'challengeName' });
   const minParticipants = useWatch({ control, name: 'minParticipants' });
   const maxParticipants = useWatch({ control, name: 'maxParticipants' });
+  const backgroundImage = useWatch({ control, name: 'backgroundImage' });
   const watchedValues = useWatch({ control });
 
   const participantsChange = (value: [number, number]) => {
@@ -84,9 +85,9 @@ export default function CreateChallengeForm({
   }, [watchedValues]);
 
   return (
-    <form className='flex h-full flex-col justify-between px-6 pb-8' onSubmit={handleSubmit(onSubmit)}>
+    <form className='flex h-full flex-col justify-between px-6' onSubmit={handleSubmit(onSubmit)}>
       <div className='flex flex-1 flex-col gap-8 py-10'>
-        <UploadThumbnail />
+        <UploadThumbnail backgroundImage={backgroundImage} />
 
         <div>
           <InputUnderline
@@ -130,7 +131,9 @@ export default function CreateChallengeForm({
         </div>
       </div>
 
-      <Button>챌린지 생성 완료</Button>
+      <div className='pb-6'>
+        <Button disabled={!challengeName}>챌린지 생성 완료</Button>
+      </div>
     </form>
   );
 }
