@@ -24,7 +24,11 @@ const Page = () => {
       }
       className='animate-fade-in h-full bg-v1-background'
     >
-      <CreateChallengeForm removeTempChallenge={removeTempChallenge} updateChallenge={updateChallenge} />
+      <CreateChallengeForm
+        tempSaved={tempSaved}
+        removeTempChallenge={removeTempChallenge}
+        updateChallenge={updateChallenge}
+      />
     </PageLayout>
   );
 };

@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Challenge } from '../_components/CreateChallengeForm';
 
 export default function useTempSaveChallenge() {
-  const tempSaved = useRef<string | null>(null);
+  const tempSaved = useRef<Challenge | null>(null);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
 
   const loadChallenge = () => {
     if (typeof localStorage !== 'undefined') {
       const savedChallenge = localStorage.getItem('challenge');
       if (savedChallenge) {
-        return JSON.parse(savedChallenge);
+        return JSON.parse(savedChallenge) as Challenge;
       }
     }
     return null;
@@ -24,7 +24,6 @@ export default function useTempSaveChallenge() {
   const saveTempChallenge = () => {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('challenge', JSON.stringify(challenge));
-      tempSaved.current = JSON.stringify(challenge);
     }
   };
 

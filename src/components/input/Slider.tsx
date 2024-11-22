@@ -74,7 +74,7 @@ const SliderTrack = ({ children }: { children: ReactNode }) => {
 };
 
 const SliderProgress = ({ style }: { style: React.CSSProperties }) => {
-  return <div className='-z-1 absolute h-full rounded-md bg-v1-orange-400' style={style} />;
+  return <div className='-z-1 absolute h-full rounded-md bg-v1-orange-400 transition-transform' style={style} />;
 };
 
 const SliderInput = ({

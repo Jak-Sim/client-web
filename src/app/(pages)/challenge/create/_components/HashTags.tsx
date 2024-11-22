@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function HashTags({ value, onChange }: { value: string[]; onChange: (value: string[]) => void }) {
@@ -29,6 +29,10 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
   const hashtagTextLength = Array.from(hashtags).join('').length;
   const hashtagInputLength = watch('hashtagInput').length;
   const hashtagCount = hashtagTextLength + hashtagInputLength;
+
+  useEffect(() => {
+    setHashtags(new Set(value));
+  }, [value]);
 
   return (
     <div className='relative w-full'>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { MutableRefObject, useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import Button from '@/components/button/Button';
 import InputUnderline from '@/components/input/InputUnderline';
@@ -9,6 +9,7 @@ import TwoWaySlider from './TwoWaySlider';
 import UploadThumbnail from './UploadThumbnail';
 
 interface CreateChallengeFormProps {
+  tempSaved: MutableRefObject<Challenge | null>;
   removeTempChallenge: () => void;
   updateChallenge: (challenge: Challenge) => void;
 }
@@ -22,7 +23,11 @@ export interface Challenge {
   tags: string[];
 }
 
-export default function CreateChallengeForm({ removeTempChallenge, updateChallenge }: CreateChallengeFormProps) {
+export default function CreateChallengeForm({
+  tempSaved,
+  removeTempChallenge,
+  updateChallenge,
+}: CreateChallengeFormProps) {
   const {
     register,
     handleSubmit,
@@ -40,6 +45,16 @@ export default function CreateChallengeForm({ removeTempChallenge, updateChallen
       tags: [],
     },
   });
+
+  useEffect(() => {
+    if (tempSaved.current) {
+      const tempSavedChallenge = tempSaved.current;
+
+      for (const key in tempSavedChallenge) {
+        setValue(key as keyof Challenge, tempSavedChallenge[key as keyof Challenge]);
+      }
+    }
+  }, [tempSaved.current]);
 
   const challengeName = useWatch({ control, name: 'challengeName' });
   const minParticipants = useWatch({ control, name: 'minParticipants' });

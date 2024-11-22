@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from '@/components/input/Slider';
 
 export default function TwoWaySlider({
@@ -43,6 +43,11 @@ export default function TwoWaySlider({
       }
     }
   };
+
+  useEffect(() => {
+    setInputValue(value);
+    setSliderValue([getSliderValue(value[0]), getSliderValue(value[1])]);
+  }, [value]);
 
   return (
     <Slider>

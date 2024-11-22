@@ -40,6 +40,7 @@ const InputUnderline = React.forwardRef<HTMLInputElement, TextFieldProps>(
             {...(value && { value })}
             {...(onChange && { onChange })}
             {...props}
+            autoComplete='off'
           />
           {hasMaxLength && props.maxLength && (
             <div className='mb-0 text-sm text-v1-text-primary-200'>
