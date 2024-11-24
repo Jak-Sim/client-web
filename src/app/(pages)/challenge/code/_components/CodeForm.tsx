@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import Button from '@/components/button/Button';
 import InputWithError from '@/components/input/InputWithErrorMsg';
 import ChallengeCard from '../../_components/ChallengeCard';
@@ -24,7 +24,7 @@ export default function CodeForm() {
     setError,
   } = useForm({ defaultValues: { code: '' } });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FieldValues) => {
     if (!data.code) return;
     const response = true;
 
@@ -48,10 +48,15 @@ export default function CodeForm() {
           setChallenge(null);
         }
       } catch (error) {
-        setError('code', { message: '해당 코드로는 챌린지가 확인되지 않아요' });
+        if (error instanceof Error) {
+          setError('code', { message: error.message });
+        } else {
+          setError('code', { message: '해당 코드로는 챌린지가 확인되지 않아요' });
+        }
       }
     };
     checkCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
 
   return (

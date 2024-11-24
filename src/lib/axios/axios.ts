@@ -1,8 +1,8 @@
+import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { API_URL, SOCKET_URL } from '@/config/config';
-import { getServerSession } from 'next-auth';
-import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route';
+import { nextAuthOptions } from '@/lib/next-auth/auth';
 
 interface NextOptions {
   tags?: string[];
@@ -21,6 +21,9 @@ const api = axios.create({
 
 const socketApi = axios.create({
   baseURL: SOCKET_URL,
+  headers: {
+    Authorization: 'Basic YWRtaW46amFrc2ltMjAyNCE=',
+  },
 });
 
 api.interceptors.request.use(async (config) => {

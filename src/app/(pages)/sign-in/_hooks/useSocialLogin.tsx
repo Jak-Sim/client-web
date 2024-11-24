@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { setCookie } from 'cookies-next';
-import { CustomSession, type JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
+import { CustomSession, JaksimOAuthProviderType } from '@/lib/next-auth/auth';
 
 export default function useSocialLogin() {
   const router = useRouter();
