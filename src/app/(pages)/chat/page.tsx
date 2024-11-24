@@ -3,7 +3,7 @@ import ChatListPage from '@/app/(pages)/chat/_components/ChatListPage';
 import { Plus } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
-import { List } from '@/models/chat/List';
+import { Chat } from '@/models/chat/Chat';
 
 const Page = async () => {
   // const session = await getServerSession(nextAuthOptions);
@@ -12,13 +12,15 @@ const Page = async () => {
   //   return redirect('/sign-in');
   // }
 
-  const listApi = new List();
-  const { data: groupChatListData } = await listApi.groupList({
+  const chatApi = new Chat();
+  const { data: groupChatListData } = await chatApi.listGroupList({
     headers: { 'user-id': 'user1' },
   });
-  const { data: challengeChatListData } = await listApi.challengeList({
+  const { data: challengeChatListData } = await chatApi.listChallengeList({
     headers: { 'user-id': 'user1' },
   });
+
+  console.log(groupChatListData);
 
   return (
     <PageLayout

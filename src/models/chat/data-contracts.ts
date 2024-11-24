@@ -9,44 +9,86 @@
  * ---------------------------------------------------------------
  */
 
-export type GroupListData = any;
-
-export type ChallengeListData = any;
-
-export type MessageDetailData = any;
-
-export interface CreateCreatePayload {
+export interface ChatRoom {
+  roomId: string;
   roomName: string;
-  type?: string;
-  participants?: string[];
+  roomType: 'group' | 'challenge';
 }
 
-export type CreateCreateData = any;
-
-export interface ChallengeCreatePayload {
-  roomName?: string;
-  type?: string;
-  owner?: string;
+export interface CreateChatRoom {
+  roomName: string;
+  type: 'group' | 'challenge';
+  /** 참여자 ID 목록 */
+  participants: string[];
 }
 
-export type ChallengeCreateData = any;
+export interface CreateChallengeRoom {
+  roomName: string;
+  type: string;
+  /** room owner's ID */
+  owner: string;
+}
+
+export interface ChatMessage {
+  messageId: string;
+  roomId: string;
+  /** message sender ID */
+  senderId: string;
+  content: string;
+  /** 'text' or 'image' */
+  type: 'text' | 'image';
+  /** @format date-time */
+  timestamp: string;
+}
+
+export interface DeleteRoomResponse {
+  message: string;
+}
+
+export interface UploadImageResponse {
+  success: boolean;
+  imageUrl: string;
+  /** optional data */
+  data?: Record<string, any>;
+}
+
+export interface UpdateImageStatusRequest {
+  imageId: string;
+  /** 'accepted' or 'rejected' */
+  status: 'accepted' | 'rejected';
+}
+
+export interface UpdateImageStatusResponse {
+  /** success flag */
+  success: boolean;
+  /** updated data */
+  data: Record<string, any>;
+}
+
+export type CreateCreateData = ChatRoom;
+
+export type ChatDeleteData = DeleteRoomResponse;
+
+export type ListGroupListData = ChatRoom[];
+
+export type ListChallengeListData = ChatRoom[];
+
+export type MessageDetailData = ChatMessage[];
+
+export type CreateChallengeCreateData = ChatRoom;
 
 export interface UploadCreatePayload {
-  roomId?: string;
+  image: File;
+  roomId: string;
 }
 
-export type UploadCreateData = any;
+export type UploadCreateData = UploadImageResponse;
 
-export interface UploadCreateBody {
-  roomId?: string;
-  userId?: string;
+export interface MissionUploadCreatePayload {
+  image: File;
+  roomId: string;
 }
 
-export type UploadCreateResult = any;
+export type MissionUploadCreateData = UploadImageResponse;
 
-export interface ConfirmCreatePayload {
-  imageId?: string;
-  status?: string;
-}
-
-export type ConfirmCreateData = any;
+export type MissionConfirmCreateData = UpdateImageStatusResponse;
