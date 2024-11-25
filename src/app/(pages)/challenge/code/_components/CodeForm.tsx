@@ -71,7 +71,7 @@ export default function CodeForm() {
         errorMessage={errors.code?.message || ''}
         autoComplete='off'
       />
-      <div className='flex-1'>{challenge && <ChallengeCard />}</div>
+      <div className='flex-1'>{challenge && <ChallengeCard index={999}/>}</div>
       <Button type='submit' disabled={!challenge}>
         {challenge ? '챌린지 참여하기' : '해당 코드를 확인해 주세요'}
       </Button>
