@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Challenge } from '../_components/CreateChallengeForm';
 
 export default function useTempSaveChallenge() {
@@ -17,9 +17,12 @@ export default function useTempSaveChallenge() {
     return null;
   };
 
-  const updateChallenge = (challenge: Challenge) => {
-    setChallenge(challenge);
-  };
+  const updateChallenge = useCallback(
+    (challenge: Challenge) => {
+      setChallenge(challenge);
+    },
+    [setChallenge],
+  );
 
   const saveTempChallenge = () => {
     if (typeof localStorage !== 'undefined') {

@@ -61,7 +61,7 @@ export default function CreateChallengeForm({
         setValue(key as keyof Challenge, tempSavedChallenge[key as keyof Challenge]);
       }
     }
-  }, [tempSaved.current]);
+  }, [tempSaved, setValue]);
 
   const challengeName = useWatch({ control, name: 'challengeName' });
   const minParticipants = useWatch({ control, name: 'minParticipants' });
@@ -89,7 +89,7 @@ export default function CreateChallengeForm({
     if (watchedValues) {
       updateChallenge(getValues());
     }
-  }, [watchedValues]);
+  }, [watchedValues, getValues, updateChallenge]);
 
   return (
     <form className='flex h-full flex-col justify-between px-6' onSubmit={handleSubmit(onSubmit)}>
