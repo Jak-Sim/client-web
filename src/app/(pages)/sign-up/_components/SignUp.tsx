@@ -5,10 +5,10 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { setCookie } from 'cookies-next';
 import { Controller, useForm } from 'react-hook-form';
-import { CustomSession, JaksimOAuthProviderType } from '@/app/api/auth/[...nextauth]/route';
 import Button from '@/components/button/Button';
 import InputUnderline from '@/components/input/InputUnderline';
 import { api } from '@/lib/axios/axios';
+import { CustomSession, JaksimOAuthProviderType } from '@/lib/next-auth/auth';
 import SignUpAgree from './SignUpAgree';
 import TextField from './v1/TextField';
 

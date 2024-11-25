@@ -7,7 +7,7 @@ import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
 import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 import { Plus } from '@/assets/images/icons';
-import HeaderBackButton from '@/components/layout/HeaderBackButton';
+import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 
 interface ChatRoomPageProps {
@@ -52,7 +52,17 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
 
   return (
     <PageLayout
-      header={{ title: '채팅', left: <HeaderBackButton />, right: <Plus /> }}
+      header={
+        <Header>
+          <Header.Item>
+            <Header.BackButton />
+          </Header.Item>
+          <Header.Title>채팅</Header.Title>
+          <Header.Item>
+            <Header.Icon Icon={Plus} />
+          </Header.Item>
+        </Header>
+      }
       footer={<ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} />}
     >
       <div className={'flex'}>
