@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+const MAX_HASHTAG_LENGTH = 50;
+
 export default function HashTags({ value, onChange }: { value: string[]; onChange: (value: string[]) => void }) {
   const [hashtags, setHashtags] = useState<Set<string>>(new Set(value));
-  const MAX_HASHTAG_LENGTH = 50;
 
   const {
     register,
