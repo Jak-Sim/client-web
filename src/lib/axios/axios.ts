@@ -4,6 +4,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse 
 import { API_URL, SOCKET_URL } from '@/config/config';
 import { nextAuthOptions } from '@/lib/next-auth/auth';
 
+
 interface NextOptions {
   tags?: string[];
 }
@@ -23,6 +24,7 @@ const socketApi = axios.create({
   baseURL: SOCKET_URL,
   headers: {
     Authorization: 'Basic YWRtaW46amFrc2ltMjAyNCE=',
+    'user-id': 'temp',
   },
 });
 
