@@ -11,6 +11,7 @@
     "swagger-typescript-api": "swagger-typescript-api -p ./src/types/CHAT_SCHEMA.json -r -o src/models --modular -d --extract-request-body --extract-response-body --extract-response-error --axios"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-switch": "^1.1.1",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",

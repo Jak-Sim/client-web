@@ -1,5 +1,7 @@
 import { MutableRefObject, useEffect } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
+import { z } from 'zod';
 import Button from '@/components/button/Button';
 import InputUnderline from '@/components/input/InputUnderline';
 import { Switch } from '@/components/ui/switch';
@@ -23,6 +25,10 @@ export interface Challenge {
   tags: string[];
 }
 
+const schema = z.object({
+  challengeName: z.string().min(1).max(20),
+});
+
 export default function CreateChallengeForm({
   tempSaved,
   removeTempChallenge,
@@ -36,6 +42,7 @@ export default function CreateChallengeForm({
     getValues,
     formState: { errors },
   } = useForm<Challenge>({
+    resolver: zodResolver(schema),
     defaultValues: {
       challengeName: '',
       backgroundImage: '',
@@ -96,7 +103,7 @@ export default function CreateChallengeForm({
             maxLength={20}
             currentLength={challengeName.length}
             isError={!!errors.challengeName}
-            {...register('challengeName', { required: true, maxLength: 20 })}
+            {...register('challengeName')}
           />
 
           <Controller
