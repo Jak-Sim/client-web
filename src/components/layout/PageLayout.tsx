@@ -11,7 +11,7 @@ const PageLayout = ({ header, footer, children, className }: PropsWithChildren<P
   return (
     <>
       {header}
-      <main className={`flex-1 overflow-auto bg-[#F2E7E2] ${className || ''}`}>{children}</main>
+      <main className={`flex-1 overflow-auto bg-v1-background ${className || ''}`}>{children}</main>
       {footer ? footer : <Footer />}
     </>
   );

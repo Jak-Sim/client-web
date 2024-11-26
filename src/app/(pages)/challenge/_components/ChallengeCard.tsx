@@ -4,7 +4,6 @@ import { ArrowRight, CrownFill, Fire, Lightning } from '@/assets/images/icons';
 import challengeImage from '@/assets/images/placeholder/chat-list.png';
 import { cn } from '@/lib/shadcn/utils';
 
-
 const INDEX_COLOR = [
   { text: 'text-v1-orange-500', bg: 'bg-v1-orange-500' },
   { text: 'text-v1-blue-500', bg: 'bg-v1-blue-500' },
