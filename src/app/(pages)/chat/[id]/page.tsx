@@ -1,5 +1,5 @@
 import ChatRoomPage from '@/app/(pages)/chat/[id]/_components/ChatRoomPage';
-import { Message } from '@/models/chat/Message';
+import { Chat } from '@/models/chat/Chat';
 
 interface PageProps {
   params: {
@@ -7,32 +7,12 @@ interface PageProps {
   };
 }
 
-export interface ChatMessage {
-  id: string;
-  roomId: number;
-  userId: string;
-  message: string;
-  timestamp: Date;
-  type: 'text';
-}
-
-export interface ImageChatMessage {
-  id: string;
-  imageId: number;
-  imageType: 'normal' | 'challenge';
-  imageUrl: string;
-  roomId: number;
-  timestamp: number;
-  type: 'image';
-  userId: 'string';
-}
-
-const messageApi = new Message();
+const chatApi = new Chat();
 
 const Page = async ({ params }: PageProps) => {
   const { id } = params;
 
-  const { data: previousChatMessageData } = await messageApi.messageDetail(Number(id));
+  const { data: previousChatMessageData } = await chatApi.messageDetail(id);
 
   return <ChatRoomPage id={id} previousChatMessageData={previousChatMessageData} />;
 };

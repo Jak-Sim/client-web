@@ -3,16 +3,16 @@ import Link from 'next/link';
 import type { Chat } from '@/app/(pages)/chat/_components/ChatListPage';
 import { ChatCrown } from '@/assets/images/icons';
 import placeholder from '@/assets/images/placeholder/chat-list.png';
-import { GroupListData } from '@/models/chat/data-contracts';
+import { ChatRoom } from '@/models/chat/data-contracts';
 
 interface ChatListProps {
   chatType: Chat;
-  groupChatListData: GroupListData;
-  challengeChatListData: GroupListData;
+  groupChatListData: ChatRoom[];
+  challengeChatListData: ChatRoom[];
 }
 
 interface ChatItemProps {
-  data: GroupListData;
+  data: ChatRoom;
 }
 
 const ChatItem = ({ data }: ChatItemProps) => {

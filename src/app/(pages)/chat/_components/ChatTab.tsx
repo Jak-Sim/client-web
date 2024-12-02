@@ -2,13 +2,13 @@
 
 import type { Chat } from '@/app/(pages)/chat/_components/ChatListPage';
 import { Comments, FlagChat } from '@/assets/images/icons';
-import { GroupListData } from '@/models/chat/data-contracts';
+import { ChatRoom } from '@/models/chat/data-contracts';
 
 interface ChatTabProps {
   chatType: Chat;
   handleChatType: (type: Chat) => void;
-  groupChatListData: GroupListData;
-  challengeChatListData: GroupListData;
+  groupChatListData: ChatRoom[];
+  challengeChatListData: ChatRoom[];
 }
 
 const ChatTab = ({ chatType, handleChatType, groupChatListData, challengeChatListData }: ChatTabProps) => {

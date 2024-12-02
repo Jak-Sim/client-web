@@ -9,7 +9,7 @@ import { Plus } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { socketApi } from '@/lib/axios/axios';
-import { MessageDetailData } from '@/models/chat/data-contracts';
+import { ChatMessage, MessageDetailData } from '@/models/chat/data-contracts';
 
 interface ChatRoomPageProps {
   id: string;
@@ -18,7 +18,7 @@ interface ChatRoomPageProps {
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState<MessageDetailData[]>(previousChatMessageData);
+  const [chat, setChat] = useState<ChatMessage[]>(previousChatMessageData);
   const roomRef = useRef<HTMLDivElement>(null);
   const [userId, setUserId] = useState<string>('');
   const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
@@ -26,11 +26,11 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   useEffect(() => {
     socket.emit('joinRoom', id);
 
-    socket.on('chat message', (data: MessageDetailData) => {
+    socket.on('chat message', (data: ChatMessage) => {
       setChat((prev) => [...prev, data]);
     });
 
-    socket.on('chat image', (data: MessageDetailData) => {
+    socket.on('chat image', (data: ChatMessage) => {
       setChat((prev) => [...prev, data]);
     });
 
@@ -108,7 +108,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
       <div className={'px-4 py-3'} ref={roomRef}>
         <div className='flex flex-col'>
           {chat.map((msg, index) => (
-            <div key={index}>{msg.userId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
+            <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
           ))}
         </div>
       </div>

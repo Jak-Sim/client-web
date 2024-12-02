@@ -10,11 +10,8 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { getServerSession } from 'next-auth';
-import { getSession } from 'next-auth/react';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from 'axios';
-import axios from 'axios';
-import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route';
+import { socketApi } from '@/lib/axios/axios';
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -58,24 +55,10 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({
-      ...axiosConfig,
-      baseURL: axiosConfig.baseURL || 'process.env.NEXT_PUBLIC_API_URL_SOCKET',
-    });
-
+    this.instance = socketApi;
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
-    this.instance.interceptors.request.use(async (config) => {
-      const getSessionFn = typeof window === undefined ? getServerSession : getSession;
-      const session = (await getSessionFn(nextAuthOptions)) as { auth: { AT: string } } | undefined;
-      const AT = session?.auth?.AT;
-      if (AT) {
-        config.headers.AT = AT;
-      }
-
-      return config;
-    });
   }
 
   public setSecurityData = (data: SecurityDataType | null) => {

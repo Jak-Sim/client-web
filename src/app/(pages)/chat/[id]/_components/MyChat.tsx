@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
-import { MessageDetailData } from '@/models/chat/data-contracts';
+import { ChatMessage } from '@/models/chat/data-contracts';
 
-type Message = MessageDetailData[number];
-
-const MyChat = (props: Message) => {
+const MyChat = (props: ChatMessage) => {
   return (
     <div className={'mb-4 mr-3 flex justify-end'}>
       <div className={'relative'}>
@@ -14,12 +12,12 @@ const MyChat = (props: Message) => {
               'max-w-[170px] break-words rounded-2xl bg-primary px-4 py-3 text-xs font-normal leading-[14px] text-white'
             }
           >
-            {props.message}
+            {props.content}
           </div>
         )}
-        {props.type === 'image' && props.imageUrl && (
+        {props.type === 'image' && (
           <div className={'relative h-[170px] w-[170px] overflow-hidden rounded-2xl bg-v1-primary text-xs font-normal'}>
-            <Image src={props.imageUrl} sizes={'170px'} className={'object-cover'} fill alt={props.type} />
+            <Image src={props.content} sizes={'170px'} className={'object-cover'} fill alt={props.type} />
           </div>
         )}
 

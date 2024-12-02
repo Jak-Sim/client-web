@@ -67,6 +67,28 @@ export interface UpdateImageStatusResponse {
 
 export type CreateCreateData = ChatRoom;
 
+export interface PostChatPayload {
+  /** 추가할 채팅방 ID */
+  roomId?: string;
+  /** 추가할 사용자 ID 목록 */
+  participants?: string[];
+}
+
+export interface PostChatData {
+  /** @example "Participants added successfully" */
+  message?: string;
+}
+
+export type PostChatError =
+  | {
+      /** @example "Invalid request data" */
+      message?: string;
+    }
+  | {
+      /** @example "Failed to add participants" */
+      message?: string;
+    };
+
 export type ChatDeleteData = DeleteRoomResponse;
 
 export type ListGroupListData = ChatRoom[];

@@ -18,6 +18,9 @@ import {
   ListChallengeListData,
   ListGroupListData,
   MessageDetailData,
+  PostChatData,
+  PostChatError,
+  PostChatPayload,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -36,6 +39,34 @@ export class Chat<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
   createCreate = (data: CreateChatRoom, params: RequestParams = {}) =>
     this.request<CreateCreateData, void>({
       path: `/chat/create`,
+      method: 'POST',
+      body: data,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+ * No description
+ *
+ * @tags Chat
+ * @name PostChat
+ * @summary 채팅방에 인원을 추가합니다.
+ * @request POST:/chat/add
+ * @response `200` `PostChatData` 인원 추가 성공
+ * @response `400` `{
+  \** @example "Invalid request data" *\
+    message?: string,
+
+}` 잘못된 요청 (요청 데이터가 유효하지 않을 경우)
+ * @response `500` `{
+  \** @example "Failed to add participants" *\
+    message?: string,
+
+}` 서버 오류 (추가 실패 시)
+ */
+  postChat = (data: PostChatPayload, params: RequestParams = {}) =>
+    this.request<PostChatData, PostChatError>({
+      path: `/chat/add`,
       method: 'POST',
       body: data,
       type: ContentType.Json,
