@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
+import BottomNav from './_components/BottomNav';
 import ChallengeList from './_components/ChallengeList';
 
 const Page = () => {
@@ -14,6 +15,7 @@ const Page = () => {
       }
     >
       <ChallengeList />
+      <BottomNav />
     </PageLayout>
   );
 };

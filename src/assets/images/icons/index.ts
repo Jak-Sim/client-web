@@ -22,6 +22,7 @@ import GoogleLogin from './google-login.svg';
 import KakaoLogin from './kakao-login.svg';
 import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
+import Plus2 from './plus-2.svg';
 import Plus from './plus.svg';
 import Profile from './profile.svg';
 import SearchShiny from './search-shiny.svg';
@@ -57,6 +58,7 @@ export {
   Lightning,
   NaverLogin,
   Plus,
+  Plus2,
   Profile,
   Search,
   SearchShiny,
