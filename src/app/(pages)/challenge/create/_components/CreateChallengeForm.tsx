@@ -1,4 +1,5 @@
 import { MutableRefObject, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
@@ -34,6 +35,7 @@ export default function CreateChallengeForm({
   removeTempChallenge,
   updateChallenge,
 }: CreateChallengeFormProps) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -61,7 +63,7 @@ export default function CreateChallengeForm({
         setValue(key as keyof Challenge, tempSavedChallenge[key as keyof Challenge]);
       }
     }
-  }, [tempSaved.current]);
+  }, [tempSaved, setValue]);
 
   const challengeName = useWatch({ control, name: 'challengeName' });
   const minParticipants = useWatch({ control, name: 'minParticipants' });
@@ -74,22 +76,28 @@ export default function CreateChallengeForm({
     if (getValues('maxParticipants') !== value[1]) setValue('maxParticipants', value[1]);
   };
 
-  const onSubmit = (data: Challenge) => {
+  const onSubmit = async (data: Challenge) => {
     const { challengeName, ...rest } = data;
     const newData = {
       name: challengeName,
       ...rest,
     };
-    api.post('/challenge/create', newData);
-
-    removeTempChallenge();
+    try {
+      const response = await api.post('/challenge/create', newData);
+      const challengeId = response.data.challengeId;
+      router.push(`/challenge/create/success?challengeId=${challengeId}`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      removeTempChallenge();
+    }
   };
 
   useEffect(() => {
     if (watchedValues) {
       updateChallenge(getValues());
     }
-  }, [watchedValues]);
+  }, [watchedValues, getValues, updateChallenge]);
 
   return (
     <form className='flex h-full flex-col justify-between px-6' onSubmit={handleSubmit(onSubmit)}>

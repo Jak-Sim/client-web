@@ -10,7 +10,6 @@ import InputUnderline from '@/components/input/InputUnderline';
 import { api } from '@/lib/axios/axios';
 import { CustomSession, JaksimOAuthProviderType } from '@/lib/next-auth/auth';
 import SignUpAgree from './SignUpAgree';
-import TextField from './v1/TextField';
 
 export interface UserSignUpDto {
   AT: string | null;

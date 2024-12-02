@@ -57,7 +57,7 @@ const SliderWrapper = ({ children, ...props }: SliderProps) => {
       getSliderValue((defaultValue as [number, number])[0], min, max),
       getSliderValue((defaultValue as [number, number])[1], min, max),
     ]);
-  }, [defaultValue]);
+  }, [defaultValue, min, max]);
 
   return (
     <SliderContext.Provider value={{ ...props, sliderPercentage, handleSliderChange, inputValue }}>
