@@ -1,5 +1,5 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { ModalContext, ModalContextProps, ModalNames } from '@/app/(pages)/_components/ModalProvider';
+import { useContext, useEffect, useState } from 'react';
+import { ModalContext, ModalNames } from '@/app/(pages)/_components/ModalProvider';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -10,19 +10,25 @@ export interface ModalProps {
 
 export const useModal = (modalName: ModalNames, defaultValue = false) => {
   const [isOpen, setIsOpen] = useState(defaultValue);
-  const { setModalState } = useContext(ModalContext) as ModalContextProps;
+  const context = useContext(ModalContext);
 
-  const toggleModal = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  if (!context) {
+    throw new Error('useModal must be used within a ModalProvider');
+  }
 
-  const openModal = useCallback(() => {
-    setIsOpen(true);
-  }, []);
+  const { setModalState } = context;
 
-  const closeModal = useCallback(() => {
-    setIsOpen(false);
-  }, []);
+  const toggleModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const openModal = () => {
+    setIsOpen(() => true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(() => false);
+  };
 
   useEffect(() => {
     if (isOpen) {

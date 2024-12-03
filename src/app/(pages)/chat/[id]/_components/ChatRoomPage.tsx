@@ -18,7 +18,7 @@ interface ChatRoomPageProps {
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState<ChatMessage[]>(previousChatMessageData);
+  const [chat, setChat] = useState<ChatMessage[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
   const [userId, setUserId] = useState<string>('');
   const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
@@ -107,6 +107,9 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
       </div>
       <div className={'px-4 py-3'} ref={roomRef}>
         <div className='flex flex-col'>
+          {previousChatMessageData.map((msg, index) => (
+            <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
+          ))}
           {chat.map((msg, index) => (
             <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
           ))}

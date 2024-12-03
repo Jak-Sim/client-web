@@ -23,7 +23,7 @@ const socketApi = axios.create({
   baseURL: SOCKET_URL,
   timeout: 1000,
   headers: {
-    Authorization: 'Basic YWRtaW46amFrc2ltMjAyNCE=',
+    Authorization: `Basic ${btoa(process.env.NEXT_PUBLIC_SOCKET_BASIC_AUTH!)}`,
   },
 });
 

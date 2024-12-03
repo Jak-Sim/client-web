@@ -19,7 +19,7 @@ const Modal = ({
       {modalProps.isOpen && (
         <motion.div
           className={cn(
-            'fixed inset-0 m-auto h-screen w-[400px]',
+            'fixed inset-0 m-auto h-screen max-w-[400px]',
             hasBackDrop && 'bg-black bg-opacity-20 backdrop-blur-sm',
           )}
           initial={{ opacity: 0 }}

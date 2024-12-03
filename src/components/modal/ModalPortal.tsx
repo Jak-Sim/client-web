@@ -3,15 +3,15 @@ import { createPortal } from 'react-dom';
 
 const Portal = ({ children }: { children: ReactElement }) => {
   const [mounted, setMounted] = useState<boolean>(false);
+  const modalRoot = document.getElementById('modal-root')!;
+  console.assert(modalRoot, 'modal-root not found');
 
   useEffect(() => {
     setMounted(true);
-    return () => setMounted(false);
   }, []);
 
-  if (typeof window === 'undefined') return <></>;
-
-  return mounted ? createPortal(children, document.getElementById('modal-root') as HTMLElement) : <></>;
+  if (!mounted) return <></>;
+  return createPortal(children, modalRoot);
 };
 
 export default Portal;
