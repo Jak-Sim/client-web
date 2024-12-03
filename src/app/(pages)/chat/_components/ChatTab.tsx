@@ -1,14 +1,14 @@
 'use client';
 
 import type { Chat } from '@/app/(pages)/chat/_components/ChatListPage';
-import type { ChatItem } from '@/app/(pages)/chat/page';
 import { Comments, FlagChat } from '@/assets/images/icons';
+import { ChatRoom } from '@/models/chat/data-contracts';
 
 interface ChatTabProps {
   chatType: Chat;
   handleChatType: (type: Chat) => void;
-  groupChatListData: ChatItem[];
-  challengeChatListData: ChatItem[];
+  groupChatListData: ChatRoom[];
+  challengeChatListData: ChatRoom[];
 }
 
 const ChatTab = ({ chatType, handleChatType, groupChatListData, challengeChatListData }: ChatTabProps) => {

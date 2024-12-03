@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ChatList from '@/app/(pages)/chat/_components/ChatList';
 import ChatTab from '@/app/(pages)/chat/_components/ChatTab';
-import type { ChatItem } from '@/app/(pages)/chat/page';
+import { ChatRoom } from '@/models/chat/data-contracts';
 
 export type Chat = 'challenge' | 'private';
 
@@ -11,8 +11,8 @@ const ChatListPage = ({
   groupChatListData,
   challengeChatListData,
 }: {
-  groupChatListData: ChatItem[];
-  challengeChatListData: ChatItem[];
+  groupChatListData: ChatRoom[];
+  challengeChatListData: ChatRoom[];
 }) => {
   const [chatType, setChatType] = useState<Chat>('challenge');
 
