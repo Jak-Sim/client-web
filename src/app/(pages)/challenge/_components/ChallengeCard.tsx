@@ -11,14 +11,13 @@ const INDEX_COLOR = [
   { text: 'text-[#F56060]', bg: 'bg-[#F56060]' },
 ];
 
-export default function ChallengeCard({ challenge, userId }: { challenge: Challenge; userId: string }) {
+export default function ChallengeCard({ challenge }: { challenge: Challenge }) {
   const { name, backgroundImage, tags, challengeId, currentParticipants, creatorUserUuid } = challenge;
+  const point = 1000;
   const color = INDEX_COLOR[challengeId % INDEX_COLOR.length];
   const mission = tags;
-  const isOwner = creatorUserUuid === userId;
-
-  // TODO: API 연동 필요한 값: point
-  const point = 1000;
+  const user = { uuid: 'useruuid' };
+  const isOwner = creatorUserUuid === user.uuid;
 
   return (
     <div className='relative min-h-[180px] rounded-2xl bg-white'>

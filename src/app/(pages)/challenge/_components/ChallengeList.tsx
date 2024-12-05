@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import EmptyChallengeImg from '@/assets/images/placeholder/face-sad.png';
-import { CustomSession } from '@/lib/next-auth/auth';
 import ChallengeCard from './ChallengeCard';
 
 export interface Challenge {
@@ -41,7 +40,7 @@ function getDummyChallengeList(): Challenge[] {
   }));
 }
 
-export default function ChallengeList({ session }: { session: CustomSession }) {
+export default function ChallengeList() {
   const challengeList = getDummyChallengeList();
 
   if (challengeList.length === 0) {
@@ -50,8 +49,8 @@ export default function ChallengeList({ session }: { session: CustomSession }) {
 
   return (
     <ul className='flex flex-col gap-3 pb-4'>
-      {challengeList.map((challenge) => (
-        <ChallengeCard key={challenge.challengeId} challenge={challenge} userId={session?.user.userUniqueId} />
+      {challengeList.map((challenge: Challenge) => (
+        <ChallengeCard key={challenge.challengeId} challenge={challenge} />
       ))}
     </ul>
   );
@@ -59,7 +58,7 @@ export default function ChallengeList({ session }: { session: CustomSession }) {
 
 function EmptyChallengeList() {
   return (
-    <div className='flex h-full flex-col items-center justify-center gap-4 pb-16'>
+    <div className='flex h-full flex-col items-center justify-center gap-4'>
       <Image src={EmptyChallengeImg} alt='empty-challenge' className='h-[54px] w-[54px]' />
       <p className='text-semibold text-v1-text-primary-300'>아직 진행중인 챌린지가 없어요!</p>
     </div>
