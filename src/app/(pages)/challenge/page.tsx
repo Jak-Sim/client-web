@@ -14,7 +14,10 @@ const Page = () => {
         </Header>
       }
     >
-      <ChallengeList />
+      <div className='text-xs text-center text-v1-text-primary-400 my-2'>진행 중인 챌린지</div>
+      <div className='px-6'>
+        <ChallengeList />
+      </div>
       <BottomNav />
     </PageLayout>
   );

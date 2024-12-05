@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, CrownFill, Fire, Lightning } from '@/assets/images/icons';
 import challengeImage from '@/assets/images/placeholder/chat-list.png';
 import { cn } from '@/lib/shadcn/utils';
+import { Challenge } from './ChallengeList';
 
 const INDEX_COLOR = [
   { text: 'text-v1-orange-500', bg: 'bg-v1-orange-500' },
@@ -10,27 +11,26 @@ const INDEX_COLOR = [
   { text: 'text-[#F56060]', bg: 'bg-[#F56060]' },
 ];
 
-export default function ChallengeCard({ index }: { index: number }) {
+export default function ChallengeCard({ challenge }: { challenge: Challenge }) {
+  const { name, backgroundImage, tags, challengeId, currentParticipants, creatorUserUuid } = challenge;
   const point = 1000;
-  const challengeName = '챌린지 이름';
-  const participantCount = 10;
-  const color = INDEX_COLOR[index % INDEX_COLOR.length];
-  const mission = ['미션 1', '미션 2', '미션 3'];
-  const isOwner = true;
-  const challengeId = index;
+  const color = INDEX_COLOR[challengeId % INDEX_COLOR.length];
+  const mission = tags;
+  const user = { uuid: 'useruuid' };
+  const isOwner = creatorUserUuid === user.uuid;
 
   return (
     <div className='relative min-h-[180px] rounded-2xl bg-white'>
       {isOwner && <CrownFill className='absolute -top-3 right-8 z-10' />}
 
       <div className='absolute bottom-0 left-0 right-0 top-0 overflow-hidden rounded-2xl'>
-        <Image src={challengeImage} alt='챌린지 이미지' fill className='object-cover' />
+        <Image src={backgroundImage || challengeImage} alt='챌린지 이미지' fill className='object-cover' />
       </div>
 
       <div className='absolute bottom-0 left-0 right-0 top-0 p-5 text-white'>
         <div className='flex h-full flex-col justify-between'>
           <div>
-            <h3 className='mb-1 text-xl font-bold'>{challengeName}</h3>
+            <h3 className='mb-1 text-xl font-bold'>{name}</h3>
             <p className='text-sm'>
               목표 달성까지 <span className={cn('font-bold', color.text)}>{point} 포인트</span> 챌린지
             </p>
@@ -46,7 +46,9 @@ export default function ChallengeCard({ index }: { index: number }) {
               </div>
               <div className='-gap-1 flex items-center'>
                 <Fire />
-                <p className='text-sm'>{participantCount} 명</p>
+                <p className='text-sm'>
+                  <strong>{currentParticipants}</strong> 명
+                </p>
               </div>
             </div>
             <Link href={`/challenge/${challengeId}`}>
