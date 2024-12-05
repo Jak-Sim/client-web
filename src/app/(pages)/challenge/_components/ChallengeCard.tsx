@@ -13,11 +13,17 @@ const INDEX_COLOR = [
 
 export default function ChallengeCard({ challenge }: { challenge: Challenge }) {
   const { name, backgroundImage, tags, challengeId, currentParticipants, creatorUserUuid } = challenge;
-  const point = 1000;
   const color = INDEX_COLOR[challengeId % INDEX_COLOR.length];
   const mission = tags;
-  const user = { uuid: 'useruuid' };
-  const isOwner = creatorUserUuid === user.uuid;
+
+  // TODO: API 연동 필요한 값: point, user의 uuid
+  // const { data: session } = useSession();
+  // const isOwner = creatorUserUuid === session?.user?.uuid;
+
+  const point = 1000; // 포인트는 논의 필요
+  const userUuid = ''; // uuid 요청 필요
+
+  const isOwner = creatorUserUuid === userUuid;
 
   return (
     <div className='relative min-h-[180px] rounded-2xl bg-white'>

@@ -58,7 +58,7 @@ export default function ChallengeList() {
 
 function EmptyChallengeList() {
   return (
-    <div className='flex h-full flex-col items-center justify-center gap-4'>
+    <div className='flex h-full flex-col items-center justify-center gap-4 pb-16'>
       <Image src={EmptyChallengeImg} alt='empty-challenge' className='h-[54px] w-[54px]' />
       <p className='text-semibold text-v1-text-primary-300'>아직 진행중인 챌린지가 없어요!</p>
     </div>
