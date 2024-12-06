@@ -16,7 +16,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
 
   const handleAddHashtag = (hashtag: string) => {
     if (hashtag.trim()) {
-      setHashtags(new Set(hashtags.add('#' + hashtag)));
+      setHashtags(new Set(hashtags.add(hashtag)));
       onChange(Array.from(hashtags));
     }
   };
@@ -25,6 +25,11 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
     hashtags.delete(hashtag);
     setHashtags(new Set(hashtags));
     onChange(Array.from(hashtags));
+  };
+
+  const handleHashtagInputKeyUp = (value: string) => {
+    handleAddHashtag(value.trim());
+    setValue('hashtagInput', '');
   };
 
   const hashtagTextLength = Array.from(hashtags).join('').length;
@@ -46,7 +51,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
             className='cursor-pointer break-all rounded-xl border bg-v1-text-primary-50 px-2 py-[2px] text-sm text-v1-text-primary-400'
             onClick={() => handleRemoveHashtag(hashtag)}
           >
-            {hashtag}
+            #{hashtag}
           </span>
         ))}
 
@@ -74,9 +79,10 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
               }
             }}
             onKeyUp={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                handleAddHashtag(getValues('hashtagInput'));
-                setValue('hashtagInput', '');
+              if (e.key === 'Enter') {
+                handleHashtagInputKeyUp(getValues('hashtagInput'));
+              } else if (e.key === ' ' || e.key === '#' || e.key === ',') {
+                handleHashtagInputKeyUp(getValues('hashtagInput').slice(0, -1));
               }
             }}
             {...register('hashtagInput')}
