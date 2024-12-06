@@ -1,9 +1,7 @@
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, CrownFill, Fire, Lightning } from '@/assets/images/icons';
 import challengeImage from '@/assets/images/placeholder/chat-list.png';
-import { CustomSession } from '@/lib/next-auth/auth';
 import { cn } from '@/lib/shadcn/utils';
 import { Challenge } from './ChallengeList';
 
@@ -13,14 +11,11 @@ const INDEX_COLOR = [
   { text: 'text-[#F56060]', bg: 'bg-[#F56060]' },
 ];
 
-export default function ChallengeCard({ challenge }: { challenge: Challenge }) {
+export default function ChallengeCard({ challenge, userId }: { challenge: Challenge; userId: string }) {
   const { name, backgroundImage, tags, challengeId, currentParticipants, creatorUserUuid } = challenge;
   const color = INDEX_COLOR[challengeId % INDEX_COLOR.length];
   const mission = tags;
-
-  const { data: session } = useSession();
-  const sessionWithAccount = session as CustomSession;
-  const isOwner = creatorUserUuid === sessionWithAccount?.user?.userUniqueId;
+  const isOwner = creatorUserUuid === userId;
 
   // TODO: API 연동 필요한 값: point
   const point = 1000;
