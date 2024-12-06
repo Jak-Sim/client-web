@@ -51,7 +51,7 @@ export default function ChallengeList({ session }: { session: CustomSession }) {
   return (
     <ul className='flex flex-col gap-3 pb-4'>
       {challengeList.map((challenge) => (
-        <ChallengeCard key={challenge.challengeId} challenge={challenge} userId={session.user.userUniqueId} />
+        <ChallengeCard key={challenge.challengeId} challenge={challenge} userId={session?.user.userUniqueId} />
       ))}
     </ul>
   );

@@ -6,6 +6,7 @@ import { CustomSession } from '@/lib/next-auth/auth';
 import { CustomSession } from '@/lib/next-auth/auth';
 import CodeForm from './_components/CodeForm';
 
+
 const Page = async () => {
   const session = await getServerSession();
 
@@ -13,7 +14,7 @@ const Page = async () => {
     // TODO: 로그인 페이지로 리다이렉트
   }
   const notNullSession = session as CustomSession;
-  const userId = notNullSession.user.userUniqueId;
+  const userId = notNullSession?.user.userUniqueId;
 
   return (
     <PageLayout
