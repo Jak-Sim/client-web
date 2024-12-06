@@ -21,10 +21,12 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
     }
   };
 
-  const handleRemoveHashtag = (hashtag: string) => {
-    hashtags.delete(hashtag);
-    setHashtags(new Set(hashtags));
-    onChange(Array.from(hashtags));
+  const handleRemoveHashtag = (hashtag: string | undefined) => {
+    if (hashtag) {
+      hashtags.delete(hashtag);
+      setHashtags(new Set(hashtags));
+      onChange(Array.from(hashtags));
+    }
   };
 
   const handleHashtagInputKeyUp = (value: string) => {
@@ -57,6 +59,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
 
         <div
           className={`mt-[1px] flex flex-1 items-center text-v1-text-primary-200 ${hashtagTextLength < MAX_HASHTAG_LENGTH && dirtyFields.hashtagInput ? '' : ''} ${hashtagTextLength >= MAX_HASHTAG_LENGTH ? 'invisible h-0' : ''}`}
+          data-testid='hashtag-input-container'
         >
           <label htmlFor='hashtag-input'>#</label>
           <input
@@ -65,7 +68,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
             type='text'
             className='w-full min-w-20 bg-transparent outline-none'
             autoComplete='off'
-            maxLength={MAX_HASHTAG_LENGTH - hashtagTextLength - 1}
+            maxLength={MAX_HASHTAG_LENGTH - hashtagTextLength}
             disabled={hashtagTextLength >= MAX_HASHTAG_LENGTH}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
@@ -73,9 +76,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
               }
               if (e.key === 'Backspace' && hashtagInputLength === 0) {
                 const lastHashtag = Array.from(hashtags).pop();
-                if (lastHashtag) {
-                  handleRemoveHashtag(lastHashtag);
-                }
+                handleRemoveHashtag(lastHashtag);
               }
             }}
             onKeyUp={(e) => {
@@ -86,6 +87,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
               }
             }}
             {...register('hashtagInput')}
+            data-testid='hashtag-input'
           />
         </div>
       </div>
