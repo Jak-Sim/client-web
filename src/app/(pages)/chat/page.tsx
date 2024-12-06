@@ -4,26 +4,29 @@ import Link from 'next/link';
 import { Plus } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
-import { Chat } from '@/models/chat/Chat';
-import ChatListPage from './_components/ChatListPage';
 
-const chatApi = new Chat();
+
+// import { Chat } from '@/models/chat/Chat';
+
+// import ChatListPage from './_components/ChatListPage';
+
+// const chatApi = new Chat();
 
 const Page = async () => {
   // const session = await getServerSession(nextAuthOptions);
 
-  const { data: groupChatListData } = await chatApi.listGroupList({
-    headers: {
-      'user-id': 'user1',
-    },
-  });
-  const { data: challengeChatListData } = await chatApi.listChallengeList({
-    headers: {
-      'user-id': 'user1',
-    },
-  });
+  // const { data: groupChatListData } = await chatApi.listGroupList({
+  //   headers: {
+  //     'user-id': 'user1',
+  //   },
+  // });
+  // const { data: challengeChatListData } = await chatApi.listChallengeList({
+  //   headers: {
+  //     'user-id': 'user1',
+  //   },
+  // });
 
-  console.log(groupChatListData);
+  // console.log(groupChatListData);
 
   return (
     <PageLayout
@@ -41,7 +44,7 @@ const Page = async () => {
         </Header>
       }
     >
-      <ChatListPage groupChatListData={groupChatListData} challengeChatListData={challengeChatListData} />
+      {/* <ChatListPage groupChatListData={groupChatListData} challengeChatListData={challengeChatListData} /> */}
     </PageLayout>
   );
 };
