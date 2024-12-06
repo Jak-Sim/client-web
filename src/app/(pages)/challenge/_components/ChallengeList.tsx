@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import EmptyChallengeImg from '@/assets/images/placeholder/face-sad.png';
+import { CustomSession } from '@/lib/next-auth/auth';
 import ChallengeCard from './ChallengeCard';
 
 export interface Challenge {
@@ -40,7 +41,7 @@ function getDummyChallengeList(): Challenge[] {
   }));
 }
 
-export default function ChallengeList() {
+export default function ChallengeList({ session }: { session: CustomSession }) {
   const challengeList = getDummyChallengeList();
 
   if (challengeList.length === 0) {
@@ -50,7 +51,7 @@ export default function ChallengeList() {
   return (
     <ul className='flex flex-col gap-3 pb-4'>
       {challengeList.map((challenge) => (
-        <ChallengeCard key={challenge.challengeId} challenge={challenge} />
+        <ChallengeCard key={challenge.challengeId} challenge={challenge} userId={session.user.userUniqueId} />
       ))}
     </ul>
   );

@@ -24,10 +24,10 @@ const Page = async () => {
         </Header>
       }
     >
-      <div className='h-full flex flex-col'>
-        <div className='text-xs text-center text-v1-text-primary-400 my-2'>진행 중인 챌린지</div>
+      <div className='flex h-full flex-col'>
+        <div className='my-2 text-center text-xs text-v1-text-primary-400'>진행 중인 챌린지</div>
         <div className='flex-1 px-6'>
-          <ChallengeList />
+          <ChallengeList session={notNullSession} />
         </div>
         <BottomNav />
       </div>

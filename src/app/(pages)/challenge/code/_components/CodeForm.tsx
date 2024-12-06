@@ -9,7 +9,6 @@ import InputWithError from '@/components/input/InputWithErrorMsg';
 import ChallengeCard from '../../_components/ChallengeCard';
 import { Challenge, DummyChallenge } from '../../_components/ChallengeList';
 
-
 export default function CodeForm({ userId }: { userId: string }) {
   const router = useRouter();
   const [challenge, setChallenge] = useState<Challenge | null>(null);
@@ -78,7 +77,7 @@ export default function CodeForm({ userId }: { userId: string }) {
         errorMessage={errors.code?.message || ''}
         autoComplete='off'
       />
-      <div className='flex-1'>{challenge && <ChallengeCard challenge={challenge} />}</div>
+      <div className='flex-1'>{challenge && <ChallengeCard challenge={challenge} userId={userId} />}</div>
       <Button type='submit' disabled={!challenge}>
         {challenge ? '챌린지 참여하기' : '해당 코드를 확인해 주세요'}
       </Button>
