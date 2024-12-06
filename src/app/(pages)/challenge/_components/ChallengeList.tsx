@@ -49,7 +49,7 @@ export default function ChallengeList() {
 
   return (
     <ul className='flex flex-col gap-3 pb-4'>
-      {challengeList.map((challenge: Challenge) => (
+      {challengeList.map((challenge) => (
         <ChallengeCard key={challenge.challengeId} challenge={challenge} />
       ))}
     </ul>
