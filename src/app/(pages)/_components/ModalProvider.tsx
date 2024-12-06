@@ -2,7 +2,8 @@
 
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useMemo, useState } from 'react';
 
-export type ModalNames = 'feed-profile';
+
+export type ModalNames = 'feed-profile' | 'cancel-create-challenge';
 
 export interface ModalContextProps {
   modalState: ModalNames[];
