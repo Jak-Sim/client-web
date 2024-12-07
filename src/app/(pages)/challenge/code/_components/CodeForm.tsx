@@ -6,13 +6,9 @@ import { FieldValues, useForm } from 'react-hook-form';
 import Button from '@/components/button/Button';
 import InputWithError from '@/components/input/InputWithErrorMsg';
 import ChallengeCard from '../../_components/ChallengeCard';
+import { Challenge, DummyChallenge } from '../../_components/ChallengeList';
 
-interface Challenge {
-  id: number;
-  name: string;
-}
-
-export default function CodeForm() {
+export default function CodeForm({ userId }: { userId: string }) {
   const router = useRouter();
   const [challenge, setChallenge] = useState<Challenge | null>(null);
 
@@ -29,7 +25,7 @@ export default function CodeForm() {
     const response = true;
 
     if (response) {
-      router.push(`/challenge/code/success?challengeId=${challenge?.id}`);
+      router.push(`/challenge/code/success?challengeId=${challenge?.challengeId}`);
     } else {
       setError('code', { message: '챌린지에 참여할 수 없어요' });
     }
@@ -43,7 +39,7 @@ export default function CodeForm() {
       try {
         console.log(code);
         if (code === '123456') {
-          setChallenge({ id: 1, name: '챌린지 이름' });
+          setChallenge(DummyChallenge);
         } else {
           setChallenge(null);
         }
@@ -71,7 +67,7 @@ export default function CodeForm() {
         errorMessage={errors.code?.message || ''}
         autoComplete='off'
       />
-      <div className='flex-1'>{challenge && <ChallengeCard index={999} />}</div>
+      <div className='flex-1'>{challenge && <ChallengeCard challenge={challenge} userId={userId} />}</div>
       <Button type='submit' disabled={!challenge}>
         {challenge ? '챌린지 참여하기' : '해당 코드를 확인해 주세요'}
       </Button>
