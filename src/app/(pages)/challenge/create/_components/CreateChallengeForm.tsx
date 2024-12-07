@@ -1,4 +1,5 @@
-import { MutableRefObject, useEffect } from 'react';
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
@@ -11,12 +12,6 @@ import HashTags from './HashTags';
 import TwoWaySlider from './TwoWaySlider';
 import UploadThumbnail from './UploadThumbnail';
 
-interface CreateChallengeFormProps {
-  tempSaved: MutableRefObject<Challenge | null>;
-  removeTempChallenge: () => void;
-  updateChallenge: (challenge: Challenge) => void;
-}
-
 export interface Challenge {
   challengeName: string;
   backgroundImage: string;
@@ -28,13 +23,14 @@ export interface Challenge {
 
 const schema = z.object({
   challengeName: z.string().min(1).max(20),
+  backgroundImage: z.string(),
+  isPublic: z.boolean(),
+  minParticipants: z.number().min(3).max(10),
+  maxParticipants: z.number().min(3).max(10),
+  tags: z.array(z.string()),
 });
 
-export default function CreateChallengeForm({
-  tempSaved,
-  removeTempChallenge,
-  updateChallenge,
-}: CreateChallengeFormProps) {
+export default function CreateChallengeForm() {
   const router = useRouter();
   const {
     register,
@@ -55,21 +51,10 @@ export default function CreateChallengeForm({
     },
   });
 
-  useEffect(() => {
-    if (tempSaved.current) {
-      const tempSavedChallenge = tempSaved.current;
-
-      for (const key in tempSavedChallenge) {
-        setValue(key as keyof Challenge, tempSavedChallenge[key as keyof Challenge]);
-      }
-    }
-  }, [tempSaved, setValue]);
-
   const challengeName = useWatch({ control, name: 'challengeName' });
   const minParticipants = useWatch({ control, name: 'minParticipants' });
   const maxParticipants = useWatch({ control, name: 'maxParticipants' });
   const backgroundImage = useWatch({ control, name: 'backgroundImage' });
-  const watchedValues = useWatch({ control });
 
   const participantsChange = (value: [number, number]) => {
     if (getValues('minParticipants') !== value[0]) setValue('minParticipants', value[0]);
@@ -88,16 +73,8 @@ export default function CreateChallengeForm({
       router.push(`/challenge/create/success?challengeId=${challengeId}`);
     } catch (error) {
       console.error(error);
-    } finally {
-      removeTempChallenge();
     }
   };
-
-  useEffect(() => {
-    if (watchedValues) {
-      updateChallenge(getValues());
-    }
-  }, [watchedValues, getValues, updateChallenge]);
 
   return (
     <form className='flex h-full flex-col justify-between px-6' onSubmit={handleSubmit(onSubmit)}>

@@ -23,7 +23,7 @@ function UploadThumbnail({ backgroundImage }: { backgroundImage: string | null }
         ) : backgroundImage ? (
           <Image src={backgroundImage} alt='Thumbnail' fill style={{ objectFit: 'cover' }} />
         ) : null}
-        <Camera className='absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2' />
+        <Camera className='absolute left-1/2 top-1/2 z-1 -translate-x-1/2 -translate-y-1/2' />
       </label>
     </div>
   );
