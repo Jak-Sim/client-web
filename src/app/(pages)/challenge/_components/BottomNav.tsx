@@ -11,7 +11,7 @@ export default function BottomNav() {
         </Link>
         <div className='h-6 w-px bg-v1-grey-400' />
         <Link href='/feed' className='flex flex-1 items-center justify-center gap-[5px]'>
-          <SearchShiny color='#f0f' />
+          <SearchShiny />
           챌린지 탐색
         </Link>
         <div className='h-6 w-px bg-v1-grey-400' />
