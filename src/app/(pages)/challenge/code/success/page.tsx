@@ -19,7 +19,7 @@ const Page = ({ searchParams }: { searchParams: { challengeId: string } }) => {
       </div>
       {challengeId && (
         <Link href={`/challenge/${challengeId}`}>
-          <Button variant='outline'>확인하러 가기</Button>
+          <Button variant='secondary'>확인하러 가기</Button>
         </Link>
       )}
     </div>
