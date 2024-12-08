@@ -30,7 +30,7 @@ export default function CodeForm({ userId }: { userId: string }) {
     const response = true;
 
     if (response) {
-      router.push(`/challenge/code/success?challengeId=${challenge?.challengeId}`);
+      router.push(`/challenge/information?challengeId=${challenge?.challengeId}`);
     } else {
       setError('code', { message: '챌린지에 참여할 수 없어요' });
     }
