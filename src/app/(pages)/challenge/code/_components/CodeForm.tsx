@@ -25,15 +25,8 @@ export default function CodeForm({ userId }: { userId: string }) {
   } = useForm({ defaultValues: { code: '' } });
 
   const onSubmit = (data: FieldValues) => {
-    if (!data.code) return;
-    // const response = await api.post(`/challenge/code`, { code: data.code });
-    const response = true;
-
-    if (response) {
-      router.push(`/challenge/information?challengeId=${challenge?.challengeId}`);
-    } else {
-      setError('code', { message: '챌린지에 참여할 수 없어요' });
-    }
+    if (!data.code || !challenge) return;
+    router.push(`/challenge/${challenge.challengeId}`);
   };
   const code = watch('code');
 
@@ -87,7 +80,7 @@ export default function CodeForm({ userId }: { userId: string }) {
         />
       </div>
       <div className='flex-1'>{challenge && <ChallengeCard challenge={challenge} userId={userId} />}</div>
-      <Button type='submit' disabled={!challenge} variant='secondary'>
+      <Button type='submit' disabled={!challenge || !code} variant='secondary'>
         {challenge ? '확인하러 가기' : '해당 코드를 확인해 주세요'}
       </Button>
     </form>
