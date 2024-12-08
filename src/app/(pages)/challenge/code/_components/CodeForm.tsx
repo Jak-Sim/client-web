@@ -9,6 +9,7 @@ import InputWithError from '@/components/input/InputWithErrorMsg';
 import ChallengeCard from '../../_components/ChallengeCard';
 import { Challenge, DummyChallenge } from '../../_components/ChallengeList';
 
+
 export default function CodeForm({ userId }: { userId: string }) {
   const router = useRouter();
   const [challenge, setChallenge] = useState<Challenge | null>(null);
@@ -25,6 +26,7 @@ export default function CodeForm({ userId }: { userId: string }) {
 
   const onSubmit = (data: FieldValues) => {
     if (!data.code) return;
+    // const response = await api.post(`/challenge/code`, { code: data.code });
     const response = true;
 
     if (response) {
@@ -40,7 +42,7 @@ export default function CodeForm({ userId }: { userId: string }) {
       if (!code) return;
 
       try {
-        // const response = await api.get(`/challenge/code/${code}`);
+        // const response = await api.get(`/challenge/find/${code}`);
         const response = code === '123456';
 
         if (response) {
@@ -85,7 +87,7 @@ export default function CodeForm({ userId }: { userId: string }) {
         />
       </div>
       <div className='flex-1'>{challenge && <ChallengeCard challenge={challenge} userId={userId} />}</div>
-      <Button type='submit' disabled={!challenge} variant='outline'>
+      <Button type='submit' disabled={!challenge} variant='secondary'>
         {challenge ? '확인하러 가기' : '해당 코드를 확인해 주세요'}
       </Button>
     </form>

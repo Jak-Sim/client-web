@@ -73,7 +73,7 @@ export default function SignUp() {
       if (username?.length < 2) return;
 
       try {
-        await api.post('/sign-up/nick-check', { nickname: username });
+        // await api.post('/sign-up/nick-check', { nickname: username });
         return true;
       } catch (error) {
         if (error instanceof Error) {
