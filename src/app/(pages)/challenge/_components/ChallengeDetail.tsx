@@ -13,13 +13,15 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
   return (
     <div className='flex flex-col gap-5 px-4 py-2 pb-10'>
       <SectionCard>
-        <div className='relative w-full pb-[62.5%]'>
-          <Image
-            src={challenge.backgroundImage}
-            alt={challenge.name}
-            fill
-            className='rounded-t-xl bg-v1-subtext-200 object-cover'
-          />
+        <div className='relative w-full pb-[62.5%] bg-v1-subtext-200 rounded-t-xl'>
+          {challenge.backgroundImage && (
+            <Image
+              src={challenge.backgroundImage}
+              alt={challenge.name}
+              fill
+              className='rounded-t-xl object-cover'
+            />
+          )}
           <div className='absolute right-3 top-3 rounded-xl bg-white px-[6px] py-[1px] text-xs text-v1-text-primary-400'>
             {challenge.isPublic ? '공개' : '비공개'}
           </div>
@@ -27,7 +29,7 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
         <div className='flex flex-col gap-5 px-4 py-6 text-center'>
           <div className='text-2xl font-bold'>{challenge.name}</div>
           <div className='flex flex-wrap justify-center gap-2'>
-            {[...challenge.tags, ...challenge.tags].map((tag) => (
+            {challenge.tags.map((tag) => (
               <Chip key={tag} tag={tag} onClick={() => {}} prefix='#' />
             ))}
           </div>

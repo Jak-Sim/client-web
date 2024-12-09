@@ -32,9 +32,12 @@ function Trigger({ children, className }: { children: ReactNode; className?: str
   const { isOpen, toggleAccodion } = useContext(AccodionContext)!;
 
   return (
-    <div className={cn('flex items-center justify-between', className)} onClick={toggleAccodion}>
+    <div className={cn('flex items-center justify-between cursor-pointer', className)} onClick={toggleAccodion}>
       {children}
-      <ChevronDown className={cn(`${isOpen ? 'rotate-180' : ''} transition-transform duration-300`, 'h-6 w-6')} />
+      <ChevronDown
+        className={cn(`${isOpen ? 'rotate-180' : ''} transition-transform duration-300`, 'h-6 w-6')}
+        role='button'
+      />
     </div>
   );
 }
