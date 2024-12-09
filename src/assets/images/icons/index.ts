@@ -2,6 +2,7 @@ import AddCircle from './add-circle.svg';
 import ArrowRight from './arrow-right.svg';
 import ArrowLeft from './arrow-small-left.svg';
 import ArrowSmallRight from './arrow-small-right.svg';
+import AvatarPlus from './avatar-plus.svg';
 import Badge from './badge.svg';
 import Camera from './camera.svg';
 import ChatCrown from './chat-crown.svg';
@@ -41,6 +42,7 @@ export {
   SmallFlag,
   SmallBadge,
   Dots,
+  AvatarPlus,
   AddCircle,
   TailArrow,
   ArrowLeft,
