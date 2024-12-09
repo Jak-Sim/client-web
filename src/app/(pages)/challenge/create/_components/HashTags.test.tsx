@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import HashTags from './HashTags';
 
+
 describe('HashTags Component', () => {
   const mockOnChange = jest.fn();
 
@@ -17,7 +18,7 @@ describe('HashTags Component', () => {
   test('adds a hashtag when Enter is pressed', () => {
     const input = screen.getByTestId('hashtag-input');
     fireEvent.change(input, { target: { value: 'test' } });
-    fireEvent.keyUp(input, { key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
 
     expect(mockOnChange).toHaveBeenCalledWith(['test']);
     expect(screen.getByText('#test')).toBeInTheDocument();
@@ -26,8 +27,8 @@ describe('HashTags Component', () => {
 
   test('adds a hashtag when space is pressed', () => {
     const input = screen.getByTestId('hashtag-input');
-    fireEvent.change(input, { target: { value: 'space ' } });
-    fireEvent.keyUp(input, { key: ' ' });
+    fireEvent.change(input, { target: { value: 'space' } });
+    fireEvent.keyDown(input, { key: ' ' });
 
     expect(mockOnChange).toHaveBeenCalledWith(['space']);
     expect(screen.getByText('#space')).toBeInTheDocument();
@@ -36,8 +37,8 @@ describe('HashTags Component', () => {
 
   test('adds a hashtag when any of "#" is pressed', () => {
     const input = screen.getByTestId('hashtag-input');
-    fireEvent.change(input, { target: { value: 'hashtag#' } });
-    fireEvent.keyUp(input, { key: '#' });
+    fireEvent.change(input, { target: { value: 'hashtag' } });
+    fireEvent.keyDown(input, { key: '#' });
 
     expect(mockOnChange).toHaveBeenCalledWith(['hashtag']);
     expect(screen.getByText('#hashtag')).toBeInTheDocument();
@@ -46,8 +47,8 @@ describe('HashTags Component', () => {
 
   test('adds a hashtag when comma is pressed', () => {
     const input = screen.getByTestId('hashtag-input');
-    fireEvent.change(input, { target: { value: 'comma,' } });
-    fireEvent.keyUp(input, { key: ',' });
+    fireEvent.change(input, { target: { value: 'comma' } });
+    fireEvent.keyDown(input, { key: ',' });
 
     expect(mockOnChange).toHaveBeenCalledWith(['comma']);
     expect(screen.getByText('#comma')).toBeInTheDocument();
@@ -57,7 +58,7 @@ describe('HashTags Component', () => {
   test('does not add hashtags when the input is empty', () => {
     const input = screen.getByTestId('hashtag-input');
     fireEvent.change(input, { target: { value: undefined } });
-    fireEvent.keyUp(input, { key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
 
     expect(screen.getByText('0/50')).toBeInTheDocument();
   });
@@ -65,7 +66,7 @@ describe('HashTags Component', () => {
   test('removes a hashtag when clicked', () => {
     const input = screen.getByTestId('hashtag-input');
     fireEvent.change(input, { target: { value: 'test' } });
-    fireEvent.keyUp(input, { key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
 
     const hashtag = screen.getByText('#test');
     fireEvent.click(hashtag);
@@ -78,7 +79,7 @@ describe('HashTags Component', () => {
   test('removes a hashtag when Backspace is pressed', () => {
     const input = screen.getByTestId('hashtag-input');
     fireEvent.change(input, { target: { value: 'test' } });
-    fireEvent.keyUp(input, { key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
     fireEvent.keyDown(input, { key: 'Backspace' });
 
     expect(mockOnChange).toHaveBeenCalledWith([]);
@@ -98,7 +99,7 @@ describe('HashTags Component', () => {
   test('does not add sperator characters as hashtags', () => {
     const input = screen.getByTestId('hashtag-input');
     fireEvent.change(input, { target: { value: '#' } });
-    fireEvent.keyUp(input, { key: '#' });
+    fireEvent.keyDown(input, { key: '#' });
 
     expect(input).toHaveValue('');
   });
@@ -108,7 +109,7 @@ describe('HashTags Component', () => {
     const inputContainer = screen.getByTestId('hashtag-input-container');
 
     fireEvent.change(input, { target: { value: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWY' } });
-    fireEvent.keyUp(input, { key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
 
     expect(screen.queryByText('#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWY')).toBeInTheDocument();
     expect(inputContainer).toHaveClass('invisible h-0');
