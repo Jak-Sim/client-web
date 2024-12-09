@@ -7,18 +7,20 @@ import Accodion from '@/components/accodion/Accodion';
 import Chip from '@/components/chip/Chip';
 import { Challenge } from './ChallengeList';
 
+
 export default function ChallengeDetail({ challenge }: { challenge: Challenge }) {
   const currentChallengeStreak = differenceInDays(new Date(), new Date(challenge.createdAt)).toString();
 
   return (
     <div className='flex flex-col gap-5 px-4 py-2 pb-10'>
       <SectionCard>
-        <div className='relative w-full pb-[62.5%] bg-v1-subtext-200 rounded-t-xl'>
+        <div className='relative w-full rounded-t-xl bg-v1-subtext-200 pb-[62.5%]'>
           {challenge.backgroundImage && (
             <Image
               src={challenge.backgroundImage}
               alt={challenge.name}
               fill
+              sizes='300px'
               className='rounded-t-xl object-cover'
             />
           )}
