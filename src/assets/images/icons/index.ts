@@ -2,6 +2,7 @@ import AddCircle from './add-circle.svg';
 import ArrowRight from './arrow-right.svg';
 import ArrowLeft from './arrow-small-left.svg';
 import ArrowSmallRight from './arrow-small-right.svg';
+import AvatarPlus from './avatar-plus.svg';
 import Badge from './badge.svg';
 import CalendarCheck from './calendar-check.svg';
 import Calendar from './calendar.svg';
@@ -51,6 +52,7 @@ export {
   SmallFlag,
   SmallBadge,
   Dots,
+  AvatarPlus,
   AddCircle,
   TailArrow,
   ArrowLeft,
