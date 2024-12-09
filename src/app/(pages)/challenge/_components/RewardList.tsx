@@ -1,6 +1,7 @@
 import { Check, Gem } from '@/assets/images/icons';
 import Chip from '@/components/chip/Chip';
-import { Reward } from './ChallengeDetail';
+import type { Reward } from '@/types/challenge';
+
 
 export default function RewardList({ rewards }: { rewards: Reward[] }) {
   return (

@@ -11,6 +11,7 @@ import CheckBroken from './check-broken.svg';
 import Check from './check.svg';
 import ChevronDown from './chevron-down.svg';
 import Chevron from './chevron.svg';
+import Clock from './clock.svg';
 import Code from './code.svg';
 import Coins from './coins.svg';
 import Comment from './comment.svg';
@@ -69,6 +70,7 @@ export {
   ChatCrown,
   Code,
   Coins,
+  Clock,
   FilePlus,
   Flag,
   FlagChat,
