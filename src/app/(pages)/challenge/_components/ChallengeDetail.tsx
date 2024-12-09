@@ -6,10 +6,39 @@ import { Fire, Gem, Lightning } from '@/assets/images/icons';
 import Accodion from '@/components/accodion/Accodion';
 import Chip from '@/components/chip/Chip';
 import { Challenge } from './ChallengeList';
+import RewardList from './RewardList';
 
+export interface Reward {
+  id: number;
+  name: string;
+  description: string;
+  remain: number;
+  point: number;
+  needConfirm: boolean;
+}
+
+const dummyRewards: Reward[] = [
+  {
+    id: 1,
+    name: '리워드 이름',
+    description: '리워드 설명',
+    remain: 10,
+    point: 100,
+    needConfirm: true,
+  },
+  {
+    id: 2,
+    name: '리워드 이름',
+    description: '리워드 설명',
+    remain: 20,
+    point: 200,
+    needConfirm: false,
+  },
+];
 
 export default function ChallengeDetail({ challenge }: { challenge: Challenge }) {
   const currentChallengeStreak = differenceInDays(new Date(), new Date(challenge.createdAt)).toString();
+  const rewards = dummyRewards;
 
   return (
     <div className='flex flex-col gap-5 px-4 py-2 pb-10'>
@@ -48,13 +77,13 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
                   <Gem />
                   리워드(보상)
                 </div>
-                <Chip tag='2 개' varient='light-orange' />
+                {rewards.length > 0 && <Chip tag={`${rewards.length} 개`} varient='light-orange' />}
               </div>
             </div>
           </Accodion.Trigger>
 
           <Accodion.Content>
-            <div className='h-[100px] px-6'>카드 내용</div>
+            <RewardList rewards={rewards} />
           </Accodion.Content>
         </Accodion>
       </SectionCard>
@@ -63,7 +92,7 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
         <Accodion defaultOpen={true}>
           <Accodion.Trigger className='px-6'>
             <div className='flex h-[4.75rem] items-center justify-between'>
-              <div className='flex items-center gap-3 text-2xl font-bold'>
+              <div className='flex flex-wrap items-center gap-3 text-2xl font-bold'>
                 <div className='flex items-center gap-1'>
                   <Lightning />
                   진행중인 미션
@@ -83,7 +112,7 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
         <Accodion defaultOpen={true}>
           <Accodion.Trigger className='px-6'>
             <div className='flex h-[4.75rem] items-center justify-between'>
-              <div className='flex items-center gap-3 text-2xl font-bold'>
+              <div className='flex flex-wrap items-center gap-3 text-2xl font-bold'>
                 <div className='flex items-center gap-1'>
                   <Fire />
                   챌린저

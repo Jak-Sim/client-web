@@ -5,11 +5,13 @@ export default function Chip({
   onClick,
   prefix,
   varient,
+  fontSize = 'sm',
 }: {
   tag: string;
   onClick?: () => void;
   prefix?: string;
   varient?: ChipVarient;
+  fontSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 }) {
   const varientClass: Record<ChipVarient, string> = {
     'light-orange': 'light-orange-bg-text',
@@ -23,7 +25,10 @@ export default function Chip({
   const chipClass = varient ? varientClass[varient] : 'light-grey-bg-text';
 
   return (
-    <span className={`${chipClass} cursor-pointer break-all rounded-xl px-[6px] py-[1px] text-sm`} onClick={onClick}>
+    <span
+      className={`${chipClass} cursor-pointer break-all rounded-xl px-[6px] py-[1px] text-${fontSize}`}
+      onClick={onClick}
+    >
       {prefix ? `${prefix}${tag}` : tag}
     </span>
   );
