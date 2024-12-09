@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Chip from '../../../../../components/chip/Chip';
+import Chip from '@/components/chip/Chip';
+
 
 const MAX_HASHTAG_LENGTH = 50;
 

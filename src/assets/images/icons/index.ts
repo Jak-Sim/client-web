@@ -6,6 +6,7 @@ import Badge from './badge.svg';
 import Camera from './camera.svg';
 import ChatCrown from './chat-crown.svg';
 import CheckBroken from './check-broken.svg';
+import ChevronDown from './chevron-down.svg';
 import Chevron from './chevron.svg';
 import Code from './code.svg';
 import Comment from './comment.svg';
@@ -51,6 +52,7 @@ export {
   Camera,
   CheckBroken,
   Chevron,
+  ChevronDown,
   Comment,
   Comments,
   CrossCircle,
