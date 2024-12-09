@@ -18,7 +18,7 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
   const missions = dummyMission;
 
   return (
-    <div className='flex flex-col gap-5 px-4 py-2 pb-10'>
+    <div className='flex flex-col gap-5 px-6 py-2 pb-10'>
       <SectionCard>
         <div className='relative w-full rounded-t-xl bg-v1-subtext-200 pb-[62.5%]'>
           {challenge.backgroundImage && (
