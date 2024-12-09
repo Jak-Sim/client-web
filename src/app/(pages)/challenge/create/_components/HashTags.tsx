@@ -16,15 +16,22 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
 
   const handleAddHashtag = (hashtag: string) => {
     if (hashtag.trim()) {
-      setHashtags(new Set(hashtags.add('#' + hashtag)));
+      setHashtags(new Set(hashtags.add(hashtag)));
       onChange(Array.from(hashtags));
     }
   };
 
-  const handleRemoveHashtag = (hashtag: string) => {
-    hashtags.delete(hashtag);
-    setHashtags(new Set(hashtags));
-    onChange(Array.from(hashtags));
+  const handleRemoveHashtag = (hashtag: string | undefined) => {
+    if (hashtag) {
+      hashtags.delete(hashtag);
+      setHashtags(new Set(hashtags));
+      onChange(Array.from(hashtags));
+    }
+  };
+
+  const handleHashtagInputKeyUp = (value: string) => {
+    handleAddHashtag(value.trim());
+    setValue('hashtagInput', '');
   };
 
   const hashtagTextLength = Array.from(hashtags).join('').length;
@@ -46,12 +53,13 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
             className='cursor-pointer break-all rounded-xl border bg-v1-text-primary-50 px-2 py-[2px] text-sm text-v1-text-primary-400'
             onClick={() => handleRemoveHashtag(hashtag)}
           >
-            {hashtag}
+            #{hashtag}
           </span>
         ))}
 
         <div
           className={`mt-[1px] flex flex-1 items-center text-v1-text-primary-200 ${hashtagTextLength < MAX_HASHTAG_LENGTH && dirtyFields.hashtagInput ? '' : ''} ${hashtagTextLength >= MAX_HASHTAG_LENGTH ? 'invisible h-0' : ''}`}
+          data-testid='hashtag-input-container'
         >
           <label htmlFor='hashtag-input'>#</label>
           <input
@@ -60,7 +68,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
             type='text'
             className='w-full min-w-20 bg-transparent outline-none'
             autoComplete='off'
-            maxLength={MAX_HASHTAG_LENGTH - hashtagTextLength - 1}
+            maxLength={MAX_HASHTAG_LENGTH - hashtagTextLength}
             disabled={hashtagTextLength >= MAX_HASHTAG_LENGTH}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
@@ -68,18 +76,18 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
               }
               if (e.key === 'Backspace' && hashtagInputLength === 0) {
                 const lastHashtag = Array.from(hashtags).pop();
-                if (lastHashtag) {
-                  handleRemoveHashtag(lastHashtag);
-                }
+                handleRemoveHashtag(lastHashtag);
               }
             }}
             onKeyUp={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                handleAddHashtag(getValues('hashtagInput'));
-                setValue('hashtagInput', '');
+              if (e.key === 'Enter') {
+                handleHashtagInputKeyUp(getValues('hashtagInput'));
+              } else if (e.key === ' ' || e.key === '#' || e.key === ',') {
+                handleHashtagInputKeyUp(getValues('hashtagInput').slice(0, -1));
               }
             }}
             {...register('hashtagInput')}
+            data-testid='hashtag-input'
           />
         </div>
       </div>

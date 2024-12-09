@@ -13,7 +13,9 @@ import Comments from './comments.svg';
 import CrossCircle from './cross-circle.svg';
 import CrownFill from './crown-fill.svg';
 import Crown from './crown.svg';
+import Dots from './Dots.svg';
 import FilePlus from './file-plus.svg';
+import Filter from './filter.svg';
 import Fire from './fire.svg';
 import FlagChat from './flag-chat.svg';
 import Flag from './flag.svg';
@@ -22,22 +24,30 @@ import GoogleLogin from './google-login.svg';
 import KakaoLogin from './kakao-login.svg';
 import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
+import NoTailArrow from './NoTailArrow.svg';
 import Plus2 from './plus-2.svg';
 import Plus from './plus.svg';
 import Profile from './profile.svg';
 import SearchShiny from './search-shiny.svg';
 import Search from './search.svg';
+import SmallBadge from './SmallBadge.svg';
+import SmallFlag from './SmallFlag.svg';
+import TailArrow from './TailArrow.svg';
 import UpArrowCircleActive from './up-arrow-circle-active.svg';
 import UpArrowCircle from './up-arrow-circle.svg';
 import X from './x.svg';
 
-
 export {
+  SmallFlag,
+  SmallBadge,
+  Dots,
   AddCircle,
+  TailArrow,
   ArrowLeft,
   ArrowRight,
   ArrowSmallRight,
   Badge,
+  NoTailArrow,
   Camera,
   CheckBroken,
   Chevron,
@@ -64,5 +74,6 @@ export {
   SearchShiny,
   UpArrowCircle,
   UpArrowCircleActive,
+  Filter,
   X,
 };

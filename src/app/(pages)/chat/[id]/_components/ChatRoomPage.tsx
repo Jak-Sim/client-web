@@ -1,54 +1,84 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { io } from 'socket.io-client';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
 import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
-import { ChatMessage } from '@/app/(pages)/chat/[id]/page';
 import { Plus } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
+import { socketApi } from '@/lib/axios/axios';
+import { ChatMessage, MessageDetailData } from '@/models/chat/data-contracts';
 
 interface ChatRoomPageProps {
   id: string;
-  previousChatMessageData: ChatMessage[];
+  previousChatMessageData: MessageDetailData;
 }
-
-let socket: Socket;
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState<ChatMessage[]>(previousChatMessageData);
+  const [chat, setChat] = useState<ChatMessage[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
   const [userId, setUserId] = useState<string>('');
+  const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
 
   useEffect(() => {
-    socket = io(process.env.NEXT_PUBLIC_API_URL_SOCKET);
     socket.emit('joinRoom', id);
 
     socket.on('chat message', (data: ChatMessage) => {
       setChat((prev) => [...prev, data]);
     });
 
+    socket.on('chat image', (data: ChatMessage) => {
+      setChat((prev) => [...prev, data]);
+    });
+
     return () => {
       socket.off('chat message');
+      socket.off('chat image');
     };
-  }, [id]);
-
-  console.log(chat);
+  }, [id, socket]);
 
   const sendMessage = () => {
     socket.emit('chat message', { message, userId, roomId: id });
-    setChat((prev) => [
-      ...prev,
-      { message, userId, roomId: Number(id), timestamp: new Date(), type: 'text', id: Math.random().toString() },
-    ]);
-    if (roomRef.current) {
-      roomRef.current.scrollTop = roomRef.current.scrollHeight;
-    }
     setMessage('');
   };
+
+  const sendImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    if (e.target.files) {
+      const response = await socketApi.post<{ success: boolean; imageUrl: string }>(
+        `/chat/image/upload`,
+        {
+          roomId: id,
+          image: e.target.files[0],
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'user-id': userId,
+          },
+        },
+      );
+
+      if (response.data.success) {
+        socket.emit('chat image', {
+          roomId: id,
+          userId: userId,
+          imageUrl: response.data.imageUrl,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    roomRef.current!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    });
+  }, [chat]);
 
   return (
     <PageLayout
@@ -63,15 +93,25 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
           </Header.Item>
         </Header>
       }
-      footer={<ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} />}
+      footer={
+        <ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} sendImage={sendImage} />
+      }
     >
       <div className={'flex'}>
-        <input className={'flex-1 border'} type='text' value={userId} onChange={(e) => setUserId(e.target.value)} />
+        <input
+          className={'fixed top-0 w-full flex-1 border'}
+          type='text'
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+        />
       </div>
-      <div className={'px-4 py-3'}>
-        <div className='flex flex-col' ref={roomRef}>
+      <div className={'px-4 py-3'} ref={roomRef}>
+        <div className='flex flex-col'>
+          {previousChatMessageData.map((msg, index) => (
+            <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
+          ))}
           {chat.map((msg, index) => (
-            <div key={index}>{msg.userId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
+            <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
           ))}
         </div>
       </div>

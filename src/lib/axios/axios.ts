@@ -4,7 +4,6 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse 
 import { API_URL, SOCKET_URL } from '@/config/config';
 import { nextAuthOptions } from '@/lib/next-auth/auth';
 
-
 interface NextOptions {
   tags?: string[];
 }
@@ -22,13 +21,24 @@ const api = axios.create({
 
 const socketApi = axios.create({
   baseURL: SOCKET_URL,
+  timeout: 1000,
   headers: {
-    Authorization: 'Basic YWRtaW46amFrc2ltMjAyNCE=',
-    'user-id': 'temp',
+    Authorization: `Basic ${btoa(process.env.NEXT_PUBLIC_SOCKET_BASIC_AUTH!)}`,
   },
 });
 
 api.interceptors.request.use(async (config) => {
+  const getSessionFn = typeof window === undefined ? getServerSession : getSession;
+  const session = (await getSessionFn(nextAuthOptions)) as { auth: { AT: string } } | undefined;
+  const AT = session?.auth?.AT;
+  if (AT) {
+    config.headers.AT = AT;
+  }
+
+  return config;
+});
+
+socketApi.interceptors.request.use(async (config) => {
   const getSessionFn = typeof window === undefined ? getServerSession : getSession;
   const session = (await getSessionFn(nextAuthOptions)) as { auth: { AT: string } } | undefined;
   const AT = session?.auth?.AT;

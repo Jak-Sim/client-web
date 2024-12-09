@@ -1,5 +1,5 @@
 import ChatRoomPage from '@/app/(pages)/chat/[id]/_components/ChatRoomPage';
-import { socketApi } from '@/lib/axios/axios';
+import { Chat } from '@/models/chat/Chat';
 
 interface PageProps {
   params: {
@@ -7,28 +7,12 @@ interface PageProps {
   };
 }
 
-interface FetchProps {
-  roomId: string;
-}
-
-export interface ChatMessage {
-  id: string;
-  roomId: number;
-  userId: string;
-  message: string;
-  timestamp: Date;
-  type: 'text';
-}
-
-const fetchPreviousChatMessageData = async ({ roomId }: FetchProps) => {
-  const previousChatMessageData = await socketApi.get<ChatMessage[]>(`/chat/message/${roomId}`);
-  return previousChatMessageData.data;
-};
+const chatApi = new Chat();
 
 const Page = async ({ params }: PageProps) => {
   const { id } = params;
 
-  const previousChatMessageData = await fetchPreviousChatMessageData({ roomId: id });
+  const { data: previousChatMessageData } = await chatApi.messageDetail(id);
 
   return <ChatRoomPage id={id} previousChatMessageData={previousChatMessageData} />;
 };

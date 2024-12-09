@@ -53,11 +53,11 @@ body {
   }
 
   /* v1 */
+  .button:disabled {
+    @apply bg-v1-grey-300 text-v1-subtext-500 border-none;
+  }
   .button-primary {
     @apply bg-v1-orange-500 text-white;
-  }
-  .button-primary:disabled {
-    @apply bg-v1-grey-300 text-v1-subtext-500;
   }
   .button-primary:not(:disabled):hover {
     @apply bg-v1-orange-400;
@@ -66,7 +66,22 @@ body {
     @apply bg-v1-orange-700;
   }
   .button-secondary {
-    @apply bg-white text-primary outline-primary;
+    @apply bg-v1-orange-50 text-primary outline-primary text-v1-primary border-[1px] border-v1-primary font-semibold;
+  }
+  .button-secondary:not(:disabled):hover {
+    @apply bg-v1-orange-100;
+  }
+  .button-secondary:not(:disabled):active {
+    @apply bg-v1-orange-200;
+  }
+  .button-tertiary {
+    @apply bg-v1-text-primary-500 text-white;
+  }
+  .button-tertiary:not(:disabled):hover {
+    @apply bg-v1-text-primary-400;
+  }
+  .button-tertiary:not(:disabled):active {
+    @apply bg-v1-text-primary-700;
   }
 
   .slider:hover {

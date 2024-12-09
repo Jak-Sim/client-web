@@ -22,9 +22,10 @@ export interface CustomAuth {
 
 export interface CustomUser extends User {
   name: string;
+  userUniqueId: string;
 }
 
-type AccountWithAuth = Account & CustomAuth;
+type AccountWithAuth = Account & CustomAuth & { userUniqueId: string };
 export type CustomSession = Session & CustomAuth & { account: Account; user: CustomUser };
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -54,8 +55,9 @@ export const nextAuthOptions: NextAuthOptions = {
             throw new Error(`예상치 못한 응답 상태: ${statusCode}`);
           }
 
-          const { AT, RT } = response.data.data;
+          const { AT, RT, userUniqueId } = response.data.data;
           (account as AccountWithAuth).auth = { statusCode, AT, RT, social: provider };
+          (account as AccountWithAuth).userUniqueId = userUniqueId;
         }
       } catch (error) {
         throw new Error('소셜 로그인 실패', { cause: error });
@@ -65,10 +67,10 @@ export const nextAuthOptions: NextAuthOptions = {
     },
     async jwt({ token, user, account }) {
       if (account) {
-        const { auth, ...rest } = account as AccountWithAuth;
+        const { auth, userUniqueId, ...rest } = account as AccountWithAuth;
         token.account = rest;
         token.auth = auth;
-        token.user = user;
+        token.user = { ...user, userUniqueId };
       }
       return token;
     },
@@ -109,7 +111,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
       return {
         ...session,
-        account: token.account as Account,
+        account: token.account as AccountWithAuth as AccountWithAuth,
         auth: { ...(token.auth as CustomAuth['auth']), AT, RT },
         user: token.user as CustomUser,
       };
