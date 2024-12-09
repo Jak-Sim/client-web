@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+
 const MAX_HASHTAG_LENGTH = 50;
 
 export default function HashTags({ value, onChange }: { value: string[]; onChange: (value: string[]) => void }) {
@@ -72,18 +73,15 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
             disabled={hashtagTextLength >= MAX_HASHTAG_LENGTH}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
+                handleHashtagInputKeyUp(getValues('hashtagInput'));
                 e.preventDefault();
               }
               if (e.key === 'Backspace' && hashtagInputLength === 0) {
                 const lastHashtag = Array.from(hashtags).pop();
                 handleRemoveHashtag(lastHashtag);
               }
-            }}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === ' ' || e.key === '#' || e.key === ',') {
                 handleHashtagInputKeyUp(getValues('hashtagInput'));
-              } else if (e.key === ' ' || e.key === '#' || e.key === ',') {
-                handleHashtagInputKeyUp(getValues('hashtagInput').slice(0, -1));
               }
             }}
             {...register('hashtagInput')}
