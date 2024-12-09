@@ -9,6 +9,7 @@ import dummyMission from '../_mock/dummyMission.json';
 import dummyReward from '../_mock/dummyReward.json';
 import { Challenge } from './ChallengeList';
 import MissionList from './MissionList';
+import ParticipantList from './ParticipantList';
 import RewardList from './RewardList';
 
 export default function ChallengeDetail({ challenge }: { challenge: Challenge }) {
@@ -48,7 +49,7 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
         <Accodion defaultOpen={true}>
           <Accodion.Trigger className='px-6'>
             <div className='flex h-[4.75rem] items-center justify-between'>
-              <div className='flex items-center gap-3 text-2xl font-bold'>
+              <div className='flex items-center gap-3 text-xl font-bold'>
                 <div className='flex items-center gap-1'>
                   <Gem />
                   리워드(보상)
@@ -68,7 +69,7 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
         <Accodion defaultOpen={true}>
           <Accodion.Trigger className='px-6'>
             <div className='flex h-[4.75rem] items-center justify-between'>
-              <div className='flex flex-wrap items-center gap-3 text-2xl font-bold'>
+              <div className='flex flex-wrap items-center gap-3 text-xl font-bold'>
                 <div className='flex items-center gap-1'>
                   <Lightning />
                   진행중인 미션
@@ -88,18 +89,18 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
         <Accodion defaultOpen={true}>
           <Accodion.Trigger className='px-6'>
             <div className='flex h-[4.75rem] items-center justify-between'>
-              <div className='flex flex-wrap items-center gap-3 text-2xl font-bold'>
+              <div className='flex flex-wrap items-center gap-3 text-xl font-bold'>
                 <div className='flex items-center gap-1'>
                   <Fire />
                   챌린저
                 </div>
-                <Chip tag='2 명 참여 중' varient='light-orange' />
+                <Chip tag={`${challenge.currentParticipants} 명 참여 중`} varient='light-orange' />
               </div>
             </div>
           </Accodion.Trigger>
 
           <Accodion.Content>
-            <div className='h-[100px] px-6'>카드 내용</div>
+            <ParticipantList />
           </Accodion.Content>
         </Accodion>
       </SectionCard>

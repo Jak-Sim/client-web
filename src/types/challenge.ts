@@ -15,3 +15,9 @@ export interface Reward {
   point: number;
   needConfirm: boolean;
 }
+
+export interface Participant {
+  name: string;
+  isCreator: boolean;
+  avatar: string | null;
+}
