@@ -3,9 +3,9 @@ import PageLayout from '@/components/layout/PageLayout';
 import ChallengeDetail from '../_components/ChallengeDetail';
 import { DummyChallenge } from '../_components/ChallengeList';
 
-const Page = ({ params }: { params: { challengeId: string } }) => {
-  const challenge = DummyChallenge;
+const Page = async ({ params }: { params: { challengeId: string } }) => {
   const challengeId = params.challengeId;
+  const challenge = DummyChallenge;
 
   // TODO:
   console.log('fetch challenge data with id: ' + challengeId);

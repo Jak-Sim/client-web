@@ -1,17 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import { differenceInDays } from 'date-fns';
-import { ChevronDown, Fire, Gem, Lightning } from '@/assets/images/icons';
-import Chip from '../../../../components/chip/Chip';
+import { Fire, Gem, Lightning } from '@/assets/images/icons';
+import Accodion from '@/components/accodion/Accodion';
+import Chip from '@/components/chip/Chip';
 import { Challenge } from './ChallengeList';
 
 export default function ChallengeDetail({ challenge }: { challenge: Challenge }) {
   const currentChallengeStreak = differenceInDays(new Date(), new Date(challenge.createdAt)).toString();
-  const [rewardOpen, setRewardOpen] = useState(true);
-  const [missionOpen, setMissionOpen] = useState(true);
-  const [challengerOpen, setChallengerOpen] = useState(true);
 
   return (
     <div className='flex flex-col gap-5 px-4 py-2 pb-10'>
@@ -39,66 +36,63 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
       </SectionCard>
 
       <SectionCard>
-        <header
-          className='flex h-[4.75rem] items-center justify-between px-6'
-          onClick={() => setRewardOpen(!rewardOpen)}
-        >
-          <div className='flex items-center gap-3 text-2xl font-bold'>
-            <div className='flex items-center gap-1'>
-              <Gem />
-              리워드(보상)
+        <Accodion defaultOpen={true}>
+          <Accodion.Trigger className='px-6'>
+            <div className='flex h-[4.75rem] items-center justify-between'>
+              <div className='flex items-center gap-3 text-2xl font-bold'>
+                <div className='flex items-center gap-1'>
+                  <Gem />
+                  리워드(보상)
+                </div>
+                <Chip tag='2 개' varient='light-orange' />
+              </div>
             </div>
-            <Chip tag='2 개' varient='light-orange' />
-          </div>
+          </Accodion.Trigger>
 
-          <ChevronDown className={`${rewardOpen ? 'rotate-180' : ''} transition-transform duration-300`} />
-        </header>
-
-        <div className={`${rewardOpen ? 'h-[100px] overflow-visible' : 'h-0 overflow-hidden'} transition-all duration-300`}>
-          카드 내용
-        </div>
+          <Accodion.Content>
+            <div className='h-[100px] px-6'>카드 내용</div>
+          </Accodion.Content>
+        </Accodion>
       </SectionCard>
 
       <SectionCard>
-        <header
-          className='flex h-[4.75rem] items-center justify-between px-6'
-          onClick={() => setMissionOpen(!missionOpen)}
-        >
-          <div className='flex items-center gap-3 text-2xl font-bold'>
-            <div className='flex items-center gap-1'>
-              <Lightning />
-              진행중인 미션
+        <Accodion defaultOpen={true}>
+          <Accodion.Trigger className='px-6'>
+            <div className='flex h-[4.75rem] items-center justify-between'>
+              <div className='flex items-center gap-3 text-2xl font-bold'>
+                <div className='flex items-center gap-1'>
+                  <Lightning />
+                  진행중인 미션
+                </div>
+                <Chip tag='5 개' varient='light-orange' />
+              </div>
             </div>
-            <Chip tag='5 개' varient='light-orange' />
-          </div>
+          </Accodion.Trigger>
 
-          <ChevronDown className={`${missionOpen ? 'rotate-180' : ''} transition-transform duration-300`} />
-        </header>
-
-        <div className={`${missionOpen ? 'h-[100px] overflow-visible' : 'h-0 overflow-hidden'} transition-all duration-300`}>
-          카드 내용
-        </div>
+          <Accodion.Content>
+            <div className='h-[100px] px-6'>카드 내용</div>
+          </Accodion.Content>
+        </Accodion>
       </SectionCard>
 
       <SectionCard>
-        <header
-          className='flex h-[4.75rem] items-center justify-between px-6'
-          onClick={() => setChallengerOpen(!challengerOpen)}
-        >
-          <div className='flex items-center gap-3 text-2xl font-bold'>
-            <div className='flex items-center gap-1'>
-              <Fire />
-              챌린저
+        <Accodion defaultOpen={true}>
+          <Accodion.Trigger className='px-6'>
+            <div className='flex h-[4.75rem] items-center justify-between'>
+              <div className='flex items-center gap-3 text-2xl font-bold'>
+                <div className='flex items-center gap-1'>
+                  <Fire />
+                  챌린저
+                </div>
+                <Chip tag='2 명 참여 중' varient='light-orange' />
+              </div>
             </div>
-            <Chip tag='2 명 참여 중' varient='light-orange' />
-          </div>
+          </Accodion.Trigger>
 
-          <ChevronDown className={`${challengerOpen ? 'rotate-180' : ''} transition-transform duration-300`} />
-        </header>
-
-        <div className={`${challengerOpen ? 'h-[100px] overflow-visible' : 'h-0 overflow-hidden'} transition-all duration-300`}>
-          카드 내용
-        </div>
+          <Accodion.Content>
+            <div className='h-[100px] px-6'>카드 내용</div>
+          </Accodion.Content>
+        </Accodion>
       </SectionCard>
     </div>
   );
