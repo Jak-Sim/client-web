@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Chip from '@/components/chip/Chip';
+
 
 const MAX_HASHTAG_LENGTH = 50;
 
@@ -48,13 +50,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
 
       <div className='flex flex-wrap items-center gap-2 pr-10'>
         {Array.from(hashtags).map((hashtag, index) => (
-          <span
-            key={index}
-            className='cursor-pointer break-all rounded-xl border bg-v1-text-primary-50 px-2 py-[2px] text-sm text-v1-text-primary-400'
-            onClick={() => handleRemoveHashtag(hashtag)}
-          >
-            #{hashtag}
-          </span>
+          <Chip key={index} tag={hashtag} onClick={() => handleRemoveHashtag(hashtag)} prefix='#' />
         ))}
 
         <div
