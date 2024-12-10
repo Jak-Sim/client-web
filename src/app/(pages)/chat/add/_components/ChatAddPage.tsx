@@ -1,34 +1,42 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import { useLocalStorage } from 'react-use';
+import KeywordTags from '@/app/(pages)/chat/add/_components/KeywordTags';
+import RecommendedUserList from '@/app/(pages)/chat/add/_components/RecommendedUserList';
 import UsernameForm from '@/app/(pages)/chat/add/_components/UsernameForm';
-import Header from '@/components/layout/Header';
-import PageLayout from '@/components/layout/PageLayout';
+
+export interface Username {
+  username: string;
+}
 
 const ChatAddPage = () => {
-  const formData = useForm({ defaultValues: { username: '' } });
+  const formData = useForm<Username>({ defaultValues: { username: '' } });
+  const localStorage = useLocalStorage<string[]>('recentSearch', []);
+  const [searchHistory, setSearchHistory] = localStorage;
+
+  const onSubmit = (data: Username) => {
+    if (!data.username.trim()) return;
+
+    const updatedHistory = [...(searchHistory || [])];
+
+    console.log(updatedHistory);
+    if (!updatedHistory.includes(data.username)) {
+      updatedHistory.unshift(data.username);
+      if (updatedHistory.length > 10) updatedHistory.pop();
+      setSearchHistory(updatedHistory);
+    }
+    formData.reset();
+  };
 
   return (
-    <PageLayout
-      className={'flex flex-col bg-[#f2f2f7] p-3 pt-2'}
-      header={
-        <Header className={'bg-[#f2f2f7]'}>
-          <Header.Item>
-            <Header.BackButton />
-          </Header.Item>
-          <Header.Title>대화 상대 검색</Header.Title>
-        </Header>
-      }
-    >
-      <UsernameForm formData={formData} />
-      <button
-        onClick={() => {
-          console.log(formData.watch('username'));
-        }}
-      >
-        get
-      </button>
-    </PageLayout>
+    <>
+      <form onSubmit={formData.handleSubmit(onSubmit)}>
+        <UsernameForm formData={formData} />
+      </form>
+      <KeywordTags localStorage={localStorage} />
+      <RecommendedUserList />
+    </>
   );
 };
 
