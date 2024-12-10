@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "미션 이름",
+    "description": "미션 설명",
+    "reward": {
+      "id": 1,
+      "name": "리워드 이름",
+      "description": "리워드 설명",
+      "remain": 10,
+      "point": 100,
+      "needConfirm": true
+    },
+    "day": ["월", "수"],
+    "time": { "start": "10:00", "end": "21:00" }
+  },
+  {
+    "id": 2,
+    "name": "미션 이름",
+    "description": "미션 설명",
+    "reward": {
+      "id": 2,
+      "name": "리워드 이름",
+      "description": "리워드 설명",
+      "remain": 10,
+      "point": 300,
+      "needConfirm": false
+    },
+    "day": ["토", "일"],
+    "time": null
+  }
+]
