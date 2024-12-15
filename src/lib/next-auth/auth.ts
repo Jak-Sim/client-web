@@ -60,6 +60,12 @@ export const nextAuthOptions: NextAuthOptions = {
           (account as AccountWithAuth).userUniqueId = userUniqueId;
         }
       } catch (error) {
+        if (error instanceof Error) {
+          let errMsg = error.message;
+          if (!errMsg.includes('ECONNREFUSED')) {
+            errMsg = 'ECONNREFUSED';
+          }
+        }
         throw new Error('소셜 로그인 실패', { cause: error });
       }
 
