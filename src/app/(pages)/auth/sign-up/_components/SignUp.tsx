@@ -51,7 +51,7 @@ export default function SignUp() {
       social: sessionWithAccount.account.provider.toUpperCase(),
       userUniqueId: sessionWithAccount.account.providerAccountId,
     };
-    const response = (await api.post('/sign-up', user)) as {
+    const response = (await api.post('/auth/sign-up', user)) as {
       data: { data: UserSignUpDto };
     };
     const { AT, RT } = response.data.data;
@@ -73,7 +73,7 @@ export default function SignUp() {
       if (username?.length < 2) return;
 
       try {
-        // await api.post('/sign-up/nick-check', { nickname: username });
+        // await api.post('/auth/sign-up/nick-check', { nickname: username });
         return true;
       } catch (error) {
         if (error instanceof Error) {
