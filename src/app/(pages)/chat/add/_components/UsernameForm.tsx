@@ -21,7 +21,7 @@ const UsernameForm = ({ formData }: UsernameFormProps) => {
         <Search className='absolute left-6 top-3' />
         <InputWithError
           {...register('username', {
-            required: true,
+            required: false,
           })}
           placeholder='유저 닉네임을 검색해주세요.'
           hasError={!!errors.username}
