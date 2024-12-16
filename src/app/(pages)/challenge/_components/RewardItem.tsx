@@ -22,7 +22,7 @@ export default function RewardItem({
   };
 
   return (
-    <div className={`text-v1-primary-600 gap-4 rounded-2xl bg-white px-6 py-4 text-sm ${className}`}>
+    <li className={`text-v1-primary-600 gap-4 rounded-2xl bg-white px-6 py-4 text-sm ${className}`}>
       <div className='flex'>
         <div className='flex-1'>
           <div className='mb-2 flex flex-wrap items-center gap-2 font-semibold'>
@@ -53,6 +53,6 @@ export default function RewardItem({
           </button>
         )}
       </div>
-    </div>
+    </li>
   );
 }

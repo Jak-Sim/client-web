@@ -6,6 +6,7 @@ import { Hamburger, Speaker } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { DummyChallenge } from '../_components/ChallengeList';
+import MissionItem from '../_components/MissionItem';
 import RewardItem from '../_components/RewardItem';
 import dummyMission from '../_mock/dummyMission.json';
 import dummyReward from '../_mock/dummyReward.json';
@@ -22,7 +23,7 @@ export default function Page({ params }: { params: { challengeId: string } }) {
   console.log('user have to join challenge: ', session.data?.user);
 
   const rewards = dummyReward;
-  
+  const missions = dummyMission;
   return (
     <PageLayout
       header={
@@ -42,12 +43,18 @@ export default function Page({ params }: { params: { challengeId: string } }) {
       className='bg-v1-background px-6 pt-2'
     >
       <UserChallengeCard challenge={challenge} />
-      <div className='flex flex-col gap-4 pt-3'>
+      <ul className='flex flex-col gap-4 pt-3'>
         {rewards.map((reward) => (
           <RewardItem key={reward.id} reward={reward} hasFavorite={true} />
         ))}
         <AddItemButton color='blue' onClick={() => {}} />
-      </div>
+      </ul>
+      <ul className='flex flex-col gap-4 pt-3'>
+        {missions.map((mission) => (
+          <MissionItem key={mission.id} mission={mission} hasFavorite={true} />
+        ))}
+        <AddItemButton color='orange' onClick={() => {}} />
+      </ul>
     </PageLayout>
   );
 }
