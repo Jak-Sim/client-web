@@ -54,7 +54,7 @@ const HeaderItem = ({ children }: { children?: ReactNode }) => {
 };
 
 const HeaderCenter = ({ children }: { children: ReactNode }) => {
-  return <h1 className='absolute left-1/2 -translate-x-1/2 transform text-center text-lg font-semibold'>{children}</h1>;
+  return <h1 className='absolute left-1/2 -translate-x-1/2 transform text-center text-lg font-semibold truncate max-w-[40%] sm:max-w-[200px]'>{children}</h1>;
 };
 
 const Header = ({ children, className }: { children: ReactNode; className?: string }) => {
