@@ -27,6 +27,7 @@ import FlagChat from './flag-chat.svg';
 import Flag from './flag.svg';
 import Gem from './gem.svg';
 import GoogleLogin from './google-login.svg';
+import Hamburger from './hamburger.svg';
 import KakaoLogin from './kakao-login.svg';
 import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
@@ -38,6 +39,7 @@ import SearchShiny from './search-shiny.svg';
 import Search from './search.svg';
 import SmallBadge from './SmallBadge.svg';
 import SmallFlag from './SmallFlag.svg';
+import Speaker from './speaker.svg';
 import TailArrow from './TailArrow.svg';
 import UpArrowCircleActive from './up-arrow-circle-active.svg';
 import UpArrowCircle from './up-arrow-circle.svg';
@@ -77,6 +79,7 @@ export {
   Fire,
   Gem,
   GoogleLogin,
+  Hamburger,
   KakaoLogin,
   Lightning,
   NaverLogin,
@@ -85,6 +88,7 @@ export {
   Profile,
   Search,
   SearchShiny,
+  Speaker,
   UpArrowCircle,
   UpArrowCircleActive,
   Filter,

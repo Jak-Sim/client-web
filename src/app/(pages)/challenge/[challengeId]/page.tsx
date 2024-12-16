@@ -1,14 +1,14 @@
-import Button from '@/components/button/Button';
+'use client';
+
+import Link from 'next/link';
+import { Hamburger, Speaker } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
-import ChallengeDetail from '../_components/ChallengeDetail';
 import { DummyChallenge } from '../_components/ChallengeList';
-import ChallengeModal from './_components/ChallengeModal';
 
-const Page = async ({ params }: { params: { challengeId: string } }) => {
+const Page = ({ params }: { params: { challengeId: string } }) => {
   const challengeId = params.challengeId;
   const challenge = DummyChallenge;
-  const isJoined = false;
 
   // TODO:
   console.log('fetch challenge data with id: ' + challengeId);
@@ -18,21 +18,20 @@ const Page = async ({ params }: { params: { challengeId: string } }) => {
       header={
         <Header className='border-none bg-v1-background'>
           <Header.BackButton tail={true} />
-          <Header.Center>챌린지 정보</Header.Center>
-          <ChallengeModal />
+          <Header.Center>{challenge.name}</Header.Center>
+          <div className='flex gap-3'>
+            <Link href={`/chat/${challengeId}`}>
+              <Speaker />
+            </Link>
+            <Link href={`/challenge/${challengeId}/detail`}>
+              <Hamburger />
+            </Link>
+          </div>
         </Header>
       }
       className='bg-v1-background'
     >
-      <ChallengeDetail challenge={challenge} />
-
-      {!isJoined && (
-        <div className='h-20'>
-          <div className='fixed bottom-0 left-1/2 w-full max-w-[400px] -translate-x-1/2 px-6 pb-20'>
-            <Button>챌린지 가입하기</Button>
-          </div>
-        </div>
-      )}
+      챌린지 현황
     </PageLayout>
   );
 };
