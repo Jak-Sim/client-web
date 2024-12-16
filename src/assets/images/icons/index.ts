@@ -28,6 +28,8 @@ import Flag from './flag.svg';
 import Gem from './gem.svg';
 import GoogleLogin from './google-login.svg';
 import Hamburger from './hamburger.svg';
+import HeartFill from './Heart-fill.svg';
+import Heart from './Heart.svg';
 import KakaoLogin from './kakao-login.svg';
 import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
@@ -44,7 +46,6 @@ import TailArrow from './TailArrow.svg';
 import UpArrowCircleActive from './up-arrow-circle-active.svg';
 import UpArrowCircle from './up-arrow-circle.svg';
 import X from './x.svg';
-
 
 export {
   SmallFlag,
@@ -80,6 +81,8 @@ export {
   Gem,
   GoogleLogin,
   Hamburger,
+  HeartFill,
+  Heart,
   KakaoLogin,
   Lightning,
   NaverLogin,

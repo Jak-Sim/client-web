@@ -11,7 +11,7 @@ export default function UserChallengeCard({ challenge }: { challenge: Challenge 
   console.log(challenge.createdAt);
 
   return (
-    <div className='bg-v1-text-primary-75 flex h-[11.25rem] flex-col justify-between gap-2 rounded-lg p-4'>
+    <div className='bg-v1-text-primary-75 flex h-[11.25rem] flex-col justify-between gap-2 rounded-2xl px-6 py-6'>
       <div className='flex'>
         <div className='flex-1'>
           <p className='text-lg'>
