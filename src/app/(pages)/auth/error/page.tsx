@@ -9,7 +9,9 @@ export default function Page({ searchParams }: { searchParams: { message: string
       <h2 className='text-xl font-semibold text-v1-text-primary-500'>소셜 로그인에 실패했습니다.</h2>
       {message && <p className='text-center text-sm text-v1-text-primary-200'>{message}</p>}
       <Link href='/auth/sign-in' className='w-full'>
-        <Button variant='secondary'>돌아가기</Button>
+        <Button variant='secondary' asDiv>
+            돌아가기
+        </Button>
       </Link>
     </main>
   );
