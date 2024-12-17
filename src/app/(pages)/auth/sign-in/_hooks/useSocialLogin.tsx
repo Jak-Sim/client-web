@@ -12,7 +12,7 @@ export default function useSocialLogin() {
   const sessionWithAccount = session as CustomSession;
   const statusCode = sessionWithAccount?.auth?.statusCode;
 
-  const newUserRedirect = useCallback(() => router.push('/sign-up'), [router]);
+  const newUserRedirect = useCallback(() => router.push('/auth/sign-up'), [router]);
   const loginUserRedirect = useCallback(() => router.push('/'), [router]);
 
   const login = async (provider: JaksimOAuthProviderType) => {
@@ -20,7 +20,7 @@ export default function useSocialLogin() {
     try {
       const response = await signIn(provider);
       if (response?.ok) {
-        router.push('/sign-up');
+        router.push('/auth/sign-up');
       }
     } catch (error) {
       console.error(`${provider} 로그인 시도 중 오류 발생:`, error);

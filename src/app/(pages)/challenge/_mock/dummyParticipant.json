@@ -1,0 +1,17 @@
+[
+  {
+    "name": "홍길동",
+    "isCreator": true,
+    "avatar": null
+  },
+  {
+    "name": "김철수",
+    "isCreator": false,
+    "avatar": null
+  },
+  {
+    "name": "이영희",
+    "isCreator": false,
+    "avatar": null
+  }
+]

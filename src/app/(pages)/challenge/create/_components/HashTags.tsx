@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Chip from '@/components/chip/Chip';
+
+
 
 const MAX_HASHTAG_LENGTH = 50;
 
@@ -48,13 +51,7 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
 
       <div className='flex flex-wrap items-center gap-2 pr-10'>
         {Array.from(hashtags).map((hashtag, index) => (
-          <span
-            key={index}
-            className='cursor-pointer break-all rounded-xl border bg-v1-text-primary-50 px-2 py-[2px] text-sm text-v1-text-primary-400'
-            onClick={() => handleRemoveHashtag(hashtag)}
-          >
-            #{hashtag}
-          </span>
+          <Chip key={index} tag={hashtag} onClick={() => handleRemoveHashtag(hashtag)} prefix='#' />
         ))}
 
         <div
@@ -72,18 +69,15 @@ export default function HashTags({ value, onChange }: { value: string[]; onChang
             disabled={hashtagTextLength >= MAX_HASHTAG_LENGTH}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
+                handleHashtagInputKeyUp(getValues('hashtagInput'));
                 e.preventDefault();
               }
               if (e.key === 'Backspace' && hashtagInputLength === 0) {
                 const lastHashtag = Array.from(hashtags).pop();
                 handleRemoveHashtag(lastHashtag);
               }
-            }}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === ' ' || e.key === '#' || e.key === ',') {
                 handleHashtagInputKeyUp(getValues('hashtagInput'));
-              } else if (e.key === ' ' || e.key === '#' || e.key === ',') {
-                handleHashtagInputKeyUp(getValues('hashtagInput').slice(0, -1));
               }
             }}
             {...register('hashtagInput')}

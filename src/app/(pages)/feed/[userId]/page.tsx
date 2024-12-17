@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { useClickAway } from 'react-use';
 import FeedContents from '@/app/(pages)/feed/[userId]/_components/FeedContents';
 import FeedUserProfile from '@/app/(pages)/feed/[userId]/_components/FeedUserProfile';
-import Dots from '@/assets/images/icons/Dots.svg';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import Modal from '@/components/modal/Modal';
@@ -31,9 +30,6 @@ const Page = () => {
               <span className={'font-semibold text-v1-text-primary-700'}>김작심</span>{' '}
               <span className={'font-normal text-v1-text-primary-500'}>님의 피드</span>
             </div>
-          </Header.Item>
-          <Header.Item>
-            <Header.Icon Icon={Dots} onClick={modalProps.openModal} />
           </Header.Item>
         </Header>
       }

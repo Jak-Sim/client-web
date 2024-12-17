@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "리워드 이름",
+    "description": "리워드 설명",
+    "remain": 10,
+    "point": 100,
+    "needConfirm": true
+  },
+  {
+    "id": 2,
+    "name": "리워드 이름",
+    "description": "리워드 설명",
+    "remain": 20,
+    "point": 200,
+    "needConfirm": false
+  }
+]

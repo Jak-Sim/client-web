@@ -84,6 +84,25 @@ body {
     @apply bg-v1-text-primary-700;
   }
 
+  .red-bg-text {
+    @apply bg-v1-tertiary text-white border border-v1-tertiary;
+  }
+  .green-bg-text {
+    @apply bg-submit-dark text-white border border-submit-dark;
+  }
+  .light-orange-bg-text {
+    @apply bg-v1-orange-100 text-v1-tertiary border border-v1-orange-100;
+  }
+  .orange-bg-text {
+    @apply bg-v1-orange-500 text-white border border-v1-orange-500;
+  }
+  .grey-bg-text {
+    @apply bg-v1-grey-700 text-white border border-v1-grey-700;
+  }
+  .light-grey-bg-text {
+    @apply bg-v1-text-primary-50 text-v1-text-primary-400 border border-v1-text-primary-50;
+  }
+
   .slider:hover {
     opacity: 1; /* Fully shown on mouse-over */
   }
