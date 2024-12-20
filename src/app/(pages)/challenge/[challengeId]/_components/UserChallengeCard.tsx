@@ -1,8 +1,10 @@
+'use client';
+
 import { Coins } from '@/assets/images/icons';
-import { type Challenge } from '../../_components/ChallengeList';
+import { type ChallengeType } from '@/models/challenge/Challenge';
 import Progress from './Progress';
 
-export default function UserChallengeCard({ challenge }: { challenge: Challenge }) {
+export default function UserChallengeCard({ challenge }: { challenge: ChallengeType }) {
   const userName = '홍길동';
   // TODO: 챌린지 참여시작 날짜 필요
   const challengeDay = new Date(challenge.createdAt).getDate();
@@ -10,9 +12,8 @@ export default function UserChallengeCard({ challenge }: { challenge: Challenge 
   // TODO: 주간 참여도 계산 필요
   const progress = 80;
 
-
   return (
-    <div className='bg-v1-text-primary-75 flex h-[11.25rem] flex-col justify-between gap-2 rounded-2xl px-6 py-6'>
+    <div className='flex h-[11.25rem] flex-col justify-between gap-2 rounded-2xl bg-v1-text-primary-75 px-6 py-6'>
       <div className='flex'>
         <div className='flex-1'>
           <p className='text-lg'>

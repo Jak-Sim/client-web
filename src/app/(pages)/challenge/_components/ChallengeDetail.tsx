@@ -5,15 +5,17 @@ import { differenceInDays } from 'date-fns';
 import { Fire, Gem, Lightning } from '@/assets/images/icons';
 import Accodion from '@/components/accodion/Accodion';
 import Chip from '@/components/chip/Chip';
+import { type ChallengeType } from '@/models/challenge/Challenge';
 import dummyMission from '../_mock/dummyMission.json';
 import dummyReward from '../_mock/dummyReward.json';
-import { Challenge } from './ChallengeList';
 import MissionList from './MissionList';
 import ParticipantList from './ParticipantList';
 import RewardList from './RewardList';
 
-export default function ChallengeDetail({ challenge }: { challenge: Challenge }) {
+export default function ChallengeDetail({ challenge }: { challenge: ChallengeType }) {
   const currentChallengeStreak = differenceInDays(new Date(), new Date(challenge.createdAt)).toString();
+
+  // TODO: API 연동 필요한 값: rewards, missions
   const rewards = dummyReward;
   const missions = dummyMission;
 
@@ -28,10 +30,11 @@ export default function ChallengeDetail({ challenge }: { challenge: Challenge })
               fill
               sizes='300px'
               className='rounded-t-xl object-cover'
+              priority
             />
           )}
           <div className='absolute right-3 top-3 rounded-xl bg-white px-[6px] py-[1px] text-xs text-v1-text-primary-400'>
-            {challenge.isPublic ? '공개' : '비공개'}
+            {challenge.public ? '공개' : '비공개'}
           </div>
         </div>
         <div className='flex flex-col gap-5 px-4 py-6 text-center'>

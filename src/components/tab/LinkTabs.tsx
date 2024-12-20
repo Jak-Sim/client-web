@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 type LinkTab<T> = T extends Array<{ type: string; label: string; href: string }> ? T[number] : never;
@@ -10,7 +12,7 @@ function LinkTabs<T extends Array<{ type: string; label: string; href: string }>
   tabs: T;
 }) {
   return (
-    <ul className='border-v1-text-primary-75 -mx-6 mt-4 flex h-12 justify-between border-b'>
+    <ul className='-mx-6 mt-4 flex h-12 justify-between border-b border-v1-text-primary-75'>
       {tabs.map((e) => (
         <TabLinkButton key={e.type} tab={e} currentTabType={tab} />
       ))}
