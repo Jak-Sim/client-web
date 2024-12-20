@@ -1,0 +1,30 @@
+{
+  "challenge": [
+    {
+      "id": 1,
+      "challengeId": 1,
+      "name": "test",
+      "backgroundImage": "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg",
+      "currentParticipants": 0,
+      "maxParticipants": 3,
+      "tags": ["댕댕이"],
+      "createdAt": "2024-12-19T22:20:14.114281",
+      "creatorUserUuid": "75ab190b-6998-41c5-98d2-ea70df102264\t",
+      "participants": null,
+      "public": true
+    },
+    {
+      "id": 2,
+      "challengeId": 2,
+      "name": "test2",
+      "backgroundImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imin.sg%2Fen%2Fo2o-offline-2-online-system%2F&psig=AOvVaw3xdQzkxRiFQhdAaYQlD9HW&ust=1734423534473000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLjmiaftq4oDFQAAAAAdAAAAABAE",
+      "currentParticipants": 0,
+      "maxParticipants": 3,
+      "tags": [],
+      "createdAt": "2024-12-20T22:20:14.114281",
+      "creatorUserUuid": "75ab190b-6998-41c5-98d2-ea70df102264\t",
+      "participants": null,
+      "public": true
+    }
+  ]
+}

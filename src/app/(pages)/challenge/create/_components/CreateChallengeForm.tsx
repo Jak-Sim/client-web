@@ -12,9 +12,10 @@ import HashTags from './HashTags';
 import TwoWaySlider from './TwoWaySlider';
 import UploadThumbnail from './UploadThumbnail';
 
+
 export interface Challenge {
   challengeName: string;
-  backgroundImage: string;
+  backgroundImage: string | null;
   isPublic: boolean;
   minParticipants: number;
   maxParticipants: number;

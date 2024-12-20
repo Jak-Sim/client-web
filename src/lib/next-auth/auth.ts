@@ -30,6 +30,7 @@ type AccountWithAuth = Account & CustomAuth & { userUniqueId: string };
 export type CustomSession = Session & CustomAuth & { account: Account; user: CustomUser };
 
 export const nextAuthOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',

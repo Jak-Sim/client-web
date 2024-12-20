@@ -1,10 +1,17 @@
 import { getServerSession } from 'next-auth';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
+import { api } from '@/lib/axios/axios';
 import { CustomSession } from '@/lib/next-auth/auth';
 import BottomNav from './_components/BottomNav';
-import ChallengeList from './_components/ChallengeList';
+import ChallengeList, { Challenge } from './_components/ChallengeList';
 
+
+const getChallengeList = async (page: number) => {
+  const response = (await api.get(`http://localhost:3001/challenge?page=${page}`)) as { data: Challenge[] };
+
+  return response.data;
+};
 
 const Page = async () => {
   const session = await getServerSession();
@@ -12,7 +19,9 @@ const Page = async () => {
   if (!session) {
     // TODO: 로그인 페이지로 리다이렉트
   }
+
   const notNullSession = session as CustomSession;
+  const challengeList = await getChallengeList(1);
 
   return (
     <PageLayout
@@ -27,7 +36,7 @@ const Page = async () => {
       <div className='flex h-full flex-col'>
         <div className='my-2 text-center text-xs text-v1-text-primary-400'>진행 중인 챌린지</div>
         <div className='flex-1 px-6'>
-          <ChallengeList session={notNullSession} />
+          <ChallengeList session={notNullSession} challengeList={challengeList} />
         </div>
         <BottomNav />
       </div>

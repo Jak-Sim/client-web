@@ -9,41 +9,22 @@ export interface Challenge {
   challengeId: number;
   name: string;
   backgroundImage: string;
-  isPublic: boolean;
+  public: boolean;
   currentParticipants: number;
-  maxParticipant: number;
-  minParticipant: number;
+  maxParticipants: number;
   tags: string[];
   createdAt: string;
-  updatedAt: string;
   creatorUserUuid: string;
+  participants: string[] | null;
 }
 
-export const DummyChallenge: Challenge = {
-  challengeId: 999,
-  name: '챌린지 이름입니다',
-  backgroundImage: '',
-  isPublic: true,
-  currentParticipants: 3,
-  maxParticipant: 10,
-  minParticipant: 3,
-  tags: ['영어', '수학', '교과서위주'],
-  createdAt: '2024-11-25T10:19:30',
-  updatedAt: '2024-11-25T10:19:30',
-  creatorUserUuid: 'useruuid',
-};
-
-function getDummyChallengeList(): Challenge[] {
-  return new Array(5).fill(null).map((_, index) => ({
-    ...DummyChallenge,
-    challengeId: index,
-    currentParticipants: index % 2 === 0 ? 3 : 10,
-  }));
-}
-
-export default function ChallengeList({ session }: { session: CustomSession }) {
-  const challengeList = getDummyChallengeList();
-
+export default function ChallengeList({
+  session,
+  challengeList,
+}: {
+  session: CustomSession;
+  challengeList: Challenge[];
+}) {
   if (challengeList.length === 0) {
     return <EmptyChallengeList />;
   }

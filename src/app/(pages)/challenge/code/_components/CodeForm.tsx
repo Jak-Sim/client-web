@@ -6,9 +6,9 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { Search } from '@/assets/images/icons';
 import Button from '@/components/button/Button';
 import InputWithError from '@/components/input/InputWithErrorMsg';
+import { api } from '@/lib/axios/axios';
 import ChallengeCard from '../../_components/ChallengeCard';
-import { Challenge, DummyChallenge } from '../../_components/ChallengeList';
-
+import { type Challenge } from '../../_components/ChallengeList';
 
 export default function CodeForm({ userId }: { userId: string }) {
   const router = useRouter();
@@ -37,9 +37,10 @@ export default function CodeForm({ userId }: { userId: string }) {
       try {
         // const response = await api.get(`/challenge/find/${code}`);
         const response = code === '123456';
+        const challenge = (await api.get(`http://localhost:3001/challenge/1`))?.data as Challenge;
 
         if (response) {
-          setChallenge(DummyChallenge);
+          setChallenge(challenge);
         } else {
           setChallenge(null);
           setError('code', { message: '해당 코드로는 챌린지가 확인되지 않아요' });
