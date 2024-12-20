@@ -3,7 +3,12 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useMemo, useState } from 'react';
 
 
-export type ModalNames = 'feed-profile' | 'cancel-create-challenge' | 'challenge-modal' | 'withdraw-modal';
+export type ModalNames =
+  | 'feed-profile'
+  | 'cancel-create-challenge'
+  | 'challenge-modal'
+  | 'withdraw-modal'
+  | 'new-challenge-item';
 
 export interface ModalContextProps {
   modalState: ModalNames[];

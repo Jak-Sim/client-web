@@ -61,6 +61,7 @@ const config: Config = {
           white: '#FFFBFA',
           'text-primary': {
             '50': '#E8E8F1',
+            '75': '#D6D5E6',
             '100': '#C7C6D4',
             '200': '#9F9EAE',
             '300': '#6E6E86',
@@ -160,7 +161,7 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
         '4xl': '30px',
-        'button': '20px',
+        button: '20px',
       },
     },
   },

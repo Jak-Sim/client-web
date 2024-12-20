@@ -83,6 +83,24 @@ body {
   .button-tertiary:not(:disabled):active {
     @apply bg-v1-text-primary-700;
   }
+  .button-outline {
+    @apply text-v1-text-primary-400 border border-v1-text-primary-300 font-normal;
+  }
+  .button-outline:not(:disabled):hover {
+    @apply bg-white font-bold border-[2px];
+  }
+  .button-outline:not(:disabled):active {
+    @apply bg-white font-bold border-[2px];
+  }
+  .button-blue {
+    @apply bg-v1-blue-500 text-white;
+  }
+  .button-blue:not(:disabled):hover {
+    @apply bg-v1-blue-600;
+  }
+  .button-blue:not(:disabled):active {
+    @apply bg-v1-blue-600;
+  }
 
   .red-bg-text {
     @apply bg-v1-tertiary text-white border border-v1-tertiary;
