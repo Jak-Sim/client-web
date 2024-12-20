@@ -8,7 +8,7 @@ import { setCookie } from 'cookies-next';
 import { jwtDecode } from 'jwt-decode';
 import { api } from '@/lib/axios/axios';
 import { coloredStatusCode } from '@/utils/coloredStatusCode';
-
+import { formatErrorMessage } from '@/utils/formatErrorMessage';
 
 export type JaksimOAuthProviderType = 'google' | 'kakao' | 'naver';
 
@@ -61,13 +61,7 @@ export const nextAuthOptions: NextAuthOptions = {
           (account as AccountWithAuth).userUniqueId = userUniqueId;
         }
       } catch (error) {
-        let errMsg = '';
-        if (error instanceof Error) {
-          errMsg = encodeURIComponent(error.message);
-          if (errMsg.includes('ECONNREFUSED')) {
-            errMsg = 'ECONNREFUSED';
-          }
-        }
+        const errMsg = formatErrorMessage(error as unknown as Error);
         return `/auth/error${errMsg ? `?message=${errMsg}` : ''}`;
       }
 
