@@ -1,11 +1,8 @@
 import { getServerSession } from 'next-auth';
-import { getServerSession } from 'next-auth';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { CustomSession } from '@/lib/next-auth/auth';
-import { CustomSession } from '@/lib/next-auth/auth';
 import CodeForm from './_components/CodeForm';
-
 
 const Page = async () => {
   const session = await getServerSession();
