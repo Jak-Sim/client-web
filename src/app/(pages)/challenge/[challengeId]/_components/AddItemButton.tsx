@@ -12,7 +12,7 @@ export default function AddItemButton({ color, onClick }: { color: 'blue' | 'ora
 
   return (
     <button
-      className='relative flex h-[80px] items-center justify-center rounded-xl'
+      className='relative flex h-[80px] w-full items-center justify-center rounded-xl'
       style={{
         backgroundImage:
           'url("data:image/svg+xml,%3csvg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"%3e%3crect width="100%25" height="100%25" fill="none" rx="20" ry="20" stroke="%23FF7338FF" stroke-width="3" stroke-dasharray="6%2c 14" stroke-dashoffset="0" stroke-linecap="square"/%3e%3c/svg%3e")',

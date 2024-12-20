@@ -11,7 +11,8 @@ import MissionItem from '../_components/MissionItem';
 import RewardItem from '../_components/RewardItem';
 import dummyMission from '../_mock/dummyMission.json';
 import dummyReward from '../_mock/dummyReward.json';
-import AddItemButton from './_components/AddItemButton';
+import NewMission from './_components/NewMission';
+import NewReward from './_components/NewReward';
 import UserChallengeCard from './_components/UserChallengeCard';
 
 const TABS = [
@@ -60,28 +61,32 @@ export default function Page({
       <LinkTabs tab={searchParams.tab} tabs={TABS} />
 
       {searchParams.tab === 'reward-page' && (
-        <ul className='flex flex-col gap-4 pt-4'>
+        <ListWrapper>
           {rewards.map((reward) => (
             <RewardItem key={reward.id} reward={reward} hasFavorite={true} />
           ))}
-          <AddItemButton color='blue' onClick={() => {}} />
-        </ul>
+          <NewReward challengeId={challengeId} />
+        </ListWrapper>
       )}
       {searchParams.tab === 'mission-ongoing' && (
-        <ul className='flex flex-col gap-4 pt-4'>
+        <ListWrapper>
           {missions.map((mission) => (
             <MissionItem key={mission.id} mission={mission} hasFavorite={true} />
           ))}
-          <AddItemButton color='orange' onClick={() => {}} />
-        </ul>
+          <NewMission challengeId={challengeId} />
+        </ListWrapper>
       )}
       {searchParams.tab === 'mission-complete' && (
-        <ul className='flex flex-col gap-4 pt-4'>
+        <ListWrapper>
           {missions.map((mission) => (
             <MissionItem key={mission.id} mission={mission} hasFavorite={true} />
           ))}
-        </ul>
+        </ListWrapper>
       )}
     </PageLayout>
   );
 }
+
+const ListWrapper = ({ children }: { children: React.ReactNode }) => {
+  return <ul className='flex flex-col gap-4 pt-4'>{children}</ul>;
+};

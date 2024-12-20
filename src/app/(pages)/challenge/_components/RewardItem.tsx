@@ -38,7 +38,7 @@ export default function RewardItem({
             <div className='flex items-center gap-[2px]'>
               {reward.needConfirm ? (
                 <>
-                  <Check />
+                  <Check color='#00B751' />
                   확인 후 수령 가능
                 </>
               ) : (
