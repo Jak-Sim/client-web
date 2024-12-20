@@ -4,11 +4,12 @@ import Progress from './Progress';
 
 export default function UserChallengeCard({ challenge }: { challenge: Challenge }) {
   const userName = '홍길동';
-  const challengeDay = 1;
+  // TODO: 챌린지 참여시작 날짜 필요
+  const challengeDay = new Date(challenge.createdAt).getDate();
   const point = 1000;
+  // TODO: 주간 참여도 계산 필요
   const progress = 80;
 
-  console.log(challenge.createdAt);
 
   return (
     <div className='bg-v1-text-primary-75 flex h-[11.25rem] flex-col justify-between gap-2 rounded-2xl px-6 py-6'>

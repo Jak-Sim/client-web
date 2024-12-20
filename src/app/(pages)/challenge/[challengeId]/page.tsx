@@ -79,7 +79,7 @@ export default function Page({
       {searchParams.tab === 'mission-complete' && (
         <ListWrapper>
           {missions.map((mission) => (
-            <MissionItem key={mission.id} mission={mission} hasFavorite={true} />
+            <MissionItem key={mission.id} mission={mission} hasFavorite={true} isFinished={true} />
           ))}
         </ListWrapper>
       )}

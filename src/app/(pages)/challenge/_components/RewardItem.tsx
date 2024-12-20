@@ -22,12 +22,17 @@ export default function RewardItem({
   };
 
   return (
-    <li className={`text-v1-primary-600 gap-4 rounded-2xl bg-white px-6 py-4 text-sm ${className}`}>
+    <li
+      className={`text-v1-primary-600 gap-4 rounded-2xl bg-white px-6 py-4 text-sm ${className} ${
+        reward.remain === 0 ? '!bg-v1-grey-300' : ''
+      }`}
+    >
       <div className='flex'>
         <div className='flex-1'>
           <div className='mb-2 flex flex-wrap items-center gap-2 font-semibold'>
             {reward.name}
-            <Chip tag={`${reward.remain}개 남음`} varient='red' fontSize='xs' />
+            {reward.remain > 0 && <Chip tag={`${reward.remain}개 남음`} varient='red' fontSize='xs' />}
+            {reward.remain === 0 && <Chip tag='증정 종료' varient='grey' fontSize='xs' />}
             {reward.needConfirm ? '' : <Chip tag='바로 수령 가능' varient='orange' fontSize='xs' />}
           </div>
           <div className='flex items-center gap-2'>
