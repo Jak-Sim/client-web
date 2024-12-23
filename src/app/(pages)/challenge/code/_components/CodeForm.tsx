@@ -26,7 +26,7 @@ export default function CodeForm({ userId }: { userId: string }) {
 
   const onSubmit = (data: FieldValues) => {
     if (!data.code || !challenge) return;
-    router.push(`/challenge/${challenge.challengeId}`);
+    router.push(`/challenge/${challenge.challengeId}/detail`);
   };
   const code = watch('code');
 

@@ -24,7 +24,6 @@ const Page = async () => {
       className='bg-v1-background'
     >
       <CodeForm userId={userId} />
-      <CodeForm userId={userId} />
     </PageLayout>
   );
 };
