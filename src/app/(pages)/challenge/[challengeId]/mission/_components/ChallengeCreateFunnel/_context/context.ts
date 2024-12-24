@@ -1,7 +1,7 @@
 export type MissionDescription = { name?: string; description?: string; pictures?: FileList | null };
 export type MissionPeriod = {
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date | null;
+  endDate?: Date | null;
   startTime?: string;
   endTime?: string;
 };

@@ -1,19 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { ko } from 'date-fns/locale/ko';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import Calendar from '@/assets/images/icons/calendar.svg';
-import './MissionDate.css';
+import './inputDate.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ko', ko);
 
-const MissionDate = ({ value, onChange }: { value: Date | null; onChange: (date: Date | null) => void }) => {
+const InputDate = ({ value, onChange }: { value: Date | null; onChange: (date: Date | null) => void }) => {
   return (
     <DatePicker
-      className='w-full max-w-[140px] rounded-[20px] border-[1px] border-[#907D78] px-4 py-3'
+      className='w-full rounded-2xl bg-v1-text-primary-50 p-3 text-center text-lg outline-none'
       renderCustomHeader={({
         date,
         decreaseMonth,
@@ -35,10 +34,10 @@ const MissionDate = ({ value, onChange }: { value: Date | null; onChange: (date:
       )}
       selected={value}
       locale='ko'
-      dateFormat={'yyyy.MM.dd'}
+      dateFormat={'yyyy/MM/dd'}
       onChange={onChange}
     />
   );
 };
 
-export default MissionDate;
+export default InputDate;
