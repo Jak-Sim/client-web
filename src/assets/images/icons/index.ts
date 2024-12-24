@@ -35,6 +35,7 @@ import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
 import NoTailArrow from './NoTailArrow.svg';
 import Plus2 from './plus-2.svg';
+import PlusNormal from './plus-normal.svg';
 import Plus from './plus.svg';
 import Profile from './profile.svg';
 import SearchShiny from './search-shiny.svg';
@@ -46,6 +47,7 @@ import TailArrow from './TailArrow.svg';
 import UpArrowCircleActive from './up-arrow-circle-active.svg';
 import UpArrowCircle from './up-arrow-circle.svg';
 import X from './x.svg';
+
 
 export {
   SmallFlag,
@@ -88,6 +90,7 @@ export {
   NaverLogin,
   Plus,
   Plus2,
+  PlusNormal,
   Profile,
   Search,
   SearchShiny,

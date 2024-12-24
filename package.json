@@ -24,6 +24,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-switch": "^1.1.1",
+    "@use-funnel/browser": "^0.0.10",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
