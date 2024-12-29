@@ -32,7 +32,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         head_row: 'flex',
         head_cell: 'text-muted-foreground rounded-md w-full font-normal text-xs mt-3 mb-2',
         row: 'flex justify-center w-full mt-1',
-        cell: 'w-full h-10 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-v1-text-primary-50 first:[&:has([aria-selected].day-range-start)]:rounded-l-full [&:has([aria-selected].day-range-end)]:rounded-r-full focus-within:relative focus-within:z-20 hover:opacity-90',
+        cell: 'w-full h-10 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-v1-text-primary-50 [&:has([aria-selected].day-range-start)]:rounded-l-full [&:has([aria-selected].day-range-end)]:rounded-r-full focus-within:relative focus-within:z-20 hover:opacity-90',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
           'w-full h-full p-0 font-normal aria-selected:opacity-100 selected:bg-v1-text-primary-500 selected:text-white !rounded-full',
