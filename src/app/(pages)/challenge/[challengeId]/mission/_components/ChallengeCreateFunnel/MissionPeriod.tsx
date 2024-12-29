@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { DateRange } from 'react-day-picker';
 import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
 import InputDate from '@/components/input/InputDate';
 import InputTime from '@/components/input/InputTime';
 import { Days, getKoreanDayString } from '@/utils/getKoreanDay';
+import MissionPeriodDrawer from '../MissionDateDrawer';
 import WeeklyToggleSwitches from '../WeeklyToggleSwitches';
 
 interface MissionPeriodProps {
@@ -28,11 +30,16 @@ interface MissionPeriodProps {
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelUi;
 
 export default function MissionPeriod({ onNext, goBack, ...props }: MissionPeriodProps) {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [dateRange, setDateRange] = useState<DateRange>();
   const [startTime, setStartTime] = useState<string>(props.startTime ?? '');
   const [endTime, setEndTime] = useState<string>(props.endTime ?? '');
   const [selectedDays, setSelectedDays] = useState<Days[]>([]);
+
+  const setStartDate = (date: Date | null | undefined, type: 'from' | 'to') => {
+    if (date) {
+      setDateRange((prev) => (prev ? { ...prev, [type]: date } : { from: date, to: undefined }));
+    }
+  };
 
   return (
     <FunnelUi>
@@ -46,12 +53,22 @@ export default function MissionPeriod({ onNext, goBack, ...props }: MissionPerio
           <Label htmlFor='startDate'>미션 기간 설정</Label>
           <GrayText>기간은 최대 1년까지 설정할수 있어요</GrayText>
         </TextRow>
-        <div className='flex items-center gap-2'>
-          <InputDate value={startDate} onChange={setStartDate} />
-          <div className='shrink-0'>부터</div>
-          <InputDate value={endDate} onChange={setEndDate} />
-          <div className='shrink-0'>까지</div>
-        </div>
+        <MissionPeriodDrawer dateRange={dateRange} setDateRange={setDateRange}>
+          <div className='flex items-center gap-2'>
+            <InputDate
+              value={dateRange?.from ?? null}
+              onChange={(date) => setStartDate(date, 'from')}
+              className='pointer-events-none'
+            />
+            <div className='shrink-0'>부터</div>
+            <InputDate
+              value={dateRange?.to ?? null}
+              onChange={(date) => setStartDate(date, 'to')}
+              className='pointer-events-none'
+            />
+            <div className='shrink-0'>까지</div>
+          </div>
+        </MissionPeriodDrawer>
       </FieldWrapper>
       <FieldWrapper>
         <TextRow>
@@ -88,9 +105,9 @@ export default function MissionPeriod({ onNext, goBack, ...props }: MissionPerio
       </FieldWrapper>
       <ButtonWrapper>
         <Button
-          onClick={() => onNext({ startDate, endDate, startTime, endTime })}
+          onClick={() => onNext({ startDate: dateRange?.from, endDate: dateRange?.to, startTime, endTime })}
           variant='tertiary'
-          disabled={!startDate || !endDate}
+          disabled={!dateRange?.from || !dateRange?.to}
         >
           다음
         </Button>

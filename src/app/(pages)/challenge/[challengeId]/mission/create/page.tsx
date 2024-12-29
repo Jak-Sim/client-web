@@ -31,7 +31,7 @@ export default function Page() {
             )}
           </Header.Item>
           <Header.Title>
-            <ProgressBar index={funnel.index} max={3} />
+            <StepIndicator index={funnel.index} max={3} />
           </Header.Title>
           <Header.Item>
             <Header.GrayText disabled={true}>임시저장</Header.GrayText>
@@ -44,7 +44,7 @@ export default function Page() {
   );
 }
 
-function ProgressBar({ index, max, className }: { index: number; max: number; className?: string }) {
+function StepIndicator({ index, max, className }: { index: number; max: number; className?: string }) {
   return (
     <div className={`flex h-12 w-full items-center justify-center gap-[10px] ${className}`}>
       {Array.from({ length: max }).map((_, idx) => (

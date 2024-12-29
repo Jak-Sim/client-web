@@ -7,12 +7,21 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import './inputDate.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 registerLocale('ko', ko);
 
-const InputDate = ({ value, onChange }: { value: Date | null; onChange: (date: Date | null) => void }) => {
+const InputDate = ({
+  value,
+  onChange,
+  className,
+}: {
+  value: Date | null;
+  onChange: (date: Date | null) => void;
+  className?: string;
+}) => {
   return (
     <DatePicker
-      className='w-full rounded-2xl bg-v1-text-primary-50 p-3 text-center text-lg outline-none'
+      className={`w-full rounded-2xl bg-v1-text-primary-50 p-3 text-center text-lg outline-none ${className}`}
       renderCustomHeader={({
         date,
         decreaseMonth,
