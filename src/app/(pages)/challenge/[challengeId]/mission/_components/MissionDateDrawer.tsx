@@ -23,7 +23,7 @@ export default function MissionPeriodDrawer({
   return (
     <Drawer open={open}>
       <DrawerTrigger onClick={() => setOpen(true)}>{children}</DrawerTrigger>
-      <DrawerContent style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <DrawerContent onInteractOutside={() => setOpen(false)} className='border-none rounded-2xl' style={{ boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.1)' }}>
         <DrawerTitle className='hidden'>미션 기간 설정</DrawerTitle>
 
         <div className='mx-auto my-4 flex w-full max-w-[300px] flex-col gap-4'>
