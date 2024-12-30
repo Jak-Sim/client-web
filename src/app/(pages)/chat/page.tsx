@@ -17,6 +17,7 @@ const Page = async () => {
     },
   });
 
+
   return <ChatListPage groupChatListData={groupChatListData} challengeChatListData={challengeChatListData} />;
 };
 
