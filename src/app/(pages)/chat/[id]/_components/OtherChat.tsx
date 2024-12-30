@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
@@ -24,7 +24,19 @@ const OtherChat = (props: OtherChatProps) => {
 };
 
 const Avatar = ({ isFirstMessage }: { isFirstMessage: boolean }) => {
-  return <div className={clsx('h-11 w-11 rounded-full', isFirstMessage ? 'bg-gray-200' : '')} />;
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div
+      onClick={() => {
+        if (isFirstMessage) {
+          setIsOpen(!isOpen);
+        }
+      }}
+      className={clsx('relative h-11 w-11 rounded-full', isFirstMessage ? 'cursor-pointer bg-gray-900' : '')}
+    >
+      {isOpen && <ProfileModal />}
+    </div>
+  );
 };
 
 const SenderId = (props: OtherChatProps) => {
@@ -68,6 +80,24 @@ const TimeStamp = ({ timestamp }: { timestamp: ChatMessage['timestamp'] }) => {
         {format(timestamp, 'a HH:mm', {
           locale: ko,
         })}
+      </div>
+    </div>
+  );
+};
+
+const ProfileModal = () => {
+  return (
+    <div
+      className={'absolute bottom-0 left-0 z-10 w-[210px] translate-y-[calc(100%+15px)] transform rounded-2xl bg-white'}
+    >
+      <div className={'border-b px-6 py-4'}>
+        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>미션완료 제출</div>
+      </div>
+      <div className={'border-b px-6 py-4'}>
+        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>사진 촬영</div>
+      </div>
+      <div className={'px-6 py-4'}>
+        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>사진 첨부</div>
       </div>
     </div>
   );
