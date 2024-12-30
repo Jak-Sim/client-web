@@ -1,6 +1,7 @@
 'use client';
 
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { io } from 'socket.io-client';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
 import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
@@ -21,27 +22,27 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const roomRef = useRef<HTMLDivElement>(null);
   const [userId, setUserId] = useState<string>('user1');
 
-  // const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
-  //
-  // useEffect(() => {
-  //   socket.emit('joinRoom', id);
-  //
-  //   socket.on('chat message', (data: ChatMessage) => {
-  //     setChat((prev) => [...prev, data]);
-  //   });
-  //
-  //   socket.on('chat image', (data: ChatMessage) => {
-  //     setChat((prev) => [...prev, data]);
-  //   });
-  //
-  //   return () => {
-  //     socket.off('chat message');
-  //     socket.off('chat image');
-  //   };
-  // }, [id, socket]);
+  const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
+
+  useEffect(() => {
+    socket.emit('joinRoom', id);
+
+    socket.on('chat message', (data: ChatMessage) => {
+      setChat((prev) => [...prev, data]);
+    });
+
+    socket.on('chat image', (data: ChatMessage) => {
+      setChat((prev) => [...prev, data]);
+    });
+
+    return () => {
+      socket.off('chat message');
+      socket.off('chat image');
+    };
+  }, [id, socket]);
 
   const sendMessage = () => {
-    // socket.emit('chat message', { message, userId, roomId: id });
+    socket.emit('chat message', { message, userId, roomId: id });
     setMessage('');
   };
 
@@ -64,11 +65,11 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
       );
 
       if (response.data.success) {
-        // socket.emit('chat image', {
-        //   roomId: id,
-        //   userId: userId,
-        //   imageUrl: response.data.imageUrl,
-        // });
+        socket.emit('chat image', {
+          roomId: id,
+          userId: userId,
+          imageUrl: response.data.imageUrl,
+        });
       }
     }
   };
