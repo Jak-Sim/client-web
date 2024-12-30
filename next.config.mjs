@@ -6,6 +6,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'jaksimimage2.s3.ap-northeast-2.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.google.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.utoimage.com',
+      },
     ],
   },
   webpack: (config) => {

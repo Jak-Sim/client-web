@@ -7,19 +7,10 @@ import { z } from 'zod';
 import Button from '@/components/button/Button';
 import InputUnderline from '@/components/input/InputUnderline';
 import { Switch } from '@/components/ui/switch';
-import { api } from '@/lib/axios/axios';
+import { Challenge, ChallengeCreateDTO } from '@/models/challenge/Challenge';
 import HashTags from './HashTags';
 import TwoWaySlider from './TwoWaySlider';
 import UploadThumbnail from './UploadThumbnail';
-
-export interface Challenge {
-  challengeName: string;
-  backgroundImage: string;
-  isPublic: boolean;
-  minParticipants: number;
-  maxParticipants: number;
-  tags: string[];
-}
 
 const schema = z.object({
   challengeName: z.string().min(1).max(20),
@@ -39,10 +30,10 @@ export default function CreateChallengeForm() {
     setValue,
     getValues,
     formState: { errors },
-  } = useForm<Challenge>({
+  } = useForm<ChallengeCreateDTO>({
     resolver: zodResolver(schema),
     defaultValues: {
-      challengeName: '',
+      name: '',
       backgroundImage: '',
       isPublic: false,
       minParticipants: 3,
@@ -51,7 +42,7 @@ export default function CreateChallengeForm() {
     },
   });
 
-  const challengeName = useWatch({ control, name: 'challengeName' });
+  const challengeName = useWatch({ control, name: 'name' });
   const minParticipants = useWatch({ control, name: 'minParticipants' });
   const maxParticipants = useWatch({ control, name: 'maxParticipants' });
   const backgroundImage = useWatch({ control, name: 'backgroundImage' });
@@ -61,15 +52,10 @@ export default function CreateChallengeForm() {
     if (getValues('maxParticipants') !== value[1]) setValue('maxParticipants', value[1]);
   };
 
-  const onSubmit = async (data: Challenge) => {
-    const { challengeName, ...rest } = data;
-    const newData = {
-      name: challengeName,
-      ...rest,
-    };
+  const onSubmit = async (data: ChallengeCreateDTO) => {
     try {
-      const response = await api.post('/challenge/create', newData);
-      const challengeId = response.data.challengeId;
+      const response = await Challenge.createChallenge(data);
+      const challengeId = response.challengeId;
       router.push(`/challenge/create/success?challengeId=${challengeId}`);
     } catch (error) {
       console.error(error);
@@ -87,8 +73,8 @@ export default function CreateChallengeForm() {
             hasMaxLength={true}
             maxLength={20}
             currentLength={challengeName.length}
-            isError={!!errors.challengeName}
-            {...register('challengeName')}
+            isError={!!errors.name}
+            {...register('name')}
           />
 
           <Controller
