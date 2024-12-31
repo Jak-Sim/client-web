@@ -6,7 +6,7 @@ import { Search } from '@/assets/images/icons';
 import InputWithError from '@/components/input/InputWithErrorMsg';
 
 interface UsernameFormProps {
-  formData: UseFormReturn<Username, any, undefined>;
+  formData: UseFormReturn<Username>;
 }
 
 const UsernameForm = ({ formData }: UsernameFormProps) => {

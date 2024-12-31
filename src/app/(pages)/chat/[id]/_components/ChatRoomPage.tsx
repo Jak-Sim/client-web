@@ -84,7 +84,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   return (
     <PageLayout
       header={
-        <Header>
+        <Header className={'bg-v1-background'}>
           <Header.Item>
             <Header.BackButton />
           </Header.Item>

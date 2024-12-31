@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
+import { ChatAttach, ChatLightning, ChatPhoto } from '@/assets/images/icons';
 import { ChatMessage } from '@/models/chat/data-contracts';
 
 interface OtherChatProps extends ChatMessage {
@@ -91,13 +92,22 @@ const ProfileModal = () => {
       className={'absolute bottom-0 left-0 z-10 w-[210px] translate-y-[calc(100%+15px)] transform rounded-2xl bg-white'}
     >
       <div className={'border-b px-6 py-4'}>
-        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>미션완료 제출</div>
+        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>
+          미션완료 제출
+          <ChatLightning />
+        </div>
       </div>
       <div className={'border-b px-6 py-4'}>
-        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>사진 촬영</div>
+        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>
+          사진 촬영
+          <ChatPhoto />
+        </div>
       </div>
       <div className={'px-6 py-4'}>
-        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>사진 첨부</div>
+        <div className={'flex justify-between font-medium text-v1-text-primary-700'}>
+          사진 첨부
+          <ChatAttach />
+        </div>
       </div>
     </div>
   );
