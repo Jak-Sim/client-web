@@ -15,6 +15,8 @@ import ChatPlus from './chat-plus.svg';
 import CheckBroken from './check-broken.svg';
 import Check from './check.svg';
 import ChevronDown from './chevron-down.svg';
+import ChevronLeft from './chevron-left.svg';
+import ChevronRight from './chevron-right.svg';
 import Chevron from './chevron.svg';
 import Clock from './clock.svg';
 import Code from './code.svg';
@@ -40,8 +42,10 @@ import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
 import NoTailArrow from './NoTailArrow.svg';
 import Plus2 from './plus-2.svg';
+import PlusNormal from './plus-normal.svg';
 import Plus from './plus.svg';
 import Profile from './profile.svg';
+import Refresh from './refresh.svg';
 import SearchShiny from './search-shiny.svg';
 import Search from './search.svg';
 import SmallBadge from './small-badge.svg';
@@ -71,6 +75,8 @@ export {
   CheckBroken,
   Chevron,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Comment,
   Comments,
   CrossCircle,
@@ -98,12 +104,14 @@ export {
   NaverLogin,
   Plus,
   Plus2,
+  PlusNormal,
   Profile,
   Search,
   SearchShiny,
   Speaker,
   UpArrowCircle,
   UpArrowCircleActive,
+  Refresh,
   Filter,
   X,
 };

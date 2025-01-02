@@ -8,7 +8,7 @@ export default function MissionList({ missions }: { missions: Mission[] }) {
         <MissionItem
           mission={mission}
           key={mission.id}
-          className={`mx-6 rounded-none border-b !px-0 ${index === missions.length - 1 ? '' : 'border-b'}`}
+          className={`mx-6 rounded-none border-b !px-0 ${index === missions.length - 1 ? '' : 'border-b'} !bg-white`}
         />
       ))}
     </ul>
