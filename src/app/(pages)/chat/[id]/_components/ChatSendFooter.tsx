@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useRef } from 'react';
-import { AddCircle, UpArrowCircle, UpArrowCircleActive } from '@/assets/images/icons';
+import { ChatPlus, UpArrowCircle, UpArrowCircleActive } from '@/assets/images/icons';
 
 interface ChatSendFooterProps {
   message: string;
@@ -12,7 +12,7 @@ const ChatSendFooter = ({ message, setMessage, sendMessage, sendImage }: ChatSen
   const labelRef = useRef<HTMLLabelElement>(null);
   return (
     <>
-      <div className={'flex border-t border-[#e2e2e2] px-2 pb-4 pt-2'}>
+      <div className={'flex border-t border-[#e2e2e2] bg-v1-background px-2 pb-4 pt-2'}>
         <label htmlFor='image' className={'p-1'} ref={labelRef}>
           <button
             type={'button'}
@@ -22,7 +22,7 @@ const ChatSendFooter = ({ message, setMessage, sendMessage, sendImage }: ChatSen
               }
             }}
           >
-            <AddCircle />
+            <ChatPlus />
             <input type='file' hidden id={'image'} accept='image/*' onChange={sendImage} />
           </button>
         </label>

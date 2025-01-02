@@ -1,12 +1,17 @@
+import { ReactNode } from 'react';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 
-const Page = () => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <PageLayout
       className={'flex flex-col bg-[#f2f2f7] p-3 pt-2'}
       header={
-        <Header>
+        <Header className={'bg-[#f2f2f7]'}>
           <Header.Item>
             <Header.BackButton />
           </Header.Item>
@@ -14,11 +19,9 @@ const Page = () => {
         </Header>
       }
     >
-      <div className={'mt-2 flex flex-1 flex-col'}>
-        <div className={'flex-1 flex-col rounded-xl bg-white px-2'}>대화상대 검색</div>
-      </div>
+      {children}
     </PageLayout>
   );
 };
 
-export default Page;
+export default Layout;

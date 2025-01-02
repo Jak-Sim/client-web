@@ -61,7 +61,7 @@ const Header = ({ children, className }: { children: ReactNode; className?: stri
   return (
     <div
       className={cn(
-        'relative flex h-[56px] items-center justify-between border-b px-6 py-4 font-bold text-v1-text-primary-500 shadow-black',
+        'relative flex h-[56px] items-center justify-between px-6 py-4 font-bold text-v1-text-primary-500',
         className,
       )}
     >

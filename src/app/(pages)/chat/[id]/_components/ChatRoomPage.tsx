@@ -20,7 +20,8 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState<ChatMessage[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState<string>('user1');
+
   const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   return (
     <PageLayout
       header={
-        <Header>
+        <Header className={'bg-v1-background'}>
           <Header.Item>
             <Header.BackButton />
           </Header.Item>
@@ -105,14 +106,27 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
           onChange={(e) => setUserId(e.target.value)}
         />
       </div>
-      <div className={'px-4 py-3'} ref={roomRef}>
+      <div className={'px-5 py-3'} ref={roomRef}>
         <div className='flex flex-col'>
-          {previousChatMessageData.map((msg, index) => (
-            <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
-          ))}
-          {chat.map((msg, index) => (
-            <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>
-          ))}
+          {previousChatMessageData.map((msg, index) => {
+            const isFirstMessage = index === 0 || previousChatMessageData[index - 1].senderId !== msg.senderId;
+            const isLastMessage =
+              index === previousChatMessageData.length - 1 ||
+              previousChatMessageData[index + 1].senderId !== msg.senderId;
+
+            return (
+              <div key={index}>
+                {msg.senderId === userId ? (
+                  <MyChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} />
+                ) : (
+                  <OtherChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} />
+                )}
+              </div>
+            );
+          })}
+          {/*{chat.map((msg, index) => (*/}
+          {/*  <div key={index}>{msg.senderId === userId ? <MyChat {...msg} /> : <OtherChat {...msg} />}</div>*/}
+          {/*))}*/}
         </div>
       </div>
     </PageLayout>
