@@ -24,12 +24,8 @@ export default function MissionTimeDrawer({
 }) {
   const [open, setOpen] = useState(false);
 
-  const handleReset = () => {
-    onSelect({ hour: 1, minute: 0, period: 'AM' });
-  };
-
   return (
-    <Drawer open={open}>
+    <Drawer open={open} dismissible={false}>
       <DrawerTrigger onClick={() => setOpen(true)} className='w-full'>
         {children}
       </DrawerTrigger>
@@ -42,13 +38,14 @@ export default function MissionTimeDrawer({
         <div className='mx-auto my-4 flex h-[300px] w-full max-w-[300px] flex-col justify-between gap-4'>
           <TimePicker value={selectedTime} onChange={onSelect} maxTime={maxTime} minTime={minTime} />
           <DrawButtonBox
-            handleReset={handleReset}
+            handleReset={() => {}}
             setOpen={setOpen}
             isSelected={!!selectedTime}
             buttonText={{
               selected: '선택 완료',
               unselected: '선택 해주세요',
             }}
+            hasResetButton={false}
           />
         </div>
       </DrawerContent>

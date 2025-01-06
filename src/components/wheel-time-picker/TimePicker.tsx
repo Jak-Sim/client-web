@@ -4,6 +4,7 @@ import { CarouselApi } from '@/components/ui/carousel';
 import { cn } from '@/lib/shadcn/utils';
 import { TimeValue } from '../../app/(pages)/challenge/[challengeId]/mission/create/_components/ChallengeCreateFunnel/MissionPeriod';
 
+
 interface Props {
   value?: TimeValue | null;
   onChange: (value: TimeValue) => void;
@@ -11,15 +12,16 @@ interface Props {
   minTime: TimeValue | undefined;
 }
 
-const getCurrentTimeValue = (date: Date) => {
-  const hours = date.getHours();
+export const getCurrentTimeValue = (date: Date) => {
+  let hours = date.getHours();
   const minutes = date.getMinutes();
   const period = hours < 12 ? 'AM' : 'PM';
 
   if (period === 'PM' && hours > 12) {
-    return { hour: hours - 12, minute: minutes, period };
+    hours = hours - 12;
   }
-  return { hour: hours, minute: minutes, period };
+  const timeValue: TimeValue = { hour: hours, minute: minutes, period };
+  return timeValue;
 };
 
 export const isTimeValid = ({

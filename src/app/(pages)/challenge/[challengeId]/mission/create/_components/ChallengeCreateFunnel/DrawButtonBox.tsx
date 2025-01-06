@@ -6,6 +6,7 @@ export default function DrawButtonBox({
   setOpen,
   isSelected,
   buttonText,
+  hasResetButton = true,
 }: {
   handleReset: () => void;
   setOpen: (open: boolean) => void;
@@ -14,10 +15,11 @@ export default function DrawButtonBox({
     selected: string;
     unselected: string;
   };
+  hasResetButton?: boolean;
 }) {
   return (
     <div className='flex justify-between px-4'>
-      {isSelected && (
+      {isSelected && hasResetButton && (
         <button onClick={handleReset} className='w-10'>
           <Refresh />
         </button>
