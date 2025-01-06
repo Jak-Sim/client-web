@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import { useClickAway } from 'react-use';
 import {
@@ -21,21 +20,16 @@ interface ChatMenuProps {
 
 const ChatMenu = ({ isOpen, close }: ChatMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
 
   useClickAway(menuRef, close);
-
-  useEffect(() => {
-    close();
-  }, [close, pathname]);
 
   return (
     <aside>
       <div
         className={clsx(
-          'fixed inset-x-0 top-0 z-[101] m-auto h-screen w-full max-w-[400px] overflow-hidden bg-transparent transition-all duration-300',
+          'fixed inset-x-0 top-0 z-[101] m-auto h-screen w-full max-w-[400px] overflow-hidden transition-all duration-300',
           {
-            ['visible bg-black/20']: isOpen,
+            ['visible bg-black/10']: isOpen,
             ['invisible bg-black/0']: !isOpen,
           },
         )}
