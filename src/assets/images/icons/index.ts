@@ -7,9 +7,15 @@ import Badge from './badge.svg';
 import CalendarCheck from './calendar-check.svg';
 import Calendar from './calendar.svg';
 import Camera from './camera.svg';
+import ChatArrowUp from './chat-arrow-up.svg';
 import ChatAttach from './chat-attach.svg';
 import ChatCrown from './chat-crown.svg';
 import ChatLightning from './chat-lightning.svg';
+import ChatMenuChallenge from './chat-menu-challenge.svg';
+import ChatMenuChallengerCrown from './chat-menu-challenger-crown.svg';
+import ChatMenuChallenger from './chat-menu-challenger.svg';
+import ChatMenuChevronRight from './chat-menu-chevron-right.svg';
+import ChatMenuMission from './chat-menu-mission.svg';
 import ChatPhoto from './chat-photo.svg';
 import ChatPlus from './chat-plus.svg';
 import CheckBroken from './check-broken.svg';
@@ -77,8 +83,14 @@ export {
   Crown,
   CrownFill,
   ChatCrown,
+  ChatArrowUp,
   ChatAttach,
   ChatLightning,
+  ChatMenuChallenge,
+  ChatMenuChallenger,
+  ChatMenuChallengerCrown,
+  ChatMenuChevronRight,
+  ChatMenuMission,
   ChatPhoto,
   ChatPlus,
   Code,

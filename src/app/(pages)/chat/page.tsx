@@ -11,12 +11,12 @@ const Page = async () => {
       'user-id': 'user1',
     },
   });
+
   const { data: challengeChatListData } = await chatApi.listChallengeList({
     headers: {
       'user-id': 'user1',
     },
   });
-
 
   return <ChatListPage groupChatListData={groupChatListData} challengeChatListData={challengeChatListData} />;
 };
