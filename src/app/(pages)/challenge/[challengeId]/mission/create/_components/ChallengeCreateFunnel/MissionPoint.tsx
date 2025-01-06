@@ -30,9 +30,9 @@ export default function MissionPoint({ onNext, ...props }: MissionPointProps) {
         </div>
         <div className='flex items-center gap-2'>
           <Input
-            type='number'
+            type='numberpad'
             value={point}
-            onChange={(e) => setPoint(Number(e.target.value))}
+            onChange={(e) => setPoint(Number(e.target.value) > MAX_POINT ? MAX_POINT : Number(e.target.value))}
             maxLength={3}
             max={MAX_POINT}
             min={MIN_POINT}
