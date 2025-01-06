@@ -1,10 +1,19 @@
+import { cn } from '@/lib/shadcn/utils';
 import { Input } from './Input';
 import './inputTime.css';
 
-export default function InputTime({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+export default function InputTime({
+  value,
+  onChange,
+  className,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  className?: string;
+}) {
   return (
-    <div className='flex items-center justify-center'>
-      <Input type='time' value={value} onChange={(e) => onChange(e.target.value)} />
+    <div className={cn('flex items-center justify-center', className)}>
+      <Input className='text-center' value={value} onChange={(e) => onChange(e.target.value)} />
     </div>
   );
 }

@@ -4,11 +4,8 @@ import MissionDescription from './MissionDescription';
 import MissionPeriod from './MissionPeriod';
 import MissionPoint from './MissionPoint';
 
-export default function FunnelRender({
-  funnel,
-}: {
-  funnel: UseFunnelResults<FunnelProps, Partial<Record<string, any>>>;
-}) {
+
+export default function FunnelRender({ funnel }: { funnel: UseFunnelResults<FunnelProps, Partial<Record<string, unknown>>> }) {
   return (
     <>
       <funnel.Render

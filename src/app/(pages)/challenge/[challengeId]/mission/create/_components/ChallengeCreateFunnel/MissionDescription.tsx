@@ -23,7 +23,7 @@ interface MissionDescriptionProps {
 const MAX_PICTURES = 3;
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelUi;
 
-export default function MissionDescription({ onNext, goBack, ...props }: MissionDescriptionProps) {
+export default function MissionDescription({ onNext, ...props }: MissionDescriptionProps) {
   const [name, setName] = useState<string>(props.name ?? '');
   const [description, setDescription] = useState<string>(props.description ?? '');
   const [pictures, setPictures] = useState<FileList | null>(props.pictures || null);

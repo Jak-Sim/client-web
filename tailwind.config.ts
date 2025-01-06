@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 
+
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -162,6 +163,9 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
         '4xl': '30px',
         button: '20px',
+      },
+      screens: {
+        xs: '360px',
       },
     },
   },

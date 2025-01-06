@@ -19,7 +19,7 @@ interface Options {
 }
 
 export function getKoreanDayString(days: Days[], options?: Options) {
-  let daysString = days
+  const daysString = days
     .sort((a, b) => day_index.indexOf(a) - day_index.indexOf(b))
     .map((day) => getKoreanDayName(day))
     .join('');

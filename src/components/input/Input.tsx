@@ -1,6 +1,5 @@
-import { createContext, Dispatch, SetStateAction, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { cn } from '@/lib/shadcn/utils';
-
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   className?: string;
@@ -10,14 +9,6 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   className?: string;
   children?: React.ReactNode;
-};
-
-type ImageInputProps = {
-  className?: string;
-  children?: React.ReactNode;
-  value: FileList | null;
-  setValue: Dispatch<SetStateAction<FileList | null>>;
-  maxLength: number;
 };
 
 const commonContext = createContext<{

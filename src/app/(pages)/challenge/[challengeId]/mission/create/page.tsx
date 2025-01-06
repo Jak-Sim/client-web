@@ -5,8 +5,9 @@ import { useFunnel } from '@use-funnel/browser';
 import { Chevron, X } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
-import { type FunnelProps } from '../_components/ChallengeCreateFunnel/_context/context';
-import FunnelRender from '../_components/ChallengeCreateFunnel/FunnelRender';
+import { type FunnelProps } from './_components/ChallengeCreateFunnel/_context/context';
+import FunnelRender from './_components/ChallengeCreateFunnel/FunnelRender';
+
 
 export default function Page() {
   const router = useRouter();

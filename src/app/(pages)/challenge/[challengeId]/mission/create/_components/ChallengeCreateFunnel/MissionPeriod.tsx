@@ -4,9 +4,12 @@ import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
 import InputDate from '@/components/input/InputDate';
 import InputTime from '@/components/input/InputTime';
+import { isTimeValid } from '@/components/wheel-time-picker/TimePicker';
 import { Days, getKoreanDayString } from '@/utils/getKoreanDay';
-import MissionPeriodDrawer from '../MissionDateDrawer';
+import MissionPeriodDrawer from '../drawer/MissionDateDrawer';
+import MissionTimeDrawer from '../drawer/MissionTimeDrawer';
 import WeeklyToggleSwitches from '../WeeklyToggleSwitches';
+
 
 interface MissionPeriodProps {
   onNext: ({
@@ -27,13 +30,23 @@ interface MissionPeriodProps {
   endTime?: string;
 }
 
+export type TimeValue = {
+  hour: number;
+  minute: number;
+  period: 'AM' | 'PM';
+};
+
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelUi;
 
-export default function MissionPeriod({ onNext, goBack, ...props }: MissionPeriodProps) {
+export default function MissionPeriod({ onNext }: MissionPeriodProps) {
   const [dateRange, setDateRange] = useState<DateRange>();
-  const [startTime, setStartTime] = useState<string>(props.startTime ?? '');
-  const [endTime, setEndTime] = useState<string>(props.endTime ?? '');
   const [selectedDays, setSelectedDays] = useState<Days[]>([]);
+  const [startTime, setStartTime] = useState<TimeValue>();
+  const [endTime, setEndTime] = useState<TimeValue>();
+
+  const formatTime = (time: TimeValue) => {
+    return `${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')} ${time.period}`;
+  };
 
   const setStartDate = (date: Date | null | undefined, type: 'from' | 'to') => {
     if (date) {
@@ -54,13 +67,13 @@ export default function MissionPeriod({ onNext, goBack, ...props }: MissionPerio
           <GrayText>기간은 최대 1년까지 설정할수 있어요</GrayText>
         </TextRow>
         <MissionPeriodDrawer dateRange={dateRange} setDateRange={setDateRange}>
-          <div className='flex items-center gap-2'>
+          <div className='flex flex-col gap-2 gap-y-0 xs:flex-row xs:items-center'>
             <InputDate
               value={dateRange?.from ?? null}
               onChange={(date) => setStartDate(date, 'from')}
               className='pointer-events-none'
             />
-            <div className='shrink-0'>부터</div>
+            <div className='mb-2 shrink-0 xs:mb-0'>부터</div>
             <InputDate
               value={dateRange?.to ?? null}
               onChange={(date) => setStartDate(date, 'to')}
@@ -96,16 +109,35 @@ export default function MissionPeriod({ onNext, goBack, ...props }: MissionPerio
           <Label htmlFor='endDate'>미션 제한 시간 설정 (선택)</Label>
           <GrayText>제한 시간을 설정하지 않으면 기본으로 하루종일 진행 되요! </GrayText>
         </TextRow>
-        <div className='flex items-center gap-2'>
-          <InputTime value={startTime} onChange={setStartTime} />
-          <div className='shrink-0'>부터</div>
-          <InputTime value={endTime} onChange={setEndTime} />
-          <div className='shrink-0'>까지</div>
+        <div className='flex flex-col items-center gap-2 gap-y-0 xs:flex-row'>
+          <MissionTimeDrawer selectedTime={startTime} onSelect={setStartTime} maxTime={endTime}>
+            <InputTime
+              value={startTime ? formatTime(startTime) : ''}
+              onChange={() => {}}
+              className={startTime && !isTimeValid({ value: startTime, maxTime: endTime }) ? 'text-v1-red-600' : ''}
+            />
+          </MissionTimeDrawer>
+          <div className='my-2 flex shrink-0 items-center xs:mb-0'>부터</div>
+          <MissionTimeDrawer selectedTime={endTime} onSelect={setEndTime} minTime={startTime}>
+            <InputTime
+              value={endTime ? formatTime(endTime) : ''}
+              onChange={() => {}}
+              className={endTime && !isTimeValid({ value: endTime, minTime: startTime }) ? 'text-v1-red-600' : ''}
+            />
+          </MissionTimeDrawer>
+          <div className='my-2 flex shrink-0 items-center xs:mb-0'>까지</div>
         </div>
       </FieldWrapper>
       <ButtonWrapper>
         <Button
-          onClick={() => onNext({ startDate: dateRange?.from, endDate: dateRange?.to, startTime, endTime })}
+          onClick={() =>
+            onNext({
+              startDate: dateRange?.from,
+              endDate: dateRange?.to,
+              startTime: startTime ? formatTime(startTime) : '',
+              endTime: endTime ? formatTime(endTime) : '',
+            })
+          }
           variant='tertiary'
           disabled={!dateRange?.from || !dateRange?.to}
         >

@@ -22,7 +22,7 @@ function ButtonWrapper({ children, className }: { children: React.ReactNode; cla
   );
 }
 
-function TextRow({ children, className }: { children: React.ReactNode; className?: string }) {
+function TextRow({ children }: { children: React.ReactNode }) {
   return <div>{children}</div>;
 }
 

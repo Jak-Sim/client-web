@@ -3,6 +3,7 @@ import { CalendarCheck, Clock, Coins, Heart, HeartFill } from '@/assets/images/i
 import { Mission } from '@/types/challenge';
 import { formatKoreanDayString } from '@/utils/getKoreanDay';
 
+
 export default function MissionItem({
   mission,
   className,
@@ -23,7 +24,7 @@ export default function MissionItem({
     onFavorite?.();
   };
 
-  let days = formatKoreanDayString(mission.day.join(''));
+  const days = formatKoreanDayString(mission.day.join(''));
 
   return (
     <li

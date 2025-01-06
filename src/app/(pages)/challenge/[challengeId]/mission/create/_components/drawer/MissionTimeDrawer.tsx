@@ -1,0 +1,57 @@
+import { useState } from 'react';
+import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import TimePicker from '@/components/wheel-time-picker/TimePicker';
+import DrawButtonBox from '../ChallengeCreateFunnel/DrawButtonBox';
+
+export type TimeValue = {
+  hour: number;
+  minute: number;
+  period: 'AM' | 'PM';
+};
+
+export default function MissionTimeDrawer({
+  children,
+  selectedTime,
+  onSelect,
+  maxTime,
+  minTime,
+}: {
+  children: React.ReactNode;
+  selectedTime: TimeValue | undefined;
+  onSelect: (time: TimeValue) => void;
+  maxTime?: TimeValue | undefined;
+  minTime?: TimeValue | undefined;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const handleReset = () => {
+    onSelect({ hour: 1, minute: 0, period: 'AM' });
+  };
+
+  return (
+    <Drawer open={open}>
+      <DrawerTrigger onClick={() => setOpen(true)} className='w-full'>
+        {children}
+      </DrawerTrigger>
+      <DrawerContent
+        onInteractOutside={() => setOpen(false)}
+        className='w-full rounded-2xl border-none'
+        style={{ boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.1)' }}
+      >
+        <DrawerTitle className='hidden'>미션 기간 설정</DrawerTitle>
+        <div className='mx-auto my-4 flex h-[300px] w-full max-w-[300px] flex-col justify-between gap-4'>
+          <TimePicker value={selectedTime} onChange={onSelect} maxTime={maxTime} minTime={minTime} />
+          <DrawButtonBox
+            handleReset={handleReset}
+            setOpen={setOpen}
+            isSelected={!!selectedTime}
+            buttonText={{
+              selected: '선택 완료',
+              unselected: '선택 해주세요',
+            }}
+          />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+}

@@ -11,7 +11,7 @@ function DayToggle({ day, isActive, onToggle }: DayToggleProps) {
   return (
     <button
       type='button'
-      className={`flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-[1px] border-v1-text-primary-200 text-sm font-bold transition-colors ${isActive ? 'bg-v1-orange-500 text-white' : 'bg-white'}`}
+      className={`xs:h-11 xs:w-11 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px] border-v1-text-primary-200 text-sm font-bold transition-colors ${isActive ? 'bg-v1-orange-500 text-white' : 'bg-white'}`}
       onClick={onToggle}
     >
       {getKoreanDayName(day)}

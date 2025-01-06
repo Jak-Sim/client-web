@@ -13,7 +13,7 @@ const { Title, FieldWrapper, ButtonWrapper, GrayText, Label } = FunnelUi;
 const MAX_POINT = 100;
 const MIN_POINT = 1;
 
-export default function MissionPoint({ onNext, goBack, ...props }: MissionPointProps) {
+export default function MissionPoint({ onNext, ...props }: MissionPointProps) {
   const [point, setPoint] = useState<number>(props.point ?? 0);
   return (
     <FunnelUi>
@@ -36,7 +36,7 @@ export default function MissionPoint({ onNext, goBack, ...props }: MissionPointP
             maxLength={3}
             max={MAX_POINT}
             min={MIN_POINT}
-            className='w-full'
+            className='w-full text-center'
           />{' '}
           포인트
         </div>

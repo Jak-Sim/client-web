@@ -8,6 +8,7 @@ import Modal from '@/components/modal/Modal';
 import Portal from '@/components/modal/ModalPortal';
 import { useModal } from '@/hooks/useModal';
 
+
 interface MissionType {
   tag: 'mission';
   data: {
@@ -40,7 +41,7 @@ export default function ContinueConfirmModal({
     return () => {
       modalProps.closeModal();
     };
-  }, [savedData]);
+  }, [savedData, modalProps]);
 
   if (!savedData) return null;
 

@@ -1,6 +1,8 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import Image from 'next/image';
 import { PlusNormal } from '@/assets/images/icons';
 import { cn } from '@/lib/shadcn/utils';
+
 
 type ImageInputProps = {
   className?: string;
@@ -57,7 +59,7 @@ export default function ImageFileInput({ className, setValue, maxLength }: Image
         </label>
       )}
       {Array.from(currentFiles || []).map((file) => (
-        <img
+        <Image
           key={file.name}
           src={URL.createObjectURL(file)}
           alt='Preview'
@@ -68,6 +70,8 @@ export default function ImageFileInput({ className, setValue, maxLength }: Image
               : '',
             className,
           )}
+          width={80}
+          height={80}
           onClick={() => removeImage(file)}
         />
       ))}
