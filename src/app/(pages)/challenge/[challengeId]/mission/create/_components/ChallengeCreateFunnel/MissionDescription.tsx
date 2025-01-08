@@ -3,21 +3,15 @@ import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
 import ImageFileInput from '@/components/input/ImageFileInput';
 import { Input, TextArea } from '@/components/input/Input';
+import type { MissionDescription } from './_context/context';
+
 
 interface MissionDescriptionProps {
-  onNext: ({
-    name,
-    description,
-    pictures,
-  }: {
-    name?: string;
-    description?: string;
-    pictures?: FileList | null;
-  }) => void;
+  onNext: (props: MissionDescription) => void;
   goBack: () => void;
-  name?: string;
-  description?: string;
-  pictures?: FileList | null;
+  name?: MissionDescription['name'];
+  description?: MissionDescription['description'];
+  pictures?: MissionDescription['pictures'];
 }
 
 const MAX_PICTURES = 3;

@@ -2,11 +2,12 @@ import { useState } from 'react';
 import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
 import { Input } from '@/components/input/Input';
+import type { MissionPoint } from './_context/context';
 
 interface MissionPointProps {
-  onNext: ({ point }: { point?: number }) => void;
+  onNext: (props: MissionPoint) => void;
   goBack: () => void;
-  point?: number;
+  point?: MissionPoint['point'];
 }
 
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label } = FunnelUi;
