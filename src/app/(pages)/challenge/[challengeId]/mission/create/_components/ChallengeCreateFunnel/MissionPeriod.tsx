@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { TimeLike } from 'fs';
 import { DateRange } from 'react-day-picker';
 import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
@@ -9,25 +10,15 @@ import { Days, getKoreanDayString } from '@/utils/getKoreanDay';
 import MissionPeriodDrawer from '../drawer/MissionDateDrawer';
 import MissionTimeDrawer from '../drawer/MissionTimeDrawer';
 import WeeklyToggleSwitches from '../WeeklyToggleSwitches';
-
+import type { MissionPeriod } from './_context/context';
 
 interface MissionPeriodProps {
-  onNext: ({
-    startDate,
-    endDate,
-    startTime,
-    endTime,
-  }: {
-    startDate?: Date | null;
-    endDate?: Date | null;
-    startTime?: string;
-    endTime?: string;
-  }) => void;
+  onNext: (props: MissionPeriod) => void;
   goBack: () => void;
-  startDate?: Date | null;
-  endDate?: Date | null;
-  startTime?: string;
-  endTime?: string;
+  startDate?: MissionPeriod['startDate'];
+  endDate?: MissionPeriod['endDate'];
+  startTime?: MissionPeriod['startTime'];
+  endTime?: MissionPeriod['endTime'];
 }
 
 export type TimeValue = {
@@ -41,18 +32,25 @@ const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelU
 export default function MissionPeriod({ onNext }: MissionPeriodProps) {
   const [dateRange, setDateRange] = useState<DateRange>();
   const [selectedDays, setSelectedDays] = useState<Days[]>([]);
-  const [startTime, setStartTime] = useState<TimeValue>();
-  const [endTime, setEndTime] = useState<TimeValue>();
-
-  const formatTime = (time: TimeValue) => {
-    return `${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')} ${time.period}`;
-  };
+  const [startTime, setStartTime] = useState<TimeLike>();
+  const [endTime, setEndTime] = useState<TimeLike>();
+  const [isValidTime, setIsValidTime] = useState(true);
 
   const setStartDate = (date: Date | null | undefined, type: 'from' | 'to') => {
     if (date) {
       setDateRange((prev) => (prev ? { ...prev, [type]: date } : { from: date, to: undefined }));
     }
   };
+
+  useEffect(() => {
+    setIsValidTime(true);
+
+    let isValid = true;
+    if (startTime) isValid = isTimeValid({ value: startTime, maxTime: endTime });
+    if (endTime) isValid = isTimeValid({ value: endTime, minTime: startTime });
+
+    setIsValidTime(isValid);
+  }, [startTime, endTime]);
 
   return (
     <FunnelUi>
@@ -111,19 +109,11 @@ export default function MissionPeriod({ onNext }: MissionPeriodProps) {
         </TextRow>
         <div className='flex flex-col items-center gap-2 gap-y-0 xs:flex-row'>
           <MissionTimeDrawer selectedTime={startTime} onSelect={setStartTime} maxTime={endTime}>
-            <InputTime
-              value={startTime ? formatTime(startTime) : ''}
-              onChange={() => {}}
-              className={startTime && !isTimeValid({ value: startTime, maxTime: endTime }) ? 'text-v1-red-600' : ''}
-            />
+            <InputTime value={startTime ?? ''} onChange={() => {}} className={isValidTime ? '' : 'text-v1-red-600'} />
           </MissionTimeDrawer>
           <div className='my-2 flex shrink-0 items-center xs:mb-0'>부터</div>
           <MissionTimeDrawer selectedTime={endTime} onSelect={setEndTime} minTime={startTime}>
-            <InputTime
-              value={endTime ? formatTime(endTime) : ''}
-              onChange={() => {}}
-              className={endTime && !isTimeValid({ value: endTime, minTime: startTime }) ? 'text-v1-red-600' : ''}
-            />
+            <InputTime value={endTime ?? ''} onChange={() => {}} className={isValidTime ? '' : 'text-v1-red-600'} />
           </MissionTimeDrawer>
           <div className='my-2 flex shrink-0 items-center xs:mb-0'>까지</div>
         </div>
@@ -134,12 +124,12 @@ export default function MissionPeriod({ onNext }: MissionPeriodProps) {
             onNext({
               startDate: dateRange?.from,
               endDate: dateRange?.to,
-              startTime: startTime ? formatTime(startTime) : '',
-              endTime: endTime ? formatTime(endTime) : '',
+              startTime,
+              endTime,
             })
           }
           variant='tertiary'
-          disabled={!dateRange?.from || !dateRange?.to}
+          disabled={!dateRange?.from || !dateRange?.to || !isValidTime}
         >
           다음
         </Button>

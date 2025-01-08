@@ -1,9 +1,12 @@
+import { TimeLike } from 'fs';
+
+
 export type MissionDescription = { name?: string; description?: string; pictures?: FileList | null };
 export type MissionPeriod = {
   startDate?: Date | null;
   endDate?: Date | null;
-  startTime?: string;
-  endTime?: string;
+  startTime?: TimeLike;
+  endTime?: TimeLike;
 };
 export type MissionPoint = { point?: number };
 

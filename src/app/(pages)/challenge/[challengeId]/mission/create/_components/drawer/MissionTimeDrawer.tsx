@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { TimeLike } from 'fs';
+import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import TimePicker from '@/components/wheel-time-picker/TimePicker';
 import DrawButtonBox from '../ChallengeCreateFunnel/DrawButtonBox';
-
-export type TimeValue = {
-  hour: number;
-  minute: number;
-  period: 'AM' | 'PM';
-};
 
 export default function MissionTimeDrawer({
   children,
@@ -17,15 +12,16 @@ export default function MissionTimeDrawer({
   minTime,
 }: {
   children: React.ReactNode;
-  selectedTime: TimeValue | undefined;
-  onSelect: (time: TimeValue) => void;
-  maxTime?: TimeValue | undefined;
-  minTime?: TimeValue | undefined;
+  selectedTime: TimeLike | undefined;
+  onSelect: (time: TimeLike) => void;
+  maxTime?: TimeLike | undefined;
+  minTime?: TimeLike | undefined;
 }) {
   const [open, setOpen] = useState(false);
 
   return (
     <Drawer open={open} dismissible={false}>
+      <DrawerDescription className='hidden'>미션 기간 설정</DrawerDescription>
       <DrawerTrigger onClick={() => setOpen(true)} className='w-full'>
         {children}
       </DrawerTrigger>

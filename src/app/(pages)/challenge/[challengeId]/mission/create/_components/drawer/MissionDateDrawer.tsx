@@ -21,7 +21,7 @@ export default function MissionPeriodDrawer({
 
   return (
     <Drawer open={open}>
-      <DrawerDescription>미션 기간 설정</DrawerDescription>
+      <DrawerDescription className='hidden'>미션 기간 설정</DrawerDescription>
       <DrawerTrigger onClick={() => setOpen(true)} className='w-full'>
         {children}
       </DrawerTrigger>
@@ -38,7 +38,7 @@ export default function MissionPeriodDrawer({
           <DrawButtonBox
             handleReset={handleReset}
             setOpen={setOpen}
-            isSelected={!!dateRange?.from && !!dateRange?.to}
+            isSelected={!!dateRange?.from && !!dateRange?.to }
             buttonText={{
               selected: '선택 완료',
               unselected: '선택 해주세요',
