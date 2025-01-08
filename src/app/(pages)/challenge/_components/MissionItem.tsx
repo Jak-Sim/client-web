@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { CalendarCheck, Clock, Coins, Heart, HeartFill } from '@/assets/images/icons';
 import { Mission } from '@/types/challenge';
+import { formatKoreanDayString } from '@/utils/getKoreanDay';
+
 
 export default function MissionItem({
   mission,
@@ -22,10 +24,7 @@ export default function MissionItem({
     onFavorite?.();
   };
 
-  let days = mission.day.join('');
-  if (days === '토일') {
-    days = '주말';
-  }
+  const days = formatKoreanDayString(mission.day.join(''));
 
   return (
     <li

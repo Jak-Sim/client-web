@@ -16,7 +16,7 @@ export default function Error({ error }: { error: Error }) {
       <h2 className='text-xl font-semibold text-v1-text-primary-500'>오류가 발생했습니다</h2>
       {message && (
         <p className='text-center text-sm text-v1-text-primary-200'>
-          {message}
+          {decodeURI(message)}
         </p>
       )}
       <Button variant='secondary' onClick={() => router.back()}>

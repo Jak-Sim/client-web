@@ -8,7 +8,7 @@ export default function RewardList({ rewards }: { rewards: Reward[] }) {
         <RewardItem
           key={reward.id}
           reward={reward}
-          className={`mx-6 rounded-none border-b !px-0 ${index === rewards.length - 1 ? '' : 'border-b'}`}
+          className={`mx-6 rounded-none border-b !px-0 ${index === rewards.length - 1 ? '' : 'border-b'} !bg-white`}
         />
       ))}
     </ul>

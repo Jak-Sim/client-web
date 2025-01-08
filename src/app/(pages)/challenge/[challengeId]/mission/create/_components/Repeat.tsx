@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import WeeklyToggleSwitches from '@/app/(pages)/challenge/[challengeId]/mission/_components/WeeklyToggleSwitches';
 
 const Repeat = () => {
   const [isActive, setIsActive] = useState(true);
@@ -29,11 +28,11 @@ const Repeat = () => {
           </div>
         </div>
       </div>
-      {isActive && (
+      {/* {isActive && (
         <div>
           <WeeklyToggleSwitches />
         </div>
-      )}
+      )} */}
     </>
   );
 };
