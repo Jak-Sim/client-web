@@ -1,15 +1,16 @@
 'use client';
 
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { Menu } from 'lucide-react';
 import { io } from 'socket.io-client';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
 import MyChat from '@/app/(pages)/chat/[id]/_components/MyChat';
 import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
-import { Plus } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { socketApi } from '@/lib/axios/axios';
 import { ChatMessage, MessageDetailData } from '@/models/chat/data-contracts';
+import ChatMenu from './ChatMenu';
 
 interface ChatRoomPageProps {
   id: string;
@@ -17,10 +18,11 @@ interface ChatRoomPageProps {
 }
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState<ChatMessage[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
-  const [userId, setUserId] = useState<string>('user1');
+  const [userId] = useState<string>('user1');
 
   const socket = useMemo(() => io(process.env.NEXT_PUBLIC_API_URL_SOCKET), []);
 
@@ -90,7 +92,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
           </Header.Item>
           <Header.Title>채팅</Header.Title>
           <Header.Item>
-            <Header.Icon Icon={Plus} />
+            <Header.Icon Icon={Menu} onClick={() => setIsOpen(true)} />
           </Header.Item>
         </Header>
       }
@@ -98,13 +100,14 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
         <ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} sendImage={sendImage} />
       }
     >
+      <ChatMenu isOpen={isOpen} close={() => setIsOpen(false)} />
       <div className={'flex'}>
-        <input
-          className={'fixed top-0 w-full flex-1 border'}
-          type='text'
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-        />
+        {/*<input*/}
+        {/*  className={'fixed top-0 w-full flex-1 border'}*/}
+        {/*  type='text'*/}
+        {/*  value={userId}*/}
+        {/*  onChange={(e) => setUserId(e.target.value)}*/}
+        {/*/>*/}
       </div>
       <div className={'px-5 py-3'} ref={roomRef}>
         <div className='flex flex-col'>
