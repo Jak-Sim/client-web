@@ -1,5 +1,6 @@
 import { cn } from '@/lib/shadcn/utils';
 
+
 function FunnelUi({ children, className }: { children: React.ReactNode; className?: string }) {
   return <div className={cn('pb-24', className)}>{children}</div>;
 }
@@ -38,10 +39,24 @@ function GrayText({ children, className }: { children: React.ReactNode; classNam
   return <p className={cn('my-0.5 text-sm font-normal text-v1-text-primary-300', className)}>{children}</p>;
 }
 
+function StepIndicator({ index, max, className }: { index: number; max: number; className?: string }) {
+  return (
+    <div className={`flex h-12 w-full items-center justify-center gap-[10px] ${className}`}>
+      {Array.from({ length: max }).map((_, idx) => (
+        <div
+          key={idx}
+          className={`h-[6px] rounded-full bg-[#3E3D5D] transition-all duration-300 ${idx === index ? 'w-[24px]' : 'w-[6px]'}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 FunnelUi.Title = Title;
 FunnelUi.FieldWrapper = FieldWrapper;
 FunnelUi.ButtonWrapper = ButtonWrapper;
 FunnelUi.GrayText = GrayText;
 FunnelUi.Label = Label;
 FunnelUi.TextRow = TextRow;
+FunnelUi.StepIndicator = StepIndicator;
 export default FunnelUi;
