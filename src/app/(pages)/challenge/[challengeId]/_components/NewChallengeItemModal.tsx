@@ -1,58 +1,23 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { X } from '@/assets/images/icons';
 import Button from '@/components/button/Button';
 import Modal from '@/components/modal/Modal';
 import Portal from '@/components/modal/ModalPortal';
-import { useModal } from '@/hooks/useModal';
+import { ModalProps } from '@/hooks/useModal';
 
-
-interface MissionType {
-  tag: 'mission';
-  data: {
-    name: string;
-  };
-}
-
-interface RewardType {
-  tag: 'reward';
-  data: {
-    name: string;
-  };
-}
-export type LocalSavedChallengeItem = MissionType | RewardType;
-
-export default function ContinueConfirmModal({
-  savedData,
-  onSaveLoad: onOk,
-}: {
-  savedData: LocalSavedChallengeItem | null;
+interface ContinueConfirmModalProps {
+  type: 'mission' | 'reward';
+  savedData: { name: string };
   onSaveLoad: () => void;
-}) {
-  const modalProps = useModal('new-challenge-item');
+  onNewMission: () => void;
+  modalProps: ModalProps;
+}
+
+export default function ContinueConfirmModal({ type, savedData, onSaveLoad, onNewMission, modalProps }: ContinueConfirmModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (savedData) {
-      modalProps.openModal();
-    }
-    return () => {
-      modalProps.closeModal();
-    };
-  }, [savedData, modalProps]);
-
-  if (!savedData) return null;
-
-  const onContinueButtonClick = () => {
-    onOk();
-    modalProps.closeModal();
-  };
-
-  const onNewButtonClick = () => {
-    modalProps.closeModal();
-  };
 
   return (
     <Portal>
@@ -69,23 +34,18 @@ export default function ContinueConfirmModal({
               <X className='absolute right-5 top-5 scale-75 cursor-pointer' onPointerDown={modalProps.closeModal} />
               <div className='mb-4 mt-4 flex flex-col gap-2'>
                 <div className='text-2xl font-medium text-v1-text-primary-700'>
-                  작성 중인 {savedData.tag === 'mission' ? '미션이' : '리워드가'} 있어요
+                  작성 중인 {type === 'mission' ? '미션이' : '리워드가'} 있어요
                 </div>
                 <div className='text-base text-v1-text-primary-500'>
-                  ‘{savedData.data.name}’ {savedData.tag === 'mission' ? '도전' : ''}을 이어서 작성할까요?
+                  ‘{savedData.name}’ {type === 'mission' ? '도전' : ''}을 이어서 작성할까요?
                 </div>
               </div>
               <div className='mb-2 flex flex-col gap-2 font-semibold text-v1-text-primary-700'>
-                <Button
-                  onClick={onContinueButtonClick}
-                  type='button'
-                  size='md'
-                  variant={savedData.tag === 'mission' ? 'primary' : 'blue'}
-                >
+                <Button onClick={onSaveLoad} type='button' size='md' variant={type === 'mission' ? 'primary' : 'blue'}>
                   계속 작성하기
                 </Button>
-                <Button variant='outline' size='md' onClick={onNewButtonClick} type='button'>
-                  새 {savedData.tag === 'mission' ? '미션' : '리워드'} 작성하기
+                <Button variant='outline' size='md' onClick={onNewMission} type='button'>
+                  새 {type === 'mission' ? '미션' : '리워드'} 작성하기
                 </Button>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import DrawButtonBox from '../ChallengeCreateFunnel/DrawButtonBox';
 
-export default function MissionPeriodDrawer({
+export default function MissionDateDrawer({
   dateRange,
   setDateRange,
   children,
@@ -16,7 +16,7 @@ export default function MissionPeriodDrawer({
   const [open, setOpen] = useState(false);
 
   const handleReset = () => {
-    setDateRange(undefined);
+    setDateRange({ from: undefined, to: undefined });
   };
 
   return (
@@ -38,7 +38,7 @@ export default function MissionPeriodDrawer({
           <DrawButtonBox
             handleReset={handleReset}
             setOpen={setOpen}
-            isSelected={!!dateRange?.from && !!dateRange?.to }
+            isSelected={!!dateRange?.from && !!dateRange?.to}
             buttonText={{
               selected: '선택 완료',
               unselected: '선택 해주세요',
