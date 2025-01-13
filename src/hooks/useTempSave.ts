@@ -4,15 +4,16 @@ import { useCallback, useState } from 'react';
 import { ValueOf } from 'next/dist/shared/lib/constants';
 import { useLocalStorage } from 'react-use';
 
-type TemporarySaveType = 'mission-create';
+
+type TemporarySaveType = 'mission-create' | 'reward-create';
 
 export default function useTempSave<T>({ id }: { id: TemporarySaveType }) {
   const [savedTempData, setSavedTempData, removeSavedTempData] = useLocalStorage(id) as unknown as [
-    ValueOf<T> | null,
-    (value: ValueOf<T> | null) => void,
+    ValueOf<T> | undefined,
+    (value: ValueOf<T> | undefined) => void,
     () => void,
   ];
-  const [draftTempData, setDraftTempData] = useState<ValueOf<T>>(savedTempData as ValueOf<T>);
+  const [draftTempData, setDraftTempData] = useState(savedTempData);
   const [isSaving, setIsSaving] = useState(false);
 
   const updateDraftTempData = useCallback(
@@ -36,13 +37,13 @@ export default function useTempSave<T>({ id }: { id: TemporarySaveType }) {
 
   const clearTempData = useCallback(() => {
     removeSavedTempData();
-    setDraftTempData({} as ValueOf<T>);
+    setDraftTempData(undefined);
     setIsSaving(false);
   }, [removeSavedTempData]);
 
   return {
     isSaving,
-    tempData: savedTempData,
+    savedTempData,
     draftTempData,
     saveTempData,
     autoSave,

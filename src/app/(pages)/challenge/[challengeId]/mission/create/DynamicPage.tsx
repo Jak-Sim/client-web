@@ -7,12 +7,14 @@ import FunnelUi from '@/components/funnel/FunnelUi';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import useTempSave from '@/hooks/useTempSave';
+import isVaildObject from '@/utils/isVaildObject';
 import { type FunnelProps } from './_components/ChallengeCreateFunnel/_context/context';
 import FunnelRender from './_components/ChallengeCreateFunnel/FunnelRender';
 
+
 export default function DynamicPageContent() {
   const router = useRouter();
-  const { saveTempData, autoSave, updateDraftTempData, draftTempData, tempData, clearTempData } =
+  const { saveTempData, autoSave, updateDraftTempData, draftTempData, savedTempData, clearTempData } =
     useTempSave<FunnelProps>({
       id: 'mission-create',
     });
@@ -20,19 +22,9 @@ export default function DynamicPageContent() {
     id: 'mission-create',
     initial: {
       step: 'missionDescription',
-      context: tempData as FunnelProps['missionDescription'],
+      context: savedTempData as FunnelProps['missionDescription'],
     },
   });
-
-  const isValidObject = (obj: Record<string, unknown> | null) => {
-    if (!obj) return false;
-    const conditions = [
-      typeof obj === 'object',
-      Object.keys(obj as object).length > 0,
-      Object.values(obj as object).some((value) => value),
-    ];
-    return conditions.every((condition) => condition);
-  };
 
   return (
     <PageLayout
@@ -56,7 +48,7 @@ export default function DynamicPageContent() {
             <FunnelUi.StepIndicator index={funnel.index} max={3} />
           </Header.Title>
           <Header.Item>
-            <Header.GrayText disabled={!isValidObject(draftTempData)}>
+            <Header.GrayText disabled={!isVaildObject(draftTempData)}>
               <button onClick={() => saveTempData(funnel.context)}>임시저장</button>
             </Header.GrayText>
           </Header.Item>
