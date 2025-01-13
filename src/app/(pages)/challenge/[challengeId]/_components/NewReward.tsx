@@ -4,28 +4,30 @@ import { useModal } from '@/hooks/useModal';
 import AddItemButton from './AddItemButton';
 import ContinueConfirmModal from './NewChallengeItemModal';
 
+
 export default function NewReward({ challengeId }: { challengeId: string }) {
   const router = useRouter();
-  const [localSavedReward] = useLocalStorage('saved-reward') as unknown as [{ name: string } | null];
+  const [localSavedReward, , removeSavedReward] = useLocalStorage('reward-create') as unknown as [
+    { name: string } | null,
+    (value: { name: string } | null) => void,
+    () => void,
+  ];
   const modalProps = useModal('new-reward');
+  const goToCreateReward = () => {
+    router.push(`/challenge/${challengeId}/reward/create`);
+  };
 
-  const REWARD_CREATE_PAGE = `/challenge/${challengeId}/reward/create`;
-  const TEMP_REWARD_CREATE_PAGE = `/challenge/${challengeId}/reward/create?temp=true`;
-
-  const newReward = () => {
+  const onAddItemClick = () => {
     if (localSavedReward) {
       modalProps.openModal();
     } else {
-      router.push(REWARD_CREATE_PAGE);
+      goToCreateReward();
     }
   };
 
-  const onNewReward = () => {
-    router.push(REWARD_CREATE_PAGE);
-  };
-
-  const onSaveLoad = () => {
-    router.push(TEMP_REWARD_CREATE_PAGE);
+  const onStartNew = () => {
+    removeSavedReward();
+    goToCreateReward();
   };
 
   return (
@@ -34,12 +36,12 @@ export default function NewReward({ challengeId }: { challengeId: string }) {
         <ContinueConfirmModal
           type='reward'
           savedData={localSavedReward}
-          onSaveLoad={onSaveLoad}
-          onNewMission={onNewReward}
+          onSaveLoad={goToCreateReward}
+          onStartNew={onStartNew}
           modalProps={modalProps}
         />
       )}
-      <AddItemButton color='blue' onClick={newReward} />
+      <AddItemButton color='blue' onClick={onAddItemClick} />
     </>
   );
 }

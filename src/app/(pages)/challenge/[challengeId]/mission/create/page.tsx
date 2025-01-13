@@ -4,6 +4,6 @@ const DynamicPage = dynamic(() => import('./DynamicPage'), {
   ssr: false,
 });
 
-export default function Page(props: { searchParams: { temp: string } }) {
-  return <DynamicPage {...props} />;
+export default function Page() {
+  return <DynamicPage />;
 }

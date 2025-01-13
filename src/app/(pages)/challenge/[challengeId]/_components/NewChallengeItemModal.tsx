@@ -12,11 +12,17 @@ interface ContinueConfirmModalProps {
   type: 'mission' | 'reward';
   savedData: { name: string };
   onSaveLoad: () => void;
-  onNewMission: () => void;
+  onStartNew: () => void;
   modalProps: ModalProps;
 }
 
-export default function ContinueConfirmModal({ type, savedData, onSaveLoad, onNewMission, modalProps }: ContinueConfirmModalProps) {
+export default function ContinueConfirmModal({
+  type,
+  savedData,
+  onSaveLoad,
+  onStartNew,
+  modalProps,
+}: ContinueConfirmModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -44,7 +50,7 @@ export default function ContinueConfirmModal({ type, savedData, onSaveLoad, onNe
                 <Button onClick={onSaveLoad} type='button' size='md' variant={type === 'mission' ? 'primary' : 'blue'}>
                   계속 작성하기
                 </Button>
-                <Button variant='outline' size='md' onClick={onNewMission} type='button'>
+                <Button variant='outline' size='md' onClick={onStartNew} type='button'>
                   새 {type === 'mission' ? '미션' : '리워드'} 작성하기
                 </Button>
               </div>

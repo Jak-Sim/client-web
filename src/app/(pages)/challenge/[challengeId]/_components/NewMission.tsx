@@ -7,26 +7,27 @@ import ContinueConfirmModal from './NewChallengeItemModal';
 
 export default function NewMission({ challengeId }: { challengeId: string }) {
   const router = useRouter();
-  const [localSavedMission] = useLocalStorage('mission-create') as unknown as [{ name: string } | null];
+  const [localSavedMission, , removeSavedMission] = useLocalStorage('mission-create') as unknown as [
+    { name: string } | null,
+    (value: { name: string } | null) => void,
+    () => void,
+  ];
   const modalProps = useModal('new-mission');
-
-  const MISSION_CREATE_PAGE = `/challenge/${challengeId}/mission/create`;
-  const TEMP_MISSION_CREATE_PAGE = `/challenge/${challengeId}/mission/create?temp=true`;
+  const goToCreateMission = () => {
+    router.push(`/challenge/${challengeId}/mission/create`);
+  };
 
   const onAddItemClick = () => {
     if (localSavedMission) {
       modalProps.openModal();
     } else {
-      router.push(MISSION_CREATE_PAGE);
+      goToCreateMission();
     }
   };
 
-  const onNewMission = () => {
-    router.push(MISSION_CREATE_PAGE);
-  };
-
-  const onSaveLoad = () => {
-    router.push(TEMP_MISSION_CREATE_PAGE);
+  const onStartNew = () => {
+    removeSavedMission();
+    goToCreateMission();
   };
 
   return (
@@ -35,8 +36,8 @@ export default function NewMission({ challengeId }: { challengeId: string }) {
         <ContinueConfirmModal
           type='mission'
           savedData={localSavedMission}
-          onSaveLoad={onSaveLoad}
-          onNewMission={onNewMission}
+          onSaveLoad={goToCreateMission}
+          onStartNew={onStartNew}
           modalProps={modalProps}
         />
       )}

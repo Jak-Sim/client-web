@@ -10,13 +10,11 @@ import useTempSave from '@/hooks/useTempSave';
 import { type FunnelProps } from './_components/ChallengeCreateFunnel/_context/context';
 import FunnelRender from './_components/ChallengeCreateFunnel/FunnelRender';
 
-
-export default function DynamicPageContent({ searchParams }: { searchParams: { temp: string } }) {
+export default function DynamicPageContent() {
   const router = useRouter();
   const { saveTempData, autoSave, updateDraftTempData, draftTempData, tempData, clearTempData } =
     useTempSave<FunnelProps>({
       id: 'mission-create',
-      useTempData: searchParams.temp === 'true',
     });
   const funnel = useFunnel<FunnelProps>({
     id: 'mission-create',
