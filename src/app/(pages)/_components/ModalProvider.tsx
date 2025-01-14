@@ -8,7 +8,8 @@ export type ModalNames =
   | 'cancel-create-challenge'
   | 'challenge-modal'
   | 'withdraw-modal'
-  | 'new-challenge-item';
+  | 'new-mission'
+  | 'new-reward';
 
 export interface ModalContextProps {
   modalState: ModalNames[];

@@ -6,11 +6,13 @@ import FunnelUi from '@/components/funnel/FunnelUi';
 import InputDate from '@/components/input/InputDate';
 import InputTime from '@/components/input/InputTime';
 import { isTimeValid } from '@/components/wheel-time-picker/TimePicker';
+import useTempSave from '@/hooks/useTempSave';
 import { Days, getKoreanDayString } from '@/utils/getKoreanDay';
 import MissionPeriodDrawer from '../drawer/MissionDateDrawer';
 import MissionTimeDrawer from '../drawer/MissionTimeDrawer';
 import WeeklyToggleSwitches from '../WeeklyToggleSwitches';
-import type { MissionPeriod } from './_context/context';
+import type { FunnelProps, MissionPeriod } from './_context/context';
+
 
 interface MissionPeriodProps {
   onNext: (props: MissionPeriod) => void;
@@ -19,6 +21,8 @@ interface MissionPeriodProps {
   endDate?: MissionPeriod['endDate'];
   startTime?: MissionPeriod['startTime'];
   endTime?: MissionPeriod['endTime'];
+  selectedDays?: MissionPeriod['selectedDays'];
+  updateDraftTempData: ReturnType<typeof useTempSave<FunnelProps>>['updateDraftTempData'];
 }
 
 export type TimeValue = {
@@ -29,11 +33,14 @@ export type TimeValue = {
 
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelUi;
 
-export default function MissionPeriod({ onNext }: MissionPeriodProps) {
-  const [dateRange, setDateRange] = useState<DateRange>();
-  const [selectedDays, setSelectedDays] = useState<Days[]>([]);
-  const [startTime, setStartTime] = useState<TimeLike>();
-  const [endTime, setEndTime] = useState<TimeLike>();
+export default function MissionPeriod({ onNext, updateDraftTempData, ...props }: MissionPeriodProps) {
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: props.startDate ?? undefined,
+    to: props.endDate ?? undefined,
+  });
+  const [selectedDays, setSelectedDays] = useState<Days[]>(props.selectedDays ?? []);
+  const [startTime, setStartTime] = useState<TimeLike>(props.startTime ?? '');
+  const [endTime, setEndTime] = useState<TimeLike>(props.endTime ?? '');
   const [isValidTime, setIsValidTime] = useState(true);
 
   const setStartDate = (date: Date | null | undefined, type: 'from' | 'to') => {
@@ -51,6 +58,10 @@ export default function MissionPeriod({ onNext }: MissionPeriodProps) {
 
     setIsValidTime(isValid);
   }, [startTime, endTime]);
+
+  useEffect(() => {
+    updateDraftTempData({ startDate: dateRange?.from, endDate: dateRange?.to, startTime, endTime, selectedDays });
+  }, [dateRange, startTime, endTime, selectedDays, updateDraftTempData]);
 
   return (
     <FunnelUi>
@@ -87,7 +98,7 @@ export default function MissionPeriod({ onNext }: MissionPeriodProps) {
           <GrayText>반복 주기를 선택하면 더 재미있을 거예요!</GrayText>
         </TextRow>
         <div className='my-2'>
-          <WeeklyToggleSwitches setSelectedDays={setSelectedDays} />
+          <WeeklyToggleSwitches selectedDays={selectedDays} setSelectedDays={setSelectedDays} />
           <p className='mt-2 text-right'>
             {selectedDays.length > 0 ? (
               <>

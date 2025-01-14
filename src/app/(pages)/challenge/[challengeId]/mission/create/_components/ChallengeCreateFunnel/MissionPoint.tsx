@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
 import { Input } from '@/components/input/Input';
-import type { MissionPoint } from './_context/context';
+import useTempSave from '@/hooks/useTempSave';
+import type { FunnelProps, MissionPoint } from './_context/context';
 
 interface MissionPointProps {
   onNext: (props: MissionPoint) => void;
   goBack: () => void;
   point?: MissionPoint['point'];
+  updateDraftTempData: ReturnType<typeof useTempSave<FunnelProps>>['updateDraftTempData'];
 }
 
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label } = FunnelUi;
 const MAX_POINT = 100;
 const MIN_POINT = 1;
 
-export default function MissionPoint({ onNext, ...props }: MissionPointProps) {
+export default function MissionPoint({ onNext, updateDraftTempData, ...props }: MissionPointProps) {
   const [point, setPoint] = useState<number>(props.point ?? 0);
+
+  useEffect(() => {
+    updateDraftTempData({ point });
+  }, [point, updateDraftTempData]);
+
   return (
     <FunnelUi>
       <Title>
@@ -33,7 +40,7 @@ export default function MissionPoint({ onNext, ...props }: MissionPointProps) {
           <Input
             type='numberpad'
             value={point}
-            onChange={(e) => setPoint(Number(e.target.value) > MAX_POINT ? MAX_POINT : Number(e.target.value))}
+            onChange={(e) => setPoint(Number(e.target.value) > MAX_POINT ? 8 : Number(e.target.value))}
             maxLength={3}
             max={MAX_POINT}
             min={MIN_POINT}
