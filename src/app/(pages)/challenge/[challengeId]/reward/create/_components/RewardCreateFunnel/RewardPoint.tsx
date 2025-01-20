@@ -44,7 +44,6 @@ export default function RewardPoint({ onNext, updateDraftTempData, ...props }: R
             placeholder='1~10000'
             value={point}
             onChange={(e) => setPoint(Number(e.target.value) > MAX_POINT ? MAX_POINT : Number(e.target.value))}
-            maxLength={3}
             max={MAX_POINT}
             min={MIN_POINT}
             className='text-center'
