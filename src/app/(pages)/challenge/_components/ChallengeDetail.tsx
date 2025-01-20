@@ -1,26 +1,29 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
 import { differenceInDays } from 'date-fns';
 import { Fire, Gem, Lightning } from '@/assets/images/icons';
 import Accodion from '@/components/accodion/Accodion';
 import Chip from '@/components/chip/Chip';
 import { type ChallengeType } from '@/models/challenge/Challenge';
-import dummyMission from '../_mock/dummyMission.json';
+import dummyMissionLengthTen from '../_mock/dummyMissionLengthTen.json';
 import dummyReward from '../_mock/dummyReward.json';
 import MissionList from './MissionList';
 import ParticipantList from './ParticipantList';
 import RewardList from './RewardList';
+import TopButton from './TopButton';
 
 export default function ChallengeDetail({ challenge }: { challenge: ChallengeType }) {
   const currentChallengeStreak = differenceInDays(new Date(), new Date(challenge.createdAt)).toString();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // TODO: API 연동 필요한 값: rewards, missions
   const rewards = dummyReward;
-  const missions = dummyMission;
+  const missions = dummyMissionLengthTen;
 
   return (
-    <div className='flex flex-col gap-5 px-6 py-2 pb-10'>
+    <div className='flex flex-col gap-5 px-6 py-2 pb-10' ref={scrollRef}>
       <SectionCard>
         <div className='relative w-full rounded-t-xl bg-v1-subtext-200 pb-[62.5%]'>
           {challenge.backgroundImage && (
@@ -87,6 +90,8 @@ export default function ChallengeDetail({ challenge }: { challenge: ChallengeTyp
           </Accodion.Content>
         </Accodion>
       </SectionCard>
+
+      {missions.length > 9 && <TopButton scrollRef={scrollRef} />}
 
       <SectionCard>
         <Accodion defaultOpen={true}>
