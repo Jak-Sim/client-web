@@ -63,19 +63,19 @@ export function useSearch<T>({ search: initialSearch }: { search: string }) {
     if (!searchHistory.includes(item)) {
       const newHistory = [item, ...searchHistory].slice(0, MAX_SEARCH_HISTORY);
       setSearchHistory(newHistory);
-      localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+      localStorage.setItem('search-history', JSON.stringify(newHistory));
     }
   };
 
   const deleteHistoryItem = (item: string) => {
     const newHistory = searchHistory.filter((h) => h !== item);
     setSearchHistory(newHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+    localStorage.setItem('search-history', JSON.stringify(newHistory));
   };
 
   const clearAllHistory = () => {
     setSearchHistory([]);
-    localStorage.setItem('searchHistory', '[]');
+    localStorage.setItem('search-history', '[]');
   };
 
   useEffect(() => {
@@ -85,10 +85,9 @@ export function useSearch<T>({ search: initialSearch }: { search: string }) {
   }, [initialSearch, onSearch]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('search-history');
-      setSearchHistory(saved ? JSON.parse(saved) : []);
-    }
+    const saved = localStorage.getItem('search-history');
+    console.log('saved', saved);
+    setSearchHistory(saved ? JSON.parse(saved) : []);
   }, []);
 
   return {

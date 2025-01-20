@@ -72,7 +72,7 @@ describe('useSearch 커스텀훅 테스트', () => {
       });
 
       expect(result.current.searchHistory).toContain('newSearch');
-      expect(localStorage.getItem('searchHistory')).toContain('newSearch');
+      expect(localStorage.getItem('search-history')).toContain('newSearch');
     });
 
     it('검색 기록 중복 추가를 방지합니다.', () => {
@@ -111,7 +111,7 @@ describe('useSearch 커스텀훅 테스트', () => {
       });
 
       expect(result.current.searchHistory).toHaveLength(0);
-      expect(localStorage.getItem('searchHistory')).toBe('[]');
+      expect(localStorage.getItem('search-history')).toBe('[]');
     });
   });
 });
