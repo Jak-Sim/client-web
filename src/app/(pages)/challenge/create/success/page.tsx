@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import SuccessImage from '@/assets/images/placeholder/face-good.png';
+import faceGood from '@/assets/images/placeholder/face-good.png';
 import Button from '@/components/button/Button';
 
 const Page = ({ searchParams }: { searchParams: { challengeId: string } }) => {
@@ -9,7 +9,7 @@ const Page = ({ searchParams }: { searchParams: { challengeId: string } }) => {
   return (
     <div className='flex h-full flex-1 flex-col justify-between bg-v1-background p-6'>
       <div className='flex flex-1 flex-col items-center justify-center text-center'>
-        <Image src={SuccessImage} alt='챌린지 생성 완료' width={100} height={100} className='mb-2' />
+        <Image src={faceGood} alt='챌린지 생성 완료' width={100} height={100} className='mb-2' />
         <h1 className='py-4 text-[28px] font-semibold text-v1-text-primary-700'>챌린지 생성 완료!</h1>
         <p className='text-xl leading-[24px] text-v1-text-primary-400'>
           챌린지의 목표와 보상을
