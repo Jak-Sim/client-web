@@ -3,15 +3,17 @@ import { Search, X } from '@/assets/images/icons';
 import InputWithError from '@/components/input/InputWithErrorMsg';
 import { useSearch } from '../_hook/useSearch';
 
+
 interface SearchFormProps {
   onSearch: ReturnType<typeof useSearch>['onSearch'];
   search: ReturnType<typeof useSearch>['search'];
   clearSearch: ReturnType<typeof useSearch>['clearSearch'];
+  addHistoryItem: ReturnType<typeof useSearch>['addHistoryItem'];
 }
 
 const DELAY = 200;
 
-export default function SearchInput({ onSearch, search, clearSearch }: SearchFormProps) {
+export default function SearchInput({ onSearch, search, clearSearch, addHistoryItem }: SearchFormProps) {
   const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
   const [currentSearch, setCurrentSearch] = useState(search);
 
@@ -22,7 +24,8 @@ export default function SearchInput({ onSearch, search, clearSearch }: SearchFor
       }
       setSearchTimeout(setTimeout(() => onSearch(currentSearch), DELAY));
     }
-  }, [currentSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSearch, onSearch]);
 
   useEffect(() => {
     setCurrentSearch(search);
@@ -43,6 +46,11 @@ export default function SearchInput({ onSearch, search, clearSearch }: SearchFor
         autoComplete='off'
         style={{ paddingLeft: !currentSearch ? '3.5rem' : '2rem' }}
         hasError={false}
+        onBlur={() => {
+          if (currentSearch) {
+            addHistoryItem(currentSearch);
+          }
+        }}
       />
       {currentSearch && <X className='absolute right-6 top-3 mt-[1px]' onClick={handleClearSearch} />}
     </div>

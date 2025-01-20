@@ -1,32 +1,53 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import db from '@/../db.json';
+import dummyMission from '../../_mock/dummyMission.json';
+import dummyReward from '../../_mock/dummyReward.json';
 
-const TEMP_SEARCH_HISTORY = ['검색어1', '검색어2', '검색어3', '검색어4', '검색어5'];
-export const TEMP_SEARCH_RESULT = ['검색결과1'];
+export const TEMP_SEARCH_RESULT = {
+  users: db.users,
+  challenges: db.challenge,
+  missions: dummyMission,
+  rewards: dummyReward,
+};
 
 const MAX_SEARCH_HISTORY = 10;
 
-export function useSearch<T>() {
-  const [search, setSearch] = useState('');
-  const [searchResult, setSearchResult] = useState<{ search: string; result: T[] }>({ search: '', result: [] });
+export function useSearch<T>({ search: initialSearch }: { search: string }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [search, setSearch] = useState(initialSearch);
+  const [searchResult, setSearchResult] = useState<{ search: string; result: T | undefined }>({
+    search: '',
+    result: undefined,
+  });
   const [searchHistory, setSearchHistory] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('searchHistory');
-      return saved ? JSON.parse(saved) : TEMP_SEARCH_HISTORY;
+      return saved ? JSON.parse(saved) : [];
     }
-    return TEMP_SEARCH_HISTORY;
+    return [];
   });
 
-  const onSearch = (search: string) => {
-    const result = {
-      search,
-      result: TEMP_SEARCH_RESULT as T[],
-    };
-    setSearchResult(result);
-  };
+  const onSearch = useCallback(
+    (search: string) => {
+      const result = {
+        search,
+        result: TEMP_SEARCH_RESULT as unknown as T,
+      };
+      setSearchResult(result);
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('search', search);
+      router.push(`?${params.toString()}`);
+    },
+    [router, searchParams],
+  );
 
   const clearSearch = () => {
     setSearch('');
-    setSearchResult({ search: '', result: [] });
+    setSearchResult({ search: '', result: undefined });
   };
 
   const handleHistoryClick = (historyItem: string) => {
@@ -52,6 +73,12 @@ export function useSearch<T>() {
     setSearchHistory([]);
     localStorage.setItem('searchHistory', '[]');
   };
+
+  useEffect(() => {
+    if (initialSearch) {
+      onSearch(initialSearch);
+    }
+  }, [initialSearch, onSearch]);
 
   return {
     search,

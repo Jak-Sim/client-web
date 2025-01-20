@@ -27,7 +27,7 @@ export default function ChallengeCard({ challenge, userId }: { challenge: Challe
   const point = 1000;
 
   return (
-    <div className='relative min-h-[180px] rounded-2xl'>
+    <div className='relative min-h-[180px] w-full shrink-0 rounded-2xl'>
       {isOwner && <CrownFill className='absolute -top-3 right-8 z-10' />}
 
       <div className='absolute bottom-0 left-0 right-0 top-0 overflow-hidden rounded-2xl'>

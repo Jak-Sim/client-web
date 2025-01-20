@@ -1,12 +1,13 @@
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
-import { Menu, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { CustomSession } from '@/lib/next-auth/auth';
 import { Challenge } from '@/models/challenge/Challenge';
 import BottomNav from './_components/BottomNav';
 import ChallengeList from './_components/ChallengeList';
+
 
 const Page = async ({ searchParams }: { searchParams: { page: string } }) => {
   const session = await getServerSession();
