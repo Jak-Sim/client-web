@@ -44,7 +44,7 @@ export default function DynamicPageContent() {
             )}
           </Header.Item>
           <Header.Title>
-            <FunnelUi.StepIndicator index={funnel.index} max={3} />
+            <FunnelUi.StepIndicator index={funnel.index} max={2} />
           </Header.Title>
           <Header.Item>
             <Header.GrayText disabled={!isVaildObject(draftTempData)}>
