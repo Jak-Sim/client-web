@@ -14,7 +14,7 @@ interface RewardPointProps {
 }
 
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label } = FunnelUi;
-const MAX_POINT = 100;
+const MAX_POINT = 10000;
 const MIN_POINT = 1;
 const MAX_COUNT = 10;
 const MIN_COUNT = 1;
