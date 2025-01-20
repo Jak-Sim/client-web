@@ -6,7 +6,6 @@ import { CustomSession } from '@/lib/next-auth/auth';
 import { type ChallengeListType } from '@/models/challenge/Challenge';
 import ChallengeCard from './ChallengeCard';
 
-
 export default function ChallengeList({
   session,
   challengeList,
