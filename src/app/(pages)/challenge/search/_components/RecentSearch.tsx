@@ -2,16 +2,17 @@ import { X } from 'lucide-react';
 import { useSearch } from '../_hook/useSearch';
 import HorizontalScrollList from './HorizontalScrollList';
 
+
 interface RecentSearchProps {
   searchHistory: ReturnType<typeof useSearch>['searchHistory'];
-  onSearch: ReturnType<typeof useSearch>['onSearch'];
+  handleHistoryClick: ReturnType<typeof useSearch>['handleHistoryClick'];
   deleteHistoryItem: ReturnType<typeof useSearch>['deleteHistoryItem'];
   clearAllHistory: ReturnType<typeof useSearch>['clearAllHistory'];
 }
 
 export default function RecentSearch({
   searchHistory,
-  onSearch,
+  handleHistoryClick,
   deleteHistoryItem,
   clearAllHistory,
 }: RecentSearchProps) {
@@ -25,10 +26,18 @@ export default function RecentSearch({
       </div>
       <HorizontalScrollList className='pt-0'>
         {searchHistory.map((history) => (
-          <li key={history} className='shrink-0' onClick={() => onSearch(history)}>
+          <li key={history} className='shrink-0' onClick={() => handleHistoryClick(history)}>
             <button className='flex h-9 items-center justify-between gap-1 rounded-2xl bg-v1-text-primary-50 px-3'>
               <span className='text-sm text-v1-text-primary-500'>{history}</span>
-              <X className='-mr-1 scale-75' onClick={() => deleteHistoryItem(history)} />
+              <div
+                className='-mr-1 flex h-full items-center justify-center'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteHistoryItem(history);
+                }}
+              >
+                <X className='scale-75' />
+              </div>
             </button>
           </li>
         ))}

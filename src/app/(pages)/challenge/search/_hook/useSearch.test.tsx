@@ -49,6 +49,20 @@ describe('useSearch 커스텀훅 테스트', () => {
       expect(result.current.search).toBe('');
       expect(result.current.searchResult).toEqual({ search: '', result: undefined });
     });
+
+    it('검색어가 없을 때 URL에서 search 파라미터를 제거합니다.', () => {
+      // 먼저 검색어로 URL 설정
+      act(() => {
+        result.current.onSearch('someSearch');
+      });
+      expect(mockRouterPush).toHaveBeenLastCalledWith('?search=someSearch');
+
+      // 검색어를 지우면 search 파라미터가 제거됨
+      act(() => {
+        result.current.onSearch('');
+      });
+      expect(mockRouterPush).toHaveBeenLastCalledWith('?');
+    });
   });
 
   describe('검색 기록 관리', () => {

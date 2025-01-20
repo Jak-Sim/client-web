@@ -37,6 +37,8 @@ export default function ChallengeCard({ challenge, userId }: { challenge: Challe
               src={backgroundImage || challengeImage}
               alt='챌린지 이미지'
               fill
+              priority
+              sizes='(max-width: 768px) 100vw, 50vw'
               className='object-cover'
               onError={handleImageError}
             />

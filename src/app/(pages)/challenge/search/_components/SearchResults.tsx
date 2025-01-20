@@ -29,7 +29,7 @@ export default function SearchResults({ searchResult }: SearchResultsProps) {
 
   return (
     <>
-      <LinkTabs tab={tab} tabs={TABS} className={!isAll ? 'mb-4' : ''} />
+      <LinkTabs tab={tab} tabs={TABS} className={`px-4 ${!isAll ? 'mb-4' : ''}`} />
       {isAll && <SectionHeader title='대화 상대' tab='user' />}
       {isAll || tab === 'user' ? (
         <HorizontalScrollList>

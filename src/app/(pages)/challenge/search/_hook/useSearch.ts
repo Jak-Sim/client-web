@@ -4,6 +4,7 @@ import db from '@/../db.json';
 import dummyMission from '../../_mock/dummyMission.json';
 import dummyReward from '../../_mock/dummyReward.json';
 
+
 export const TEMP_SEARCH_RESULT = {
   users: db.users,
   challenges: db.challenge,
@@ -22,26 +23,29 @@ export function useSearch<T>({ search: initialSearch }: { search: string }) {
     search: '',
     result: undefined,
   });
-  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('searchHistory');
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   const onSearch = useCallback(
     (search: string) => {
-      const result = {
-        search,
-        result: TEMP_SEARCH_RESULT as unknown as T,
-      };
-      setSearchResult(result);
-
       const params = new URLSearchParams(searchParams.toString());
-      params.set('search', search);
+      if (search) {
+        params.set('search', search);
+      } else {
+        params.delete('search');
+        clearSearch();
+      }
+
+      if (search && search !== searchResult.search) {
+        const result = {
+          search,
+          result: TEMP_SEARCH_RESULT as unknown as T,
+        };
+        setSearchResult(result);
+      }
+
       router.push(`?${params.toString()}`);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [router, searchParams],
   );
 
@@ -79,6 +83,13 @@ export function useSearch<T>({ search: initialSearch }: { search: string }) {
       onSearch(initialSearch);
     }
   }, [initialSearch, onSearch]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('search-history');
+      setSearchHistory(saved ? JSON.parse(saved) : []);
+    }
+  }, []);
 
   return {
     search,

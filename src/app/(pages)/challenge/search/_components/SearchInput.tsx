@@ -18,23 +18,21 @@ export default function SearchInput({ onSearch, search, clearSearch, addHistoryI
   const [currentSearch, setCurrentSearch] = useState(search);
 
   useEffect(() => {
-    if (currentSearch) {
-      if (searchTimeout) {
-        clearTimeout(searchTimeout);
-      }
-      setSearchTimeout(setTimeout(() => onSearch(currentSearch), DELAY));
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
     }
+    setSearchTimeout(setTimeout(() => onSearch(currentSearch), DELAY));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSearch, onSearch]);
-
-  useEffect(() => {
-    setCurrentSearch(search);
-  }, [search]);
+  }, [currentSearch]);
 
   const handleClearSearch = () => {
     setCurrentSearch('');
     clearSearch();
   };
+
+  useEffect(() => {
+    setCurrentSearch(search);
+  }, [search]);
 
   return (
     <div className='relative mt-2 h-16'>

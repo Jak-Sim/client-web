@@ -20,6 +20,7 @@ export default function DynamicPageContent({ searchParams }: { searchParams: { t
     deleteHistoryItem,
     addHistoryItem,
     clearAllHistory,
+    handleHistoryClick,
   } = useSearch<typeof TEMP_SEARCH_RESULT>({ search: searchParams.search });
 
   const tab = searchParams.tab || 'all';
@@ -38,12 +39,12 @@ export default function DynamicPageContent({ searchParams }: { searchParams: { t
     >
       <SearchInput search={search} onSearch={onSearch} clearSearch={clearSearch} addHistoryItem={addHistoryItem} />
 
-      {tab === 'all' && !searchResult.result && (
+      {tab === 'all' && !searchResult.result && searchHistory.length > 0 && (
         <RecentSearch
           searchHistory={searchHistory}
-          onSearch={onSearch}
           deleteHistoryItem={deleteHistoryItem}
           clearAllHistory={clearAllHistory}
+          handleHistoryClick={handleHistoryClick}
         />
       )}
       {searchResult.result && <SearchResults searchResult={searchResult} />}
