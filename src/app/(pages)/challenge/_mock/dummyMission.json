@@ -23,10 +23,25 @@
       "name": "리워드 이름",
       "description": "리워드 설명",
       "remain": 10,
-      "point": 300,
+      "point": 25,
       "needConfirm": false
     },
     "day": ["토", "일"],
+    "time": null
+  },
+  {
+    "id": 3,
+    "name": "미션 이름",
+    "description": "미션 설명",
+    "reward": {
+      "id": 2,
+      "name": "리워드 이름",
+      "description": "리워드 설명",
+      "remain": 10,
+      "point": 50,
+      "needConfirm": false
+    },
+    "day": ["월", "화", "수", "목", "금", "토", "일"],
     "time": null
   }
 ]
