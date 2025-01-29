@@ -1,4 +1,6 @@
 import { getServerSession } from 'next-auth';
+import Link from 'next/link';
+import { Search } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { CustomSession } from '@/lib/next-auth/auth';
@@ -6,9 +8,9 @@ import { Challenge } from '@/models/challenge/Challenge';
 import BottomNav from './_components/BottomNav';
 import ChallengeList from './_components/ChallengeList';
 
+
 const Page = async ({ searchParams }: { searchParams: { page: string } }) => {
   const session = await getServerSession();
-
   if (!session) {
     // TODO: 로그인 페이지로 리다이렉트
   }
@@ -24,6 +26,9 @@ const Page = async ({ searchParams }: { searchParams: { page: string } }) => {
           <Header.Item>
             <Header.BoldText bold={'작심'} text={'님의 챌린지'} />
           </Header.Item>
+          <Link href='/challenge/search'>
+            <Header.Icon Icon={Search} />
+          </Link>
         </Header>
       }
     >

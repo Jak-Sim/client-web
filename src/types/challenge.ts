@@ -21,3 +21,9 @@ export interface Participant {
   isCreator: boolean;
   avatar: string | null;
 }
+
+export type User = {
+  id: string;
+  name: string;
+  profileImageUrl: string;
+};

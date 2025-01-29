@@ -23,7 +23,7 @@ export default function RewardItem({
 
   return (
     <li
-      className={`text-v1-primary-600 gap-4 rounded-2xl bg-white px-6 py-4 text-sm ${className} ${
+      className={`text-v1-primary-600 w-full shrink-0 gap-4 rounded-2xl bg-white px-6 py-4 text-sm ${className} ${
         reward.remain === 0 ? '!bg-v1-grey-300' : ''
       }`}
     >
