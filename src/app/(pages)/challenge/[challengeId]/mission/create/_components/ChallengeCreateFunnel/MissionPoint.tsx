@@ -41,7 +41,6 @@ export default function MissionPoint({ onNext, updateDraftTempData, ...props }: 
             type='numberpad'
             value={point}
             onChange={(e) => setPoint(Number(e.target.value) > MAX_POINT ? 8 : Number(e.target.value))}
-            maxLength={3}
             max={MAX_POINT}
             min={MIN_POINT}
             className='w-full text-center'
