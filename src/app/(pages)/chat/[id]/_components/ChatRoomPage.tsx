@@ -19,6 +19,8 @@ interface ChatRoomPageProps {
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState<ChatMessage[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
@@ -97,7 +99,14 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
         </Header>
       }
       footer={
-        <ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} sendImage={sendImage} />
+        <ChatSendFooter
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+          sendImage={sendImage}
+          isOpen={popupIsOpen}
+          setIsOpen={setPopupIsOpen}
+        />
       }
     >
       <ChatMenu isOpen={isOpen} close={() => setIsOpen(false)} />
