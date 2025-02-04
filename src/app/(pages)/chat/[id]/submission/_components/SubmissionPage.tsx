@@ -1,45 +1,75 @@
 'use client';
 
-import { useState } from 'react';
-import dummyMission from '@/app/(pages)/challenge/_mock/dummyMission.json';
-import SubmissionItem from '@/app/(pages)/chat/[id]/submission/_components/SubmissionItem';
+import React, { Fragment, useRef } from 'react';
+import { useFunnel } from '@use-funnel/browser';
+import { useClickAway } from 'react-use';
+import SubmissionFunnelRender from '@/app/(pages)/chat/[id]/submission/_components/SubmissionFunnelRender';
+import SubmissionLeaveModal from '@/app/(pages)/chat/[id]/submission/_components/SubmissionLeaveModal';
+import { Chevron, X } from '@/assets/images/icons';
+import Header from '@/components/layout/Header';
+import PageLayout from '@/components/layout/PageLayout';
+import Portal from '@/components/modal/ModalPortal';
+import { useModal } from '@/hooks/useModal';
+import { Mission } from '@/types/challenge';
+
+export type SubmissionFirst = {
+  checkedList?: (Mission & { checked: boolean })[];
+};
+
+export type SubmissionSecond = {
+  checkedList?: (Mission & { checked: boolean })[];
+};
+
+export type SubmissionFunnelProps = {
+  first: SubmissionFirst;
+  second?: SubmissionSecond;
+};
 
 const SubmissionPage = () => {
-  const missions = dummyMission;
+  const modalProps = useModal('feed-profile');
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const [checkedList, setCheckedLists] = useState(
-    missions.map(({ id }) => {
-      return {
-        id,
-        checked: false,
-      };
-    }),
-  );
+  const funnel = useFunnel<SubmissionFunnelProps>({
+    id: 'chat-submission-submit',
+    initial: {
+      step: 'first',
+      context: {},
+    },
+  });
 
-  const handleCheckElement = (id: number) => {
-    setCheckedLists((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)),
-    );
-  };
+  useClickAway(modalRef, () => {
+    modalProps.closeModal();
+  });
 
   return (
-    <div className={'px-6'}>
-      <div className={'py-2 text-2xl font-medium text-v1-text-primary-700'}>
-        어떤 미션을
-        <br />
-        완료 하셨나요?
+    <PageLayout
+      header={
+        <Header className={'bg-v1-background'}>
+          <Header.Item>
+            {funnel.step === 'first' ? (
+              <Header.Icon Icon={Chevron} onClick={() => funnel.history.back()} />
+            ) : (
+              <Header.Icon Icon={X} onClick={() => modalProps.openModal()} />
+            )}
+          </Header.Item>
+          <Header.Item>
+            {funnel.step === 'first' ? (
+              <Header.Title>미션완료 제출</Header.Title>
+            ) : (
+              <Header.Title>{funnel.context!.checkedList!.find((item) => item.checked === true)!.name}</Header.Title>
+            )}
+          </Header.Item>
+        </Header>
+      }
+      footer={<Fragment />}
+    >
+      <div className={'px-6'}>
+        <SubmissionFunnelRender funnel={funnel} />
       </div>
-      <ul className={'flex flex-col gap-2 pt-8'}>
-        {missions.map((mission, index) => (
-          <SubmissionItem
-            mission={mission}
-            key={index}
-            checkedList={checkedList}
-            handleCheckElement={handleCheckElement}
-          />
-        ))}
-      </ul>
-    </div>
+      <Portal>
+        <SubmissionLeaveModal modalProps={modalProps} ref={modalRef} />
+      </Portal>
+    </PageLayout>
   );
 };
 

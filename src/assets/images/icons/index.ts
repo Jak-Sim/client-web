@@ -20,6 +20,8 @@ import ChatPhoto from './chat-photo.svg';
 import ChatPlus from './chat-plus.svg';
 import CheckBroken from './check-broken.svg';
 import Check from './check.svg';
+import CheckboxChecked from './checkbox-checked.svg';
+import CheckboxNotChecked from './checkbox-not-checked.svg';
 import ChevronDown from './chevron-down.svg';
 import ChevronLeft from './chevron-left.svg';
 import ChevronRight from './chevron-right.svg';
@@ -78,6 +80,8 @@ export {
   Calendar,
   CalendarCheck,
   Check,
+  CheckboxChecked,
+  CheckboxNotChecked,
   CheckBroken,
   Chevron,
   ChevronDown,
