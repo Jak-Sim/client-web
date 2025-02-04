@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { io } from 'socket.io-client';
 import ChatSendFooter from '@/app/(pages)/chat/[id]/_components/ChatSendFooter';
@@ -18,7 +19,10 @@ interface ChatRoomPageProps {
 }
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState<ChatMessage[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
@@ -88,7 +92,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
       header={
         <Header className={'bg-v1-background'}>
           <Header.Item>
-            <Header.BackButton />
+            <Header.BackButton onClick={() => router.push('/chat')} />
           </Header.Item>
           <Header.Title>채팅</Header.Title>
           <Header.Item>
@@ -97,7 +101,14 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
         </Header>
       }
       footer={
-        <ChatSendFooter message={message} setMessage={setMessage} sendMessage={sendMessage} sendImage={sendImage} />
+        <ChatSendFooter
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+          sendImage={sendImage}
+          isOpen={popupIsOpen}
+          setIsOpen={setPopupIsOpen}
+        />
       }
     >
       <ChatMenu isOpen={isOpen} close={() => setIsOpen(false)} />
