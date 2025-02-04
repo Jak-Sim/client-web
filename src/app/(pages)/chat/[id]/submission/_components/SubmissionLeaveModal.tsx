@@ -23,7 +23,7 @@ const SubmissionLeaveModal = forwardRef<HTMLDivElement, SubmissionLeaveModalProp
         <div className='mx-6 flex-1' ref={modalRef}>
           <div className='flex flex-col break-keep rounded-[20px] bg-white px-6 py-4'>
             <div className='mb-8 mt-6 flex flex-col gap-1 text-center'>
-              <div className='text-xl font-medium text-v1-text-primary-700'>미션 등록을 그만 두시겠어요?</div>
+              <div className='text-xl font-medium text-v1-text-primary-700'>미션 제출을 그만 두시겠어요?</div>
               <div className='text-sm text-v1-text-primary-300'>작성 중인 내용이 삭제 됩니다</div>
             </div>
             <div className='mb-2 flex flex-wrap gap-2 font-semibold text-v1-text-primary-700'>

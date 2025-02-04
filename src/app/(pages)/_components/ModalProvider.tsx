@@ -8,7 +8,7 @@ export type ModalNames =
   | 'challenge-modal'
   | 'withdraw-modal'
   | 'new-mission'
-  | 'new-reward';
+  | 'new-reward'
   | 'submission-leave';
 
 export interface ModalContextProps {

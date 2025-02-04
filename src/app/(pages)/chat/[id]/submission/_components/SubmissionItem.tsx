@@ -16,7 +16,7 @@ export default function SubmissionItem({ mission, className, handleRadioChange, 
   const Checkbox = checked ? CheckboxChecked : CheckboxNotChecked;
 
   return (
-    <li className={`text-v1-primary-600 gap-4 border-b px-6 py-4 text-sm ${className}`}>
+    <li className={`text-v1-primary-600 gap-4 border-b py-3 text-sm ${className}`}>
       <div className='flex items-center gap-4'>
         <Checkbox className={'cursor-pointer'} onClick={() => handleRadioChange(mission.id)} />
         <div className='flex-1'>

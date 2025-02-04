@@ -13,8 +13,9 @@ export default function SubmissionDescription() {
   const { id } = useParams();
   const [description, setDescription] = useState<string>('');
   const [pictures, setPictures] = useState<FileList | null>(null);
+
   return (
-    <div>
+    <FunnelUi>
       <Title>
         미션 완료! 🔥
         <br />
@@ -23,7 +24,7 @@ export default function SubmissionDescription() {
       <FieldWrapper>
         <TextRow>
           <Label htmlFor='picture'>사진 등록 (선택)</Label>
-          <GrayText>미션 예시가 있으면 보여주세요 (최대 3장)</GrayText>
+          <GrayText>미션 완료를 증명할 사진 업로드! (최대 3장)</GrayText>
         </TextRow>
         <ImageFileInput value={pictures} setValue={setPictures} maxLength={MAX_PICTURES} />
       </FieldWrapper>
@@ -46,6 +47,6 @@ export default function SubmissionDescription() {
           제출하기
         </Button>
       </ButtonWrapper>
-    </div>
+    </FunnelUi>
   );
 }

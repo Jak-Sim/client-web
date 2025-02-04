@@ -34,7 +34,7 @@ export default function SubmissionCheckList({ onNext, ...props }: FunnelFirstPro
   };
 
   return (
-    <div>
+    <FunnelUi>
       <Title>
         어떤 미션을
         <br />
@@ -55,6 +55,6 @@ export default function SubmissionCheckList({ onNext, ...props }: FunnelFirstPro
           다음
         </Button>
       </ButtonWrapper>
-    </div>
+    </FunnelUi>
   );
 }

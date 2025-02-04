@@ -37,7 +37,7 @@ const ChatAddPage = () => {
 
   return (
     <>
-      <form onSubmit={formData.handleSubmit(onSubmit)}>
+      <form className={'pb-9'} onSubmit={formData.handleSubmit(onSubmit)}>
         <UsernameForm formData={formData} />
       </form>
       {!username && (
