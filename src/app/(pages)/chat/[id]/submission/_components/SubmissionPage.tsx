@@ -26,7 +26,7 @@ export type SubmissionFunnelProps = {
 };
 
 const SubmissionPage = () => {
-  const modalProps = useModal('feed-profile');
+  const modalProps = useModal('submission-leave');
   const modalRef = useRef<HTMLDivElement>(null);
 
   const funnel = useFunnel<SubmissionFunnelProps>({

@@ -8,7 +8,7 @@ import { TextArea } from '@/components/input/Input';
 const MAX_PICTURES = 3;
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelUi;
 
-const SubmissionDescription = () => {
+export default function SubmissionDescription() {
   const router = useRouter();
   const { id } = useParams();
   const [description, setDescription] = useState<string>('');
@@ -48,6 +48,4 @@ const SubmissionDescription = () => {
       </ButtonWrapper>
     </div>
   );
-};
-
-export default SubmissionDescription;
+}

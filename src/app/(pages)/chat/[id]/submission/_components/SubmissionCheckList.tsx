@@ -15,7 +15,7 @@ interface FunnelFirstProps {
 const { Title, ButtonWrapper } = FunnelUi;
 const missions = dummyMission;
 
-const SubmissionCheckList = ({ onNext, ...props }: FunnelFirstProps) => {
+export default function SubmissionCheckList({ onNext, ...props }: FunnelFirstProps) {
   const [checkedList, setCheckedLists] = useState(
     props.checkedList ||
       missions.map((item) => {
@@ -57,6 +57,4 @@ const SubmissionCheckList = ({ onNext, ...props }: FunnelFirstProps) => {
       </ButtonWrapper>
     </div>
   );
-};
-
-export default SubmissionCheckList;
+}
