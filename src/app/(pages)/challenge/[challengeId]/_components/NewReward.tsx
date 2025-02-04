@@ -1,31 +1,47 @@
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLocalStorage } from 'react-use';
+import { useModal } from '@/hooks/useModal';
 import AddItemButton from './AddItemButton';
-import ContinueConfirmModal, { type LocalSavedChallengeItem } from './NewChallengeItemModal';
+import ContinueConfirmModal from './NewChallengeItemModal';
+
 
 export default function NewReward({ challengeId }: { challengeId: string }) {
   const router = useRouter();
-  const [savedData, setSavedData] = useState<LocalSavedChallengeItem | null>(null);
+  const [localSavedReward, , removeSavedReward] = useLocalStorage('reward-create') as unknown as [
+    { name: string } | null,
+    (value: { name: string } | null) => void,
+    () => void,
+  ];
+  const modalProps = useModal('new-reward');
+  const goToCreateReward = () => {
+    router.push(`/challenge/${challengeId}/reward/create`);
+  };
 
-  const newReward = () => {
-    const localSavedReward = localStorage.getItem('saved-reward');
-
+  const onAddItemClick = () => {
     if (localSavedReward) {
-      const parsedReward = JSON.parse(localSavedReward);
-      setSavedData({ tag: 'reward', data: parsedReward });
+      modalProps.openModal();
     } else {
-      router.push(`/challenge/${challengeId}/reward/create`);
+      goToCreateReward();
     }
   };
 
-  const onSaveLoad = () => {
-    router.push(`/challenge/${challengeId}/reward/create?continue=true`);
+  const onStartNew = () => {
+    removeSavedReward();
+    goToCreateReward();
   };
 
   return (
     <>
-      <ContinueConfirmModal savedData={savedData} onSaveLoad={onSaveLoad} />
-      <AddItemButton color='blue' onClick={newReward} />
+      {localSavedReward && (
+        <ContinueConfirmModal
+          type='reward'
+          savedData={localSavedReward}
+          onSaveLoad={goToCreateReward}
+          onStartNew={onStartNew}
+          modalProps={modalProps}
+        />
+      )}
+      <AddItemButton color='blue' onClick={onAddItemClick} />
     </>
   );
 }

@@ -1,31 +1,47 @@
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLocalStorage } from 'react-use';
+import { useModal } from '@/hooks/useModal';
 import AddItemButton from './AddItemButton';
-import ContinueConfirmModal, { type LocalSavedChallengeItem } from './NewChallengeItemModal';
+import ContinueConfirmModal from './NewChallengeItemModal';
+
 
 export default function NewMission({ challengeId }: { challengeId: string }) {
   const router = useRouter();
-  const [savedData, setSavedData] = useState<LocalSavedChallengeItem | null>(null);
+  const [localSavedMission, , removeSavedMission] = useLocalStorage('mission-create') as unknown as [
+    { name: string } | null,
+    (value: { name: string } | null) => void,
+    () => void,
+  ];
+  const modalProps = useModal('new-mission');
+  const goToCreateMission = () => {
+    router.push(`/challenge/${challengeId}/mission/create`);
+  };
 
-  const newMission = () => {
-    const localSavedMission = localStorage.getItem('saved-mission');
-
+  const onAddItemClick = () => {
     if (localSavedMission) {
-      const parsedMission = JSON.parse(localSavedMission);
-      setSavedData({ tag: 'mission', data: parsedMission });
+      modalProps.openModal();
     } else {
-      router.push(`/challenge/${challengeId}/mission/create`);
+      goToCreateMission();
     }
   };
 
-  const onSaveLoad = () => {
-    router.push(`/challenge/${challengeId}/mission/create?continue=true`);
+  const onStartNew = () => {
+    removeSavedMission();
+    goToCreateMission();
   };
 
   return (
     <>
-      <ContinueConfirmModal savedData={savedData} onSaveLoad={onSaveLoad} />
-      <AddItemButton color='orange' onClick={newMission} />
+      {localSavedMission && (
+        <ContinueConfirmModal
+          type='mission'
+          savedData={localSavedMission}
+          onSaveLoad={goToCreateMission}
+          onStartNew={onStartNew}
+          modalProps={modalProps}
+        />
+      )}
+      <AddItemButton color='orange' onClick={onAddItemClick} />
     </>
   );
 }

@@ -16,9 +16,11 @@ const InputWithError = forwardRef(function InputWithError({
   return (
     <div className="flex flex-col gap-2">
       <Input {...props} className={errorStyle} ref={ref as LegacyRef<HTMLInputElement>} />
-      <div className="h-8">
-        {hasError && <p className="text-v1-red-700 text-sm text-right">{errorMessage}</p>}
-      </div>
+      {hasError && (
+        <div className='h-8'>
+          <p className='text-v1-red-700 text-sm text-right'>{errorMessage}</p>
+        </div>
+      )}
     </div>
   );
 })

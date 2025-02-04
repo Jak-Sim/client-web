@@ -1,4 +1,5 @@
 import AddCircle from './add-circle.svg';
+import AlignUp from './align-up.svg';
 import ArrowRight from './arrow-right.svg';
 import ArrowLeft from './arrow-small-left.svg';
 import ArrowSmallRight from './arrow-small-right.svg';
@@ -68,6 +69,7 @@ export {
   SmallFlag,
   SmallBadge,
   Dots,
+  AlignUp,
   AvatarPlus,
   AddCircle,
   TailArrow,

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/button/Button';
 import FunnelUi from '@/components/funnel/FunnelUi';
 import ImageFileInput from '@/components/input/ImageFileInput';
 import { Input, TextArea } from '@/components/input/Input';
-import type { MissionDescription } from './_context/context';
-
+import useTempSave from '@/hooks/useTempSave';
+import type { FunnelProps, MissionDescription } from './_context/context';
 
 interface MissionDescriptionProps {
   onNext: (props: MissionDescription) => void;
@@ -12,15 +12,20 @@ interface MissionDescriptionProps {
   name?: MissionDescription['name'];
   description?: MissionDescription['description'];
   pictures?: MissionDescription['pictures'];
+  updateDraftTempData: ReturnType<typeof useTempSave<FunnelProps>>['updateDraftTempData'];
 }
 
 const MAX_PICTURES = 3;
 const { Title, FieldWrapper, ButtonWrapper, GrayText, Label, TextRow } = FunnelUi;
 
-export default function MissionDescription({ onNext, ...props }: MissionDescriptionProps) {
+export default function MissionDescription({ onNext, updateDraftTempData, ...props }: MissionDescriptionProps) {
   const [name, setName] = useState<string>(props.name ?? '');
   const [description, setDescription] = useState<string>(props.description ?? '');
   const [pictures, setPictures] = useState<FileList | null>(props.pictures || null);
+
+  useEffect(() => {
+    updateDraftTempData({ name, description, pictures });
+  }, [name, description, pictures, updateDraftTempData]);
 
   return (
     <FunnelUi>

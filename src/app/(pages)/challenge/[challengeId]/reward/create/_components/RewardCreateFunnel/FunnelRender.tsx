@@ -1,11 +1,11 @@
 import { ValueOf } from 'next/dist/shared/lib/constants';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { type UseFunnelResults } from '@use-funnel/core';
 import useTempSave from '@/hooks/useTempSave';
 import type { FunnelProps } from './_context/context';
-import MissionDescription from './MissionDescription';
-import MissionPeriod from './MissionPeriod';
-import MissionPoint from './MissionPoint';
+import RewardDescription from './RewardDescription';
+import RewardPoint from './RewardPoint';
 
 interface FunnelRenderProps {
   funnel: UseFunnelResults<FunnelProps, Partial<Record<string, unknown>>>;
@@ -22,36 +22,25 @@ export default function FunnelRender({ funnel, updateDraftTempData, autoSave, cl
   const onSubmit = (props: ValueOf<FunnelProps>) => {
     console.log({ ...funnel.context, ...props });
     clearTempData();
-    router.push(`/challenge/${challengeId}`);
+    router.push(`/challenge/${challengeId}?tab=reward-page`);
   };
 
   return (
     <>
       <funnel.Render
-        missionDescription={({ context, history }) => (
-          <MissionDescription
+        rewardDescription={({ context, history }) => (
+          <RewardDescription
             {...context}
             onNext={(props) => {
               autoSave(context);
-              history.push('missionPeriod', props);
+              history.push('rewardPoint', props);
             }}
             goBack={() => history.back()}
             updateDraftTempData={updateDraftTempData}
           />
         )}
-        missionPeriod={({ context, history }) => (
-          <MissionPeriod
-            {...context}
-            onNext={(props) => {
-              autoSave(context);
-              history.push('missionPoint', props);
-            }}
-            goBack={() => history.back()}
-            updateDraftTempData={updateDraftTempData}
-          />
-        )}
-        missionPoint={({ context, history }) => (
-          <MissionPoint
+        rewardPoint={({ context, history }) => (
+          <RewardPoint
             {...context}
             onNext={(props) => {
               onSubmit(props);
