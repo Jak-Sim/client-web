@@ -29,17 +29,36 @@ export interface CreateChallengeRoom {
   owner: string;
 }
 
-export interface ChatMessage {
+type MessageType = 'text' | 'image' | 'submission';
+
+export interface ChatBase {
   messageId: string;
   roomId: string;
   /** message sender ID */
   senderId: string;
-  content: string;
-  /** 'text' or 'image' */
-  type: 'text' | 'image';
   /** @format date-time */
   timestamp: string;
+  type: MessageType;
 }
+
+export interface ChatMessageProps extends ChatBase {
+  type: 'text';
+  content: string;
+}
+
+export interface ChatImageProps extends ChatBase {
+  type: 'image';
+  src: string;
+}
+
+export interface ChatSubmissionProps extends ChatBase {
+  type: 'submission';
+  description: string;
+  title: string;
+  src?: string;
+}
+
+export type MessageData = ChatMessageProps | ChatImageProps | ChatSubmissionProps;
 
 export interface DeleteRoomResponse {
   message: string;
@@ -95,7 +114,7 @@ export type ListGroupListData = ChatRoom[];
 
 export type ListChallengeListData = ChatRoom[];
 
-export type MessageDetailData = ChatMessage[];
+export type MessageListData = MessageData[];
 
 export type CreateChallengeCreateData = ChatRoom;
 

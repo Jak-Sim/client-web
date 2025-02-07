@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,7 +10,6 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-
 import {
   ChatDeleteData,
   CreateChallengeCreateData,
@@ -17,7 +18,7 @@ import {
   CreateCreateData,
   ListChallengeListData,
   ListGroupListData,
-  MessageDetailData,
+  MessageListData,
   PostChatData,
   PostChatError,
   PostChatPayload,
@@ -137,7 +138,7 @@ export class Chat<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
    * @response `500` `void` 서버 오류 (메시지 조회 실패 시)
    */
   messageDetail = (roomId: string, params: RequestParams = {}) =>
-    this.request<MessageDetailData, void>({
+    this.request<MessageListData, void>({
       path: `/chat/message/${roomId}`,
       method: 'GET',
       format: 'json',
