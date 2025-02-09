@@ -3,8 +3,11 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
-import { ChatSubmissionLightning } from '@/assets/images/icons';
+import { useToggle } from 'react-use';
+import SubmissionDetailModal from '@/app/(pages)/chat/[id]/_components/SubmissionDetailModal';
+import { ChatSubmissionCancel, ChatSubmissionConfirm, ChatSubmissionLightning } from '@/assets/images/icons';
 import defaultAvatar from '@/assets/images/placeholder/face-default.png';
+import Portal from '@/components/modal/ModalPortal';
 import {
   ChatBase,
   ChatImageProps,
@@ -16,20 +19,39 @@ import {
 type OtherChatProps = MessageData & {
   isFirstMessage: boolean;
   isLastMessage: boolean;
+  isAdmin: boolean;
+};
+
+export type SubMissionImageProps = OtherChatProps & {
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
 };
 
 const OtherChat = (props: OtherChatProps) => {
+  const [isOpen, toggle] = useToggle(false);
+
   return (
-    <div className={clsx('flex max-w-[calc(100%-75px)] flex-nowrap gap-1', props.isLastMessage ? 'mb-3' : 'mb-0.5')}>
-      <Avatar isFirstMessage={props.isFirstMessage} />
-      <ContentWrapper>
-        <SenderId {...props} />
-        {props.type === 'text' && <TextMessage {...props} />}
-        {props.type === 'image' && <ImageMessage {...props} />}
-        {props.type === 'submission' && <SubmissionMessage {...props} />}
-        {props.isLastMessage && <TimeStamp timestamp={props.timestamp} />}
-      </ContentWrapper>
-    </div>
+    <>
+      <div
+        className={clsx(
+          'flex flex-nowrap gap-1 overflow-hidden',
+          props.isLastMessage ? 'mb-3' : 'mb-0.5',
+          props.type !== 'submission' ? 'max-w-[calc(100%-75px)]' : 'max-w-[calc(100%-40px)]',
+        )}
+      >
+        <Avatar isFirstMessage={props.isFirstMessage} />
+        <ContentWrapper>
+          <SenderId {...props} />
+          {props.type === 'text' && <TextMessage {...props} />}
+          {props.type === 'image' && <ImageMessage {...props} />}
+          {props.type === 'submission' && (
+            <SubmissionMessage {...props} isOpen={isOpen} open={() => toggle(true)} close={() => toggle(false)} />
+          )}
+          {props.isLastMessage && <TimeStamp timestamp={props.timestamp} />}
+        </ContentWrapper>
+      </div>
+    </>
   );
 };
 
@@ -74,44 +96,52 @@ const ImageMessage = (props: OtherChatProps & ChatImageProps) => {
   );
 };
 
-const SubmissionMessage = (props: OtherChatProps & ChatSubmissionProps) => {
-  //todo 버튼 아이콘 추가 및 로직 추가
+const SubmissionMessage = (props: SubMissionImageProps & ChatSubmissionProps) => {
   return (
-    <div className={'w-full'}>
-      <p
-        className={clsx(
-          'mb-0.5 flex items-center gap-1 rounded-2xl rounded-tl-none bg-v1-orange-500 px-4 py-3 font-medium text-white',
-        )}
-      >
-        <ChatSubmissionLightning />
-        미션 제출!
-        <ChatSubmissionLightning />
-        확인해주세요
-      </p>
-      <div className={'relative h-[240px] w-full max-w-[260px] rounded-2xl rounded-b-none bg-white'}>
-        <Image src={props.src || defaultAvatar} sizes={'240px'} className={'object-cover'} alt='submission' fill />
-      </div>
-      <div className={'w-f rounded-2xl rounded-t-none bg-white px-4 py-2'}>
-        <p className={'pb-2 text-v1-text-primary-600'}>{props.title}</p>
-        <p className={'pb-3 text-v1-text-primary-300'}>{props.description}</p>
-        <div className={'pb-2.5'}>
-          <div className='flex flex-wrap gap-1 font-semibold text-v1-text-primary-700'>
-            <button
-              className='flex-1 rounded-2xl border border-v1-text-primary-300 px-3 py-2 text-v1-text-primary-600'
-              type='button'
-            >
-              다시 도전
-            </button>
-            <button
-              className='flex-1 rounded-2xl border border-v1-text-primary-300 px-3 py-2 text-v1-text-primary-600'
-              type='button'
-            >
-              미션 확인
-            </button>
+    <>
+      <div className={'flex flex-col overflow-hidden'}>
+        <p
+          className={clsx(
+            'mb-0.5 flex items-center gap-1 rounded-2xl rounded-tl-none bg-v1-orange-500 px-4 py-3 font-medium text-white',
+          )}
+        >
+          <ChatSubmissionLightning />
+          미션 제출!
+          <ChatSubmissionLightning />
+          확인해주세요
+        </p>
+        <div className={'relative h-[240px] cursor-pointer rounded-2xl rounded-b-none bg-white'} onClick={props.open}>
+          <Image src={props.src || defaultAvatar} sizes={'240px'} className={'object-cover'} alt='submission' fill />
+        </div>
+        <div className={'rounded-2xl rounded-t-none bg-white px-4 py-2'}>
+          <p className={'pb-2 text-v1-text-primary-600'}>{props.title}</p>
+          <p className={'truncate pb-3 text-v1-text-primary-300'}>{props.description}</p>
+          <div className={'pb-2.5'}>
+            <div className='flex flex-nowrap gap-1 font-semibold text-v1-text-primary-700'>
+              <button
+                className='flex flex-1 items-center justify-center gap-2 truncate rounded-2xl border border-v1-text-primary-300 px-3 py-2 font-normal text-v1-text-primary-600'
+                type='button'
+              >
+                <ChatSubmissionCancel />
+                다시 도전
+              </button>
+              <button
+                className='flex flex-1 items-center justify-center gap-2 truncate rounded-2xl border border-v1-text-primary-300 px-3 py-2 font-normal text-v1-text-primary-600'
+                type='button'
+              >
+                <ChatSubmissionConfirm />
+                미션 확인
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {props.isOpen && (
+        <Portal>
+          <SubmissionDetailModal {...props} />
+        </Portal>
+      )}
+    </>
   );
 };
 

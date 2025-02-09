@@ -133,7 +133,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
                 {msg.senderId === userId ? (
                   <MyChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} />
                 ) : (
-                  <OtherChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} />
+                  <OtherChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} isAdmin={true} />
                 )}
               </div>
             );

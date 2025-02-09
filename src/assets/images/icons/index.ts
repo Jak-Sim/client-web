@@ -19,6 +19,8 @@ import ChatMenuChevronRight from './chat-menu-chevron-right.svg';
 import ChatMenuMission from './chat-menu-mission.svg';
 import ChatPhoto from './chat-photo.svg';
 import ChatPlus from './chat-plus.svg';
+import ChatSubmissionCancel from './chat-submission-cancel.svg';
+import ChatSubmissionConfirm from './chat-submission-confirm.svg';
 import ChatSubmissionLightning from './chat-submission-lightning.svg';
 import CheckBroken from './check-broken.svg';
 import Check from './check.svg';
@@ -106,6 +108,8 @@ export {
   ChatMenuMission,
   ChatPhoto,
   ChatPlus,
+  ChatSubmissionCancel,
+  ChatSubmissionConfirm,
   ChatSubmissionLightning,
   Code,
   Coins,

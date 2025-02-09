@@ -64,14 +64,13 @@ const Page = async ({ params }: PageProps) => {
       timestamp: '2024-12-24T10:02:10Z',
     },
     {
-      messageId: 'msg4',
+      messageId: 'msg5',
       roomId: 'room1',
-      senderId: '멍뭉이',
+      senderId: '첵첵2',
       type: 'submission',
       timestamp: '2024-12-24T10:02:10Z',
       title: '한줄 읽고 후기 쓰기',
-      description:
-        '챕터를 읽고 난 후, 가장 인상 깊었던 부분이나 기억에 남는 내용을 간략하게 정리해 1~2문장으로 작성해 주세요. 관련된 사진을 함께 첨부해 주시면 됩니다!',
+      description: '챕터를 읽고 난 후',
     },
   ];
 
