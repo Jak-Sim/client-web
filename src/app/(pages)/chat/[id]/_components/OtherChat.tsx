@@ -128,6 +128,7 @@ const SubmissionMessage = (props: SubMissionImageProps & ChatSubmissionProps) =>
               <button
                 className='flex flex-1 items-center justify-center gap-2 truncate rounded-2xl border border-v1-text-primary-300 px-3 py-2 font-normal text-v1-text-primary-600'
                 type='button'
+                onClick={props.open}
               >
                 <ChatSubmissionConfirm />
                 미션 확인

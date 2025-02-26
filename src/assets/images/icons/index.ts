@@ -50,6 +50,7 @@ import Hamburger from './hamburger.svg';
 import HeartFill from './heart-fill.svg';
 import Heart from './heart.svg';
 import KakaoLogin from './kakao-login.svg';
+import LightningDark from './lightning-dark.svg';
 import Lightning from './lightning-fill.svg';
 import NaverLogin from './naver-login.svg';
 import NoTailArrow from './NoTailArrow.svg';
@@ -126,6 +127,7 @@ export {
   KakaoLogin,
   Lightning,
   NaverLogin,
+  LightningDark,
   Plus,
   Plus2,
   PlusNormal,
