@@ -10,12 +10,12 @@ import OtherChat from '@/app/(pages)/chat/[id]/_components/OtherChat';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { socketApi } from '@/lib/axios/axios';
-import { ChatMessage, MessageDetailData } from '@/models/chat/data-contracts';
+import { MessageData, MessageListData } from '@/models/chat/data-contracts';
 import ChatMenu from './ChatMenu';
 
 interface ChatRoomPageProps {
   id: string;
-  previousChatMessageData: MessageDetailData;
+  previousChatMessageData: MessageListData;
 }
 
 const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
@@ -24,7 +24,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState<ChatMessage[]>([]);
+  const [chat, setChat] = useState<MessageData[]>([]);
   const roomRef = useRef<HTMLDivElement>(null);
   const [userId] = useState<string>('user1');
 
@@ -33,11 +33,11 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
   useEffect(() => {
     socket.emit('joinRoom', id);
 
-    socket.on('chat message', (data: ChatMessage) => {
+    socket.on('chat message', (data: MessageData) => {
       setChat((prev) => [...prev, data]);
     });
 
-    socket.on('chat image', (data: ChatMessage) => {
+    socket.on('chat image', (data: MessageData) => {
       setChat((prev) => [...prev, data]);
     });
 
@@ -133,7 +133,7 @@ const ChatRoomPage = ({ id, previousChatMessageData }: ChatRoomPageProps) => {
                 {msg.senderId === userId ? (
                   <MyChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} />
                 ) : (
-                  <OtherChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} />
+                  <OtherChat {...msg} isFirstMessage={isFirstMessage} isLastMessage={isLastMessage} isAdmin={true} />
                 )}
               </div>
             );

@@ -1,5 +1,5 @@
 import ChatRoomPage from '@/app/(pages)/chat/[id]/_components/ChatRoomPage';
-import { MessageDetailData } from '@/models/chat/data-contracts';
+import { MessageListData } from '@/models/chat/data-contracts';
 
 interface PageProps {
   params: {
@@ -14,7 +14,7 @@ const Page = async ({ params }: PageProps) => {
 
   // const { data: previousChatMessageData } = await chatApi.messageDetail(id);
 
-  const messages: MessageDetailData = [
+  const messages: MessageListData = [
     {
       messageId: 'msg1',
       roomId: 'room1',
@@ -62,6 +62,15 @@ const Page = async ({ params }: PageProps) => {
       content: '저는 아직 못했어요..',
       type: 'text',
       timestamp: '2024-12-24T10:02:10Z',
+    },
+    {
+      messageId: 'msg5',
+      roomId: 'room1',
+      senderId: '첵첵2',
+      type: 'submission',
+      timestamp: '2024-12-24T10:02:10Z',
+      title: '한줄 읽고 후기 쓰기',
+      description: '챕터를 읽고 난 후',
     },
   ];
 
