@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
-import { ChatMessage } from '@/models/chat/data-contracts';
 
 interface MyChatProps extends ChatMessage {
   isFirstMessage: boolean;

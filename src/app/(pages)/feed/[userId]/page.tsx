@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useClickAway } from 'react-use';
 import FeedContents from '@/app/(pages)/feed/[userId]/_components/FeedContents';
@@ -35,7 +35,9 @@ const Page = () => {
       }
     >
       <FeedUserProfile />
-      <FeedContents />
+      <Suspense>
+        <FeedContents />
+      </Suspense>
       <Portal>
         <Modal modalProps={modalProps}>
           <motion.div

@@ -39,6 +39,8 @@ import CrossCircle from './cross-circle.svg';
 import CrownFill from './crown-fill.svg';
 import Crown from './crown.svg';
 import Dots from './dots.svg';
+import FeedComment from './feed-comment.svg';
+import FeedHeart from './feed-heart.svg';
 import FilePlus from './file-plus.svg';
 import Filter from './filter.svg';
 import Fire from './fire.svg';
@@ -115,6 +117,8 @@ export {
   Code,
   Coins,
   Clock,
+  FeedComment,
+  FeedHeart,
   FilePlus,
   Flag,
   FlagChat,
