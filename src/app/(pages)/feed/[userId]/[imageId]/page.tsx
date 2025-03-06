@@ -3,16 +3,17 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { useClickAway } from 'react-use';
+import FeedCommentModal from '@/app/(pages)/feed/[userId]/[imageId]/_components/FeedCommentModal';
 import { Dots, FeedComment, FeedHeart } from '@/assets/images/icons';
 import defaultAvatar from '@/assets/images/placeholder/face-default.png';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
+import Portal from '@/components/modal/ModalPortal';
 import { useModal } from '@/hooks/useModal';
 
 const Page = () => {
-  const modalProps = useModal('feed-profile');
+  const modalProps = useModal('feed-comment');
   const modalRef = useRef<HTMLDivElement>(null);
-
   useClickAway(modalRef, () => {
     modalProps.closeModal();
   });
@@ -61,7 +62,7 @@ const Page = () => {
                 <FeedHeart />
                 <span className={'text-sm font-medium text-v1-text-primary-200'}>99+</span>
               </button>
-              <button className={'flex gap-1'}>
+              <button className={'flex gap-1'} onClick={modalProps.openModal}>
                 <FeedComment />
                 <span className={'text-sm font-medium text-v1-text-primary-200'}>99+</span>
               </button>
@@ -76,6 +77,11 @@ const Page = () => {
           </ul>
         </div>
       </div>
+      {modalProps.isOpen && (
+        <Portal>
+          <FeedCommentModal {...modalProps} />
+        </Portal>
+      )}
     </PageLayout>
   );
 };
