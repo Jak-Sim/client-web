@@ -7,7 +7,7 @@ import FeedAvatar from '@/assets/images/placeholder/FeedAvatar.png';
 import { cn } from '@/lib/shadcn/utils';
 
 type Tab = 'feed' | 'challenge';
-const FeedContents = () => {
+export default function FeedContents() {
   const router = useRouter();
   const params = useParams();
   const [tab, setTab] = useState<Tab>('feed');
@@ -15,7 +15,6 @@ const FeedContents = () => {
     setTab(tab);
   };
 
-  console.log(params);
   return (
     <div>
       <ul className={'flex px-8 pt-5'}>
@@ -141,6 +140,4 @@ const FeedContents = () => {
       )}
     </div>
   );
-};
-
-export default FeedContents;
+}

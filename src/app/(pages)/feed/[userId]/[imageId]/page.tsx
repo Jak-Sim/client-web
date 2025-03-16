@@ -38,13 +38,10 @@ export default function Page() {
           </div>
           <p className={'flex-1 truncate px-3 font-medium text-v1-text-primary-400'}>김작심</p>
           <div className={'flex items-center gap-4'}>
-            {/*<button className={'rounded-[20px] border border-v1-orange-500 px-4 py-1 text-v1-orange-500'}>*/}
-            {/*  팔로우*/}
-            {/*</button>*/}
-            <Button className={'text-md bg-orange-50 px-4 py-1 text-v1-orange-500'} variant={'outline'} size={'sm'}>
+            <Button className={'text-md px-4 py-1'} variant={'secondary'} size={'sm'}>
               팔로우
             </Button>
-            <Dots />
+            <Dots className={'cursor-pointer'} />
           </div>
         </div>
         <ul className='flex w-full gap-2 overflow-hidden px-6'>
