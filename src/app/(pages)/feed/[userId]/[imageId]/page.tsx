@@ -6,12 +6,14 @@ import { useClickAway } from 'react-use';
 import FeedCommentModal from '@/app/(pages)/feed/[userId]/[imageId]/_components/FeedCommentModal';
 import { Dots, FeedComment, FeedHeart } from '@/assets/images/icons';
 import defaultAvatar from '@/assets/images/placeholder/face-default.png';
+import Button from '@/components/button/Button';
+import Chip from '@/components/chip/Chip';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import Portal from '@/components/modal/ModalPortal';
 import { useModal } from '@/hooks/useModal';
 
-const Page = () => {
+export default function Page() {
   const modalProps = useModal('feed-comment');
   const modalRef = useRef<HTMLDivElement>(null);
   useClickAway(modalRef, () => {
@@ -35,10 +37,13 @@ const Page = () => {
             <Image src={defaultAvatar} alt={'avatar'} fill objectFit={'cover'} />
           </div>
           <p className={'flex-1 truncate px-3 font-medium text-v1-text-primary-400'}>김작심</p>
-          <div className={'flex gap-4'}>
-            <button className={'rounded-[20px] border border-v1-orange-500 px-4 py-1 text-v1-orange-500'}>
+          <div className={'flex items-center gap-4'}>
+            {/*<button className={'rounded-[20px] border border-v1-orange-500 px-4 py-1 text-v1-orange-500'}>*/}
+            {/*  팔로우*/}
+            {/*</button>*/}
+            <Button className={'text-md bg-orange-50 px-4 py-1 text-v1-orange-500'} variant={'outline'} size={'sm'}>
               팔로우
-            </button>
+            </Button>
             <Dots />
           </div>
         </div>
@@ -71,9 +76,9 @@ const Page = () => {
           </div>
           <div className={'py-2 text-v1-text-primary-700'}>새해가 시작된 첫 독서! 올해도 화이팅</div>
           <ul className={'flex flex-wrap items-center gap-0.5'}>
-            <li className={'rounded-[15px] bg-v1-text-primary-50 px-[6px] text-v1-text-primary-400'}>#여행</li>
-            <li className={'rounded-[15px] bg-v1-text-primary-50 px-[6px] text-v1-text-primary-400'}>#독서</li>
-            <li className={'rounded-[15px] bg-v1-text-primary-50 px-[6px] text-v1-text-primary-400'}>#사진</li>
+            <Chip tag={'#여행'} fontSize={'md'} />
+            <Chip tag={'#독서'} fontSize={'md'} />
+            <Chip tag={'#사진'} fontSize={'md'} />
           </ul>
         </div>
       </div>
@@ -84,6 +89,4 @@ const Page = () => {
       )}
     </PageLayout>
   );
-};
-
-export default Page;
+}

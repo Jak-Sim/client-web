@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import { ModalProps } from '@/hooks/useModal';
 
-const FeedCommentModal = (props: ModalProps) => {
+export default function FeedCommentModal(props: ModalProps) {
   const [message, setMessage] = useState('');
   return (
     <div className={'fixed left-0 right-0 top-0 m-auto flex h-screen max-w-[400px] flex-col'}>
@@ -77,6 +77,4 @@ const FeedCommentModal = (props: ModalProps) => {
       </PageLayout>
     </div>
   );
-};
-
-export default FeedCommentModal;
+}
