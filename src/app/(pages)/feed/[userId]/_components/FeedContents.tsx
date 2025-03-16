@@ -2,15 +2,19 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
 import FeedAvatar from '@/assets/images/placeholder/FeedAvatar.png';
 import { cn } from '@/lib/shadcn/utils';
 
 type Tab = 'feed' | 'challenge';
-const FeedContents = () => {
+export default function FeedContents() {
+  const router = useRouter();
+  const params = useParams();
   const [tab, setTab] = useState<Tab>('feed');
   const handleTab = (tab: Tab) => {
     setTab(tab);
   };
+
   return (
     <div>
       <ul className={'flex px-8 pt-5'}>
@@ -41,7 +45,10 @@ const FeedContents = () => {
       </ul>
       {tab === 'feed' && (
         <ul className={'grid grid-cols-3 gap-[1px]'}>
-          <li className={'relative w-full bg-black pb-[100%]'}>
+          <li
+            className={'relative w-full cursor-pointer bg-black pb-[100%]'}
+            onClick={() => router.push(`/feed/${params.userId}/123`)}
+          >
             <Image src={FeedAvatar} alt={'avatar'} fill />
           </li>
           <li className={'relative w-full bg-black pb-[100%]'}></li>
@@ -133,6 +140,4 @@ const FeedContents = () => {
       )}
     </div>
   );
-};
-
-export default FeedContents;
+}

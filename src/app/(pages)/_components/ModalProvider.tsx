@@ -4,6 +4,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useMemo,
 
 export type ModalNames =
   | 'feed-profile'
+  | 'feed-comment'
   | 'cancel-create-challenge'
   | 'challenge-modal'
   | 'withdraw-modal'
