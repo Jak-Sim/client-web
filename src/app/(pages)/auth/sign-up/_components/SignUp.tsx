@@ -50,8 +50,9 @@ export default function SignUp() {
       RT: sessionWithAccount.auth.RT,
       nickname: data.nickname,
       social: sessionWithAccount.account.provider.toUpperCase(),
-      userUniqueId: sessionWithAccount.account.providerAccountId,
+      socialUserId: sessionWithAccount.account.providerAccountId,
     };
+
     const response = (await api.post('/sign-up', user)) as {
       data: { data: UserSignUpDto };
     };
@@ -72,16 +73,26 @@ export default function SignUp() {
   const checkUsernameUnique = useCallback(
     async (username: string) => {
       if (username?.length < 2) return;
+      let msg = '';
 
       try {
-        await api.post('/sign-up/nick-check', { nickname: username });
+        const response = await api.post('/sign-up/nick-check', { username });
+        msg = response.data as string;
+
+        if (msg.includes('이미')) {
+          setError('nickname', {
+            type: 'manual',
+            message: msg,
+          });
+          return false;
+        }
+
         return true;
       } catch (error) {
         if (error instanceof Error) {
-          // TODO: 중복된 닉네임 오류 특정하기, statusCode 확인
           setError('nickname', {
             type: 'manual',
-            message: error.message ?? '중복된 닉네임이에요. 다른 닉네임은 어떠신가요?',
+            message: error.message ?? '오류가 발생했습니다.',
           });
         }
         return false;
