@@ -50,7 +50,7 @@ export default function SignUp() {
       RT: sessionWithAccount.auth.RT,
       nickname: data.nickname,
       social: sessionWithAccount.account.provider.toUpperCase(),
-      userUniqueId: sessionWithAccount.account.providerAccountId,
+      socialUserId: sessionWithAccount.account.providerAccountId,
     };
 
     const response = (await api.post('/sign-up', user)) as {
