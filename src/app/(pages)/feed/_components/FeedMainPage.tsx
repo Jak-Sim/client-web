@@ -129,17 +129,61 @@ export default function FeedMainPage() {
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
-            <div className={'h-[40vh]'}>
-              <div>
-                <div
-                  className={
-                    'relative flex items-center justify-center text-[20px] font-medium text-v1-text-primary-500'
-                  }
-                >
-                  필터
-                  <button className={'absolute right-6 top-0 p-[6px]'}>
-                    <X />
-                  </button>
+            <div className={'max-h-[80vh]'}>
+              <div
+                className={'relative flex items-center justify-center text-[20px] font-medium text-v1-text-primary-500'}
+              >
+                필터
+                <button className={'absolute right-6 top-0 p-[6px]'}>
+                  <X />
+                </button>
+              </div>
+              <div className={'px-6'}>
+                <div className={'pt-5'}>
+                  <div className={'pb-4 text-lg font-medium text-v1-text-primary-600'}>학습 및 자기개발</div>
+                  <ul>
+                    <li className={'rounded border border-v1-text-primary-200 text-sm'}>#등산</li>
+                    <li>#코딩배우기</li>
+                    <li>#언어학습</li>
+                    <li>#글쓰기</li>
+                    <li>#역사탐구</li>
+                    <li>#경제</li>
+                  </ul>
+                </div>
+                <div className={'pt-8'}>
+                  <div className={'pb-4 text-lg font-medium text-v1-text-primary-600'}>운동 및 신체활동</div>
+                  <ul>
+                    <li>#등산</li>
+                    <li>#요가</li>
+                    <li>#러닝</li>
+                    <li>#수영</li>
+                    <li>#테니스</li>
+                    <li>#스케이트보드</li>
+                    <li>#암벽등반</li>
+                    <li>#배드민턴</li>
+                  </ul>
+                </div>
+                <div className={'pt-8'}>
+                  <div className={'pb-4 text-lg font-medium text-v1-text-primary-600'}>예술 및 창작</div>
+                  <ul>
+                    <li>#그림그리기</li>
+                    <li>#캘리그래피</li>
+                    <li>#디지털아트</li>
+                    <li>#음악</li>
+                    <li>#플로리스트</li>
+                    <li>#목공예</li>
+                    <li>#3D프린팅</li>
+                  </ul>
+                </div>
+                <div className={'pt-8'}>
+                  <div className={'pb-4 text-lg font-medium text-v1-text-primary-600'}>음식 및 요리</div>
+                  <ul>
+                    <li>#커피</li>
+                    <li>#와인</li>
+                    <li>#홈베이킹</li>
+                    <li>#음료</li>
+                    <li>#요리</li>
+                  </ul>
                 </div>
               </div>
             </div>
