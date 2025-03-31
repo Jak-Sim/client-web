@@ -7,7 +7,7 @@ import Complete from '@/assets/images/emojis/Complete.png';
 import Compliment from '@/assets/images/emojis/Compliment.png';
 import Neighbors from '@/assets/images/emojis/Neighbors.png';
 import Recommend from '@/assets/images/emojis/Recommend.png';
-import { AvatarPlus, Filter, Search } from '@/assets/images/icons';
+import { AvatarPlus, Filter, Search, X } from '@/assets/images/icons';
 import Header from '@/components/layout/Header';
 import PageLayout from '@/components/layout/PageLayout';
 import Title from './Title';
@@ -120,6 +120,7 @@ export default function FeedMainPage() {
       </div>
       <Sheet
         isOpen={isFilterOpen}
+        className={'mx-auto max-w-[400px]'}
         onClose={() => {
           setIsFilterOpen(false);
         }}
@@ -128,7 +129,20 @@ export default function FeedMainPage() {
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
-            <div className={'h-[40vh]'}>content</div>
+            <div className={'h-[40vh]'}>
+              <div>
+                <div
+                  className={
+                    'relative flex items-center justify-center text-[20px] font-medium text-v1-text-primary-500'
+                  }
+                >
+                  필터
+                  <button className={'absolute right-6 top-0 p-[6px]'}>
+                    <X />
+                  </button>
+                </div>
+              </div>
+            </div>
           </Sheet.Content>
         </Sheet.Container>
         <Sheet.Backdrop />
